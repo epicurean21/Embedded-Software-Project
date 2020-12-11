@@ -1,0 +1,3871 @@
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 1
+
+
+   1               		.file	"ucos_ii.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.text
+   9               	.global	OSIntEnter
+  10               		.type	OSIntEnter, @function
+  11               	OSIntEnter:
+  12               	/* prologue: function */
+  13               	/* frame size = 0 */
+  14 0000 8091 0000 		lds r24,OSRunning
+  15 0004 8130      		cpi r24,lo8(1)
+  16 0006 01F0      		breq .L5
+  17               	.L3:
+  18 0008 0895      		ret
+  19               	.L5:
+  20 000a 8091 0000 		lds r24,OSIntNesting
+  21 000e 8F3F      		cpi r24,lo8(-1)
+  22 0010 01F0      		breq .L3
+  23 0012 8F5F      		subi r24,lo8(-(1))
+  24 0014 8093 0000 		sts OSIntNesting,r24
+  25 0018 0895      		ret
+  26               		.size	OSIntEnter, .-OSIntEnter
+  27               	.global	OSSchedLock
+  28               		.type	OSSchedLock, @function
+  29               	OSSchedLock:
+  30               	/* prologue: function */
+  31               	/* frame size = 0 */
+  32 001a 8091 0000 		lds r24,OSRunning
+  33 001e 8130      		cpi r24,lo8(1)
+  34 0020 01F0      		breq .L10
+  35 0022 0895      		ret
+  36               	.L10:
+  37               	/* #APP */
+  38               	 ;  222 "c:/software/uCOS-II/lab2/source/os_core.c" 1
+  39 0024 F894      		cli
+  40               	 ;  0 "" 2
+  41               	/* #NOAPP */
+  42 0026 8091 0000 		lds r24,OSLockNesting
+  43 002a 8F3F      		cpi r24,lo8(-1)
+  44 002c 01F0      		breq .L8
+  45 002e 8F5F      		subi r24,lo8(-(1))
+  46 0030 8093 0000 		sts OSLockNesting,r24
+  47               	.L8:
+  48               	/* #APP */
+  49               	 ;  226 "c:/software/uCOS-II/lab2/source/os_core.c" 1
+  50 0034 7894      		sei
+  51               	 ;  0 "" 2
+  52               	/* #NOAPP */
+  53 0036 0895      		ret
+  54               		.size	OSSchedLock, .-OSSchedLock
+  55               	.global	OSVersion
+  56               		.type	OSVersion, @function
+  57               	OSVersion:
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 2
+
+
+  58               	/* prologue: function */
+  59               	/* frame size = 0 */
+  60 0038 8CEF      		ldi r24,lo8(252)
+  61 003a 90E0      		ldi r25,hi8(252)
+  62               	/* epilogue start */
+  63 003c 0895      		ret
+  64               		.size	OSVersion, .-OSVersion
+  65               	.global	OS_EventTaskRdy
+  66               		.type	OS_EventTaskRdy, @function
+  67               	OS_EventTaskRdy:
+  68 003e FF92      		push r15
+  69 0040 0F93      		push r16
+  70 0042 1F93      		push r17
+  71 0044 CF93      		push r28
+  72 0046 DF93      		push r29
+  73               	/* prologue: function */
+  74               	/* frame size = 0 */
+  75 0048 EC01      		movw r28,r24
+  76 004a 8B01      		movw r16,r22
+  77 004c F42E      		mov r15,r20
+  78 004e 3981      		ldd r19,Y+1
+  79 0050 E32F      		mov r30,r19
+  80 0052 F0E0      		ldi r31,lo8(0)
+  81 0054 E050      		subi r30,lo8(-(OSUnMapTbl))
+  82 0056 F040      		sbci r31,hi8(-(OSUnMapTbl))
+  83 0058 2081      		ld r18,Z
+  84 005a 422F      		mov r20,r18
+  85 005c 50E0      		ldi r21,lo8(0)
+  86 005e FA01      		movw r30,r20
+  87 0060 E050      		subi r30,lo8(-(OSMapTbl))
+  88 0062 F040      		sbci r31,hi8(-(OSMapTbl))
+  89 0064 7081      		ld r23,Z
+  90 0066 DC01      		movw r26,r24
+  91 0068 A40F      		add r26,r20
+  92 006a B51F      		adc r27,r21
+  93 006c 1696      		adiw r26,6
+  94 006e 9C91      		ld r25,X
+  95 0070 1697      		sbiw r26,6
+  96 0072 E92F      		mov r30,r25
+  97 0074 F0E0      		ldi r31,lo8(0)
+  98 0076 E050      		subi r30,lo8(-(OSUnMapTbl))
+  99 0078 F040      		sbci r31,hi8(-(OSUnMapTbl))
+ 100 007a 8081      		ld r24,Z
+ 101 007c E82F      		mov r30,r24
+ 102 007e F0E0      		ldi r31,lo8(0)
+ 103 0080 E050      		subi r30,lo8(-(OSMapTbl))
+ 104 0082 F040      		sbci r31,hi8(-(OSMapTbl))
+ 105 0084 6081      		ld r22,Z
+ 106 0086 220F      		lsl r18
+ 107 0088 220F      		lsl r18
+ 108 008a 220F      		lsl r18
+ 109 008c 280F      		add r18,r24
+ 110 008e 862F      		mov r24,r22
+ 111 0090 8095      		com r24
+ 112 0092 8923      		and r24,r25
+ 113 0094 1696      		adiw r26,6
+ 114 0096 8C93      		st X,r24
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 3
+
+
+ 115 0098 8823      		tst r24
+ 116 009a 01F4      		brne .L14
+ 117 009c 872F      		mov r24,r23
+ 118 009e 8095      		com r24
+ 119 00a0 3823      		and r19,r24
+ 120 00a2 3983      		std Y+1,r19
+ 121               	.L14:
+ 122 00a4 E22F      		mov r30,r18
+ 123 00a6 F0E0      		ldi r31,lo8(0)
+ 124 00a8 EE0F      		lsl r30
+ 125 00aa FF1F      		rol r31
+ 126 00ac E050      		subi r30,lo8(-(OSTCBPrioTbl))
+ 127 00ae F040      		sbci r31,hi8(-(OSTCBPrioTbl))
+ 128 00b0 0190      		ld __tmp_reg__,Z+
+ 129 00b2 F081      		ld r31,Z
+ 130 00b4 E02D      		mov r30,__tmp_reg__
+ 131 00b6 1486      		std Z+12,__zero_reg__
+ 132 00b8 1386      		std Z+11,__zero_reg__
+ 133 00ba 1782      		std Z+7,__zero_reg__
+ 134 00bc 1682      		std Z+6,__zero_reg__
+ 135 00be 1187      		std Z+9,r17
+ 136 00c0 0087      		std Z+8,r16
+ 137 00c2 8F2D      		mov r24,r15
+ 138 00c4 8095      		com r24
+ 139 00c6 9585      		ldd r25,Z+13
+ 140 00c8 8923      		and r24,r25
+ 141 00ca 8587      		std Z+13,r24
+ 142 00cc 8823      		tst r24
+ 143 00ce 01F4      		brne .L15
+ 144 00d0 8091 0000 		lds r24,OSRdyGrp
+ 145 00d4 872B      		or r24,r23
+ 146 00d6 8093 0000 		sts OSRdyGrp,r24
+ 147 00da FA01      		movw r30,r20
+ 148 00dc E050      		subi r30,lo8(-(OSRdyTbl))
+ 149 00de F040      		sbci r31,hi8(-(OSRdyTbl))
+ 150 00e0 8081      		ld r24,Z
+ 151 00e2 682B      		or r22,r24
+ 152 00e4 6083      		st Z,r22
+ 153               	.L15:
+ 154 00e6 822F      		mov r24,r18
+ 155               	/* epilogue start */
+ 156 00e8 DF91      		pop r29
+ 157 00ea CF91      		pop r28
+ 158 00ec 1F91      		pop r17
+ 159 00ee 0F91      		pop r16
+ 160 00f0 FF90      		pop r15
+ 161 00f2 0895      		ret
+ 162               		.size	OS_EventTaskRdy, .-OS_EventTaskRdy
+ 163               	.global	OS_EventTaskWait
+ 164               		.type	OS_EventTaskWait, @function
+ 165               	OS_EventTaskWait:
+ 166 00f4 CF93      		push r28
+ 167 00f6 DF93      		push r29
+ 168               	/* prologue: function */
+ 169               	/* frame size = 0 */
+ 170 00f8 EC01      		movw r28,r24
+ 171 00fa A091 0000 		lds r26,OSTCBCur
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 4
+
+
+ 172 00fe B091 0000 		lds r27,(OSTCBCur)+1
+ 173 0102 1796      		adiw r26,6+1
+ 174 0104 9C93      		st X,r25
+ 175 0106 8E93      		st -X,r24
+ 176 0108 1697      		sbiw r26,6
+ 177 010a 5096      		adiw r26,16
+ 178 010c 8C91      		ld r24,X
+ 179 010e 5097      		sbiw r26,16
+ 180 0110 482F      		mov r20,r24
+ 181 0112 50E0      		ldi r21,lo8(0)
+ 182 0114 5196      		adiw r26,17
+ 183 0116 3C91      		ld r19,X
+ 184 0118 5197      		sbiw r26,17
+ 185 011a FA01      		movw r30,r20
+ 186 011c E050      		subi r30,lo8(-(OSRdyTbl))
+ 187 011e F040      		sbci r31,hi8(-(OSRdyTbl))
+ 188 0120 832F      		mov r24,r19
+ 189 0122 8095      		com r24
+ 190 0124 9081      		ld r25,Z
+ 191 0126 8923      		and r24,r25
+ 192 0128 8083      		st Z,r24
+ 193 012a 8823      		tst r24
+ 194 012c 01F4      		brne .L21
+ 195 012e 5296      		adiw r26,18
+ 196 0130 2C91      		ld r18,X
+ 197 0132 922F      		mov r25,r18
+ 198 0134 9095      		com r25
+ 199 0136 8091 0000 		lds r24,OSRdyGrp
+ 200 013a 8923      		and r24,r25
+ 201 013c 8093 0000 		sts OSRdyGrp,r24
+ 202               	.L19:
+ 203 0140 FE01      		movw r30,r28
+ 204 0142 E40F      		add r30,r20
+ 205 0144 F51F      		adc r31,r21
+ 206 0146 8681      		ldd r24,Z+6
+ 207 0148 832B      		or r24,r19
+ 208 014a 8683      		std Z+6,r24
+ 209 014c 8981      		ldd r24,Y+1
+ 210 014e 822B      		or r24,r18
+ 211 0150 8983      		std Y+1,r24
+ 212               	/* epilogue start */
+ 213 0152 DF91      		pop r29
+ 214 0154 CF91      		pop r28
+ 215 0156 0895      		ret
+ 216               	.L21:
+ 217 0158 5296      		adiw r26,18
+ 218 015a 2C91      		ld r18,X
+ 219 015c 00C0      		rjmp .L19
+ 220               		.size	OS_EventTaskWait, .-OS_EventTaskWait
+ 221               	.global	OS_EventTO
+ 222               		.type	OS_EventTO, @function
+ 223               	OS_EventTO:
+ 224 015e CF93      		push r28
+ 225 0160 DF93      		push r29
+ 226               	/* prologue: function */
+ 227               	/* frame size = 0 */
+ 228 0162 EC01      		movw r28,r24
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 5
+
+
+ 229 0164 A091 0000 		lds r26,OSTCBCur
+ 230 0168 B091 0000 		lds r27,(OSTCBCur)+1
+ 231 016c 5096      		adiw r26,16
+ 232 016e 8C91      		ld r24,X
+ 233 0170 5097      		sbiw r26,16
+ 234 0172 FE01      		movw r30,r28
+ 235 0174 E80F      		add r30,r24
+ 236 0176 F11D      		adc r31,__zero_reg__
+ 237 0178 5196      		adiw r26,17
+ 238 017a 8C91      		ld r24,X
+ 239 017c 5197      		sbiw r26,17
+ 240 017e 8095      		com r24
+ 241 0180 9681      		ldd r25,Z+6
+ 242 0182 8923      		and r24,r25
+ 243 0184 8683      		std Z+6,r24
+ 244 0186 8823      		tst r24
+ 245 0188 01F4      		brne .L23
+ 246 018a 5296      		adiw r26,18
+ 247 018c 9C91      		ld r25,X
+ 248 018e 5297      		sbiw r26,18
+ 249 0190 9095      		com r25
+ 250 0192 8981      		ldd r24,Y+1
+ 251 0194 8923      		and r24,r25
+ 252 0196 8983      		std Y+1,r24
+ 253               	.L23:
+ 254 0198 1D96      		adiw r26,13
+ 255 019a 1C92      		st X,__zero_reg__
+ 256 019c 1D97      		sbiw r26,13
+ 257 019e 1796      		adiw r26,6+1
+ 258 01a0 1C92      		st X,__zero_reg__
+ 259 01a2 1E92      		st -X,__zero_reg__
+ 260 01a4 1697      		sbiw r26,6
+ 261               	/* epilogue start */
+ 262 01a6 DF91      		pop r29
+ 263 01a8 CF91      		pop r28
+ 264 01aa 0895      		ret
+ 265               		.size	OS_EventTO, .-OS_EventTO
+ 266               	.global	OS_EventWaitListInit
+ 267               		.type	OS_EventWaitListInit, @function
+ 268               	OS_EventWaitListInit:
+ 269               	/* prologue: function */
+ 270               	/* frame size = 0 */
+ 271 01ac FC01      		movw r30,r24
+ 272 01ae 1182      		std Z+1,__zero_reg__
+ 273 01b0 1682      		std Z+6,__zero_reg__
+ 274 01b2 1782      		std Z+7,__zero_reg__
+ 275               	/* epilogue start */
+ 276 01b4 0895      		ret
+ 277               		.size	OS_EventWaitListInit, .-OS_EventWaitListInit
+ 278               	.global	OSFlagCreate
+ 279               		.type	OSFlagCreate, @function
+ 280               	OSFlagCreate:
+ 281               	/* prologue: function */
+ 282               	/* frame size = 0 */
+ 283 01b6 282F      		mov r18,r24
+ 284 01b8 DB01      		movw r26,r22
+ 285 01ba 8091 0000 		lds r24,OSIntNesting
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 6
+
+
+ 286 01be 8823      		tst r24
+ 287 01c0 01F4      		brne .L32
+ 288               	/* #APP */
+ 289               	 ;  205 "c:/software/uCOS-II/lab2/source/os_flag.c" 1
+ 290 01c2 F894      		cli
+ 291               	 ;  0 "" 2
+ 292               	/* #NOAPP */
+ 293 01c4 E091 0000 		lds r30,OSFlagFreeList
+ 294 01c8 F091 0000 		lds r31,(OSFlagFreeList)+1
+ 295 01cc 3097      		sbiw r30,0
+ 296 01ce 01F0      		breq .L30
+ 297 01d0 8181      		ldd r24,Z+1
+ 298 01d2 9281      		ldd r25,Z+2
+ 299 01d4 9093 0000 		sts (OSFlagFreeList)+1,r25
+ 300 01d8 8093 0000 		sts OSFlagFreeList,r24
+ 301 01dc 85E0      		ldi r24,lo8(5)
+ 302 01de 8083      		st Z,r24
+ 303 01e0 2383      		std Z+3,r18
+ 304 01e2 1282      		std Z+2,__zero_reg__
+ 305 01e4 1182      		std Z+1,__zero_reg__
+ 306               	/* #APP */
+ 307               	 ;  213 "c:/software/uCOS-II/lab2/source/os_flag.c" 1
+ 308 01e6 7894      		sei
+ 309               	 ;  0 "" 2
+ 310               	/* #NOAPP */
+ 311 01e8 1C92      		st X,__zero_reg__
+ 312               	.L29:
+ 313 01ea CF01      		movw r24,r30
+ 314               	/* epilogue start */
+ 315 01ec 0895      		ret
+ 316               	.L30:
+ 317               	/* #APP */
+ 318               	 ;  216 "c:/software/uCOS-II/lab2/source/os_flag.c" 1
+ 319 01ee 7894      		sei
+ 320               	 ;  0 "" 2
+ 321               	/* #NOAPP */
+ 322 01f0 8AE9      		ldi r24,lo8(-102)
+ 323 01f2 8C93      		st X,r24
+ 324 01f4 CF01      		movw r24,r30
+ 325 01f6 0895      		ret
+ 326               	.L32:
+ 327 01f8 8DE8      		ldi r24,lo8(-115)
+ 328 01fa 8C93      		st X,r24
+ 329 01fc E0E0      		ldi r30,lo8(0)
+ 330 01fe F0E0      		ldi r31,hi8(0)
+ 331 0200 00C0      		rjmp .L29
+ 332               		.size	OSFlagCreate, .-OSFlagCreate
+ 333               		.type	OS_FlagBlock, @function
+ 334               	OS_FlagBlock:
+ 335 0202 EF92      		push r14
+ 336 0204 FF92      		push r15
+ 337 0206 0F93      		push r16
+ 338 0208 1F93      		push r17
+ 339 020a CF93      		push r28
+ 340 020c DF93      		push r29
+ 341               	/* prologue: function */
+ 342               	/* frame size = 0 */
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 7
+
+
+ 343 020e 7C01      		movw r14,r24
+ 344 0210 FB01      		movw r30,r22
+ 345 0212 A091 0000 		lds r26,OSTCBCur
+ 346 0216 B091 0000 		lds r27,(OSTCBCur)+1
+ 347 021a 1D96      		adiw r26,13
+ 348 021c 8C91      		ld r24,X
+ 349 021e 1D97      		sbiw r26,13
+ 350 0220 8062      		ori r24,lo8(32)
+ 351 0222 1D96      		adiw r26,13
+ 352 0224 8C93      		st X,r24
+ 353 0226 1D97      		sbiw r26,13
+ 354 0228 1C96      		adiw r26,11+1
+ 355 022a 1C93      		st X,r17
+ 356 022c 0E93      		st -X,r16
+ 357 022e 1B97      		sbiw r26,11
+ 358 0230 4087      		std Z+8,r20
+ 359 0232 2187      		std Z+9,r18
+ 360 0234 B583      		std Z+5,r27
+ 361 0236 A483      		std Z+4,r26
+ 362 0238 E701      		movw r28,r14
+ 363 023a 8981      		ldd r24,Y+1
+ 364 023c 9A81      		ldd r25,Y+2
+ 365 023e 9183      		std Z+1,r25
+ 366 0240 8083      		st Z,r24
+ 367 0242 1382      		std Z+3,__zero_reg__
+ 368 0244 1282      		std Z+2,__zero_reg__
+ 369 0246 F782      		std Z+7,r15
+ 370 0248 E682      		std Z+6,r14
+ 371 024a 8981      		ldd r24,Y+1
+ 372 024c 9A81      		ldd r25,Y+2
+ 373 024e 0097      		sbiw r24,0
+ 374 0250 01F0      		breq .L34
+ 375 0252 EC01      		movw r28,r24
+ 376 0254 7B83      		std Y+3,r23
+ 377 0256 6A83      		std Y+2,r22
+ 378               	.L34:
+ 379 0258 E701      		movw r28,r14
+ 380 025a FA83      		std Y+2,r31
+ 381 025c E983      		std Y+1,r30
+ 382 025e 5096      		adiw r26,16
+ 383 0260 EC91      		ld r30,X
+ 384 0262 5097      		sbiw r26,16
+ 385 0264 F0E0      		ldi r31,lo8(0)
+ 386 0266 E050      		subi r30,lo8(-(OSRdyTbl))
+ 387 0268 F040      		sbci r31,hi8(-(OSRdyTbl))
+ 388 026a 5196      		adiw r26,17
+ 389 026c 8C91      		ld r24,X
+ 390 026e 5197      		sbiw r26,17
+ 391 0270 8095      		com r24
+ 392 0272 9081      		ld r25,Z
+ 393 0274 8923      		and r24,r25
+ 394 0276 8083      		st Z,r24
+ 395 0278 8823      		tst r24
+ 396 027a 01F4      		brne .L36
+ 397 027c 5296      		adiw r26,18
+ 398 027e 9C91      		ld r25,X
+ 399 0280 9095      		com r25
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 8
+
+
+ 400 0282 8091 0000 		lds r24,OSRdyGrp
+ 401 0286 8923      		and r24,r25
+ 402 0288 8093 0000 		sts OSRdyGrp,r24
+ 403               	.L36:
+ 404               	/* epilogue start */
+ 405 028c DF91      		pop r29
+ 406 028e CF91      		pop r28
+ 407 0290 1F91      		pop r17
+ 408 0292 0F91      		pop r16
+ 409 0294 FF90      		pop r15
+ 410 0296 EF90      		pop r14
+ 411 0298 0895      		ret
+ 412               		.size	OS_FlagBlock, .-OS_FlagBlock
+ 413               	.global	OS_FlagInit
+ 414               		.type	OS_FlagInit, @function
+ 415               	OS_FlagInit:
+ 416               	/* prologue: function */
+ 417               	/* frame size = 0 */
+ 418 029a 80E0      		ldi r24,lo8(OSFlagTbl)
+ 419 029c 90E0      		ldi r25,hi8(OSFlagTbl)
+ 420 029e 9093 0000 		sts (OSFlagFreeList)+1,r25
+ 421 02a2 8093 0000 		sts OSFlagFreeList,r24
+ 422 02a6 1092 0000 		sts OSFlagTbl,__zero_reg__
+ 423 02aa 1092 0000 		sts (OSFlagTbl+1)+1,__zero_reg__
+ 424 02ae 1092 0000 		sts OSFlagTbl+1,__zero_reg__
+ 425               	/* epilogue start */
+ 426 02b2 0895      		ret
+ 427               		.size	OS_FlagInit, .-OS_FlagInit
+ 428               	.global	OS_FlagUnlink
+ 429               		.type	OS_FlagUnlink, @function
+ 430               	OS_FlagUnlink:
+ 431 02b4 CF93      		push r28
+ 432 02b6 DF93      		push r29
+ 433               	/* prologue: function */
+ 434               	/* frame size = 0 */
+ 435 02b8 FC01      		movw r30,r24
+ 436 02ba A281      		ldd r26,Z+2
+ 437 02bc B381      		ldd r27,Z+3
+ 438 02be C081      		ld r28,Z
+ 439 02c0 D181      		ldd r29,Z+1
+ 440 02c2 1097      		sbiw r26,0
+ 441 02c4 01F0      		breq .L43
+ 442 02c6 1196      		adiw r26,1
+ 443 02c8 DC93      		st X,r29
+ 444 02ca CE93      		st -X,r28
+ 445 02cc 2097      		sbiw r28,0
+ 446 02ce 01F0      		breq .L42
+ 447 02d0 BB83      		std Y+3,r27
+ 448 02d2 AA83      		std Y+2,r26
+ 449               	.L42:
+ 450               	/* epilogue start */
+ 451 02d4 DF91      		pop r29
+ 452 02d6 CF91      		pop r28
+ 453 02d8 0895      		ret
+ 454               	.L43:
+ 455 02da 0680      		ldd __tmp_reg__,Z+6
+ 456 02dc F781      		ldd r31,Z+7
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 9
+
+
+ 457 02de E02D      		mov r30,__tmp_reg__
+ 458 02e0 D283      		std Z+2,r29
+ 459 02e2 C183      		std Z+1,r28
+ 460 02e4 2097      		sbiw r28,0
+ 461 02e6 01F0      		breq .L42
+ 462 02e8 1B82      		std Y+3,__zero_reg__
+ 463 02ea 1A82      		std Y+2,__zero_reg__
+ 464 02ec DF91      		pop r29
+ 465 02ee CF91      		pop r28
+ 466 02f0 0895      		ret
+ 467               		.size	OS_FlagUnlink, .-OS_FlagUnlink
+ 468               		.type	OS_FlagTaskRdy, @function
+ 469               	OS_FlagTaskRdy:
+ 470 02f2 1F93      		push r17
+ 471 02f4 CF93      		push r28
+ 472 02f6 DF93      		push r29
+ 473               	/* prologue: function */
+ 474               	/* frame size = 0 */
+ 475 02f8 EC01      		movw r28,r24
+ 476 02fa AC81      		ldd r26,Y+4
+ 477 02fc BD81      		ldd r27,Y+5
+ 478 02fe 1C96      		adiw r26,11+1
+ 479 0300 1C92      		st X,__zero_reg__
+ 480 0302 1E92      		st -X,__zero_reg__
+ 481 0304 1B97      		sbiw r26,11
+ 482 0306 1A96      		adiw r26,10
+ 483 0308 6C93      		st X,r22
+ 484 030a 1A97      		sbiw r26,10
+ 485 030c 1D96      		adiw r26,13
+ 486 030e 8C91      		ld r24,X
+ 487 0310 1D97      		sbiw r26,13
+ 488 0312 8F7D      		andi r24,lo8(-33)
+ 489 0314 1D96      		adiw r26,13
+ 490 0316 8C93      		st X,r24
+ 491 0318 1D97      		sbiw r26,13
+ 492 031a 8823      		tst r24
+ 493 031c 01F4      		brne .L48
+ 494 031e 8091 0000 		lds r24,OSRdyGrp
+ 495 0322 5296      		adiw r26,18
+ 496 0324 9C91      		ld r25,X
+ 497 0326 5297      		sbiw r26,18
+ 498 0328 892B      		or r24,r25
+ 499 032a 8093 0000 		sts OSRdyGrp,r24
+ 500 032e 5096      		adiw r26,16
+ 501 0330 EC91      		ld r30,X
+ 502 0332 5097      		sbiw r26,16
+ 503 0334 F0E0      		ldi r31,lo8(0)
+ 504 0336 E050      		subi r30,lo8(-(OSRdyTbl))
+ 505 0338 F040      		sbci r31,hi8(-(OSRdyTbl))
+ 506 033a 8081      		ld r24,Z
+ 507 033c 5196      		adiw r26,17
+ 508 033e 9C91      		ld r25,X
+ 509 0340 892B      		or r24,r25
+ 510 0342 8083      		st Z,r24
+ 511 0344 11E0      		ldi r17,lo8(1)
+ 512 0346 CE01      		movw r24,r28
+ 513 0348 0E94 0000 		call OS_FlagUnlink
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 10
+
+
+ 514 034c 812F      		mov r24,r17
+ 515               	/* epilogue start */
+ 516 034e DF91      		pop r29
+ 517 0350 CF91      		pop r28
+ 518 0352 1F91      		pop r17
+ 519 0354 0895      		ret
+ 520               	.L48:
+ 521 0356 10E0      		ldi r17,lo8(0)
+ 522 0358 CE01      		movw r24,r28
+ 523 035a 0E94 0000 		call OS_FlagUnlink
+ 524 035e 812F      		mov r24,r17
+ 525 0360 DF91      		pop r29
+ 526 0362 CF91      		pop r28
+ 527 0364 1F91      		pop r17
+ 528 0366 0895      		ret
+ 529               		.size	OS_FlagTaskRdy, .-OS_FlagTaskRdy
+ 530               	.global	OSMboxCreate
+ 531               		.type	OSMboxCreate, @function
+ 532               	OSMboxCreate:
+ 533               	/* prologue: function */
+ 534               	/* frame size = 0 */
+ 535 0368 9C01      		movw r18,r24
+ 536 036a 8091 0000 		lds r24,OSIntNesting
+ 537 036e 8823      		tst r24
+ 538 0370 01F4      		brne .L54
+ 539               	/* #APP */
+ 540               	 ;  89 "c:/software/uCOS-II/lab2/source/os_mbox.c" 1
+ 541 0372 F894      		cli
+ 542               	 ;  0 "" 2
+ 543               	/* #NOAPP */
+ 544 0374 E091 0000 		lds r30,OSEventFreeList
+ 545 0378 F091 0000 		lds r31,(OSEventFreeList)+1
+ 546 037c 3097      		sbiw r30,0
+ 547 037e 01F0      		breq .L52
+ 548 0380 8481      		ldd r24,Z+4
+ 549 0382 9581      		ldd r25,Z+5
+ 550 0384 9093 0000 		sts (OSEventFreeList)+1,r25
+ 551 0388 8093 0000 		sts OSEventFreeList,r24
+ 552               	.L52:
+ 553               	/* #APP */
+ 554               	 ;  94 "c:/software/uCOS-II/lab2/source/os_mbox.c" 1
+ 555 038c 7894      		sei
+ 556               	 ;  0 "" 2
+ 557               	/* #NOAPP */
+ 558 038e 3097      		sbiw r30,0
+ 559 0390 01F0      		breq .L51
+ 560 0392 81E0      		ldi r24,lo8(1)
+ 561 0394 8083      		st Z,r24
+ 562 0396 1382      		std Z+3,__zero_reg__
+ 563 0398 1282      		std Z+2,__zero_reg__
+ 564 039a 3583      		std Z+5,r19
+ 565 039c 2483      		std Z+4,r18
+ 566 039e 1182      		std Z+1,__zero_reg__
+ 567 03a0 1682      		std Z+6,__zero_reg__
+ 568 03a2 1782      		std Z+7,__zero_reg__
+ 569               	.L51:
+ 570 03a4 CF01      		movw r24,r30
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 11
+
+
+ 571               	/* epilogue start */
+ 572 03a6 0895      		ret
+ 573               	.L54:
+ 574 03a8 E0E0      		ldi r30,lo8(0)
+ 575 03aa F0E0      		ldi r31,hi8(0)
+ 576 03ac CF01      		movw r24,r30
+ 577 03ae 0895      		ret
+ 578               		.size	OSMboxCreate, .-OSMboxCreate
+ 579               	.global	OSMutexCreate
+ 580               		.type	OSMutexCreate, @function
+ 581               	OSMutexCreate:
+ 582 03b0 CF93      		push r28
+ 583 03b2 DF93      		push r29
+ 584               	/* prologue: function */
+ 585               	/* frame size = 0 */
+ 586 03b4 982F      		mov r25,r24
+ 587 03b6 EB01      		movw r28,r22
+ 588 03b8 8091 0000 		lds r24,OSIntNesting
+ 589 03bc 8823      		tst r24
+ 590 03be 01F0      		breq .+2
+ 591 03c0 00C0      		rjmp .L61
+ 592               	/* #APP */
+ 593               	 ;  147 "c:/software/uCOS-II/lab2/source/os_mutex.c" 1
+ 594 03c2 F894      		cli
+ 595               	 ;  0 "" 2
+ 596               	/* #NOAPP */
+ 597 03c4 292F      		mov r18,r25
+ 598 03c6 30E0      		ldi r19,lo8(0)
+ 599 03c8 D901      		movw r26,r18
+ 600 03ca AA0F      		lsl r26
+ 601 03cc BB1F      		rol r27
+ 602 03ce A050      		subi r26,lo8(-(OSTCBPrioTbl))
+ 603 03d0 B040      		sbci r27,hi8(-(OSTCBPrioTbl))
+ 604 03d2 8D91      		ld r24,X+
+ 605 03d4 9C91      		ld r25,X
+ 606 03d6 1197      		sbiw r26,1
+ 607 03d8 892B      		or r24,r25
+ 608 03da 01F4      		brne .L62
+ 609 03dc 81E0      		ldi r24,lo8(1)
+ 610 03de 90E0      		ldi r25,hi8(1)
+ 611 03e0 1196      		adiw r26,1
+ 612 03e2 9C93      		st X,r25
+ 613 03e4 8E93      		st -X,r24
+ 614 03e6 E091 0000 		lds r30,OSEventFreeList
+ 615 03ea F091 0000 		lds r31,(OSEventFreeList)+1
+ 616 03ee 3097      		sbiw r30,0
+ 617 03f0 01F0      		breq .L63
+ 618 03f2 8481      		ldd r24,Z+4
+ 619 03f4 9581      		ldd r25,Z+5
+ 620 03f6 9093 0000 		sts (OSEventFreeList)+1,r25
+ 621 03fa 8093 0000 		sts OSEventFreeList,r24
+ 622               	/* #APP */
+ 623               	 ;  162 "c:/software/uCOS-II/lab2/source/os_mutex.c" 1
+ 624 03fe 7894      		sei
+ 625               	 ;  0 "" 2
+ 626               	/* #NOAPP */
+ 627 0400 84E0      		ldi r24,lo8(4)
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 12
+
+
+ 628 0402 8083      		st Z,r24
+ 629 0404 922F      		mov r25,r18
+ 630 0406 8827      		clr r24
+ 631 0408 8F6F      		ori r24,lo8(255)
+ 632 040a 9383      		std Z+3,r25
+ 633 040c 8283      		std Z+2,r24
+ 634 040e 1582      		std Z+5,__zero_reg__
+ 635 0410 1482      		std Z+4,__zero_reg__
+ 636 0412 1182      		std Z+1,__zero_reg__
+ 637 0414 1682      		std Z+6,__zero_reg__
+ 638 0416 1782      		std Z+7,__zero_reg__
+ 639 0418 1882      		st Y,__zero_reg__
+ 640               	.L57:
+ 641 041a CF01      		movw r24,r30
+ 642               	/* epilogue start */
+ 643 041c DF91      		pop r29
+ 644 041e CF91      		pop r28
+ 645 0420 0895      		ret
+ 646               	.L62:
+ 647               	/* #APP */
+ 648               	 ;  149 "c:/software/uCOS-II/lab2/source/os_mutex.c" 1
+ 649 0422 7894      		sei
+ 650               	 ;  0 "" 2
+ 651               	/* #NOAPP */
+ 652 0424 88E2      		ldi r24,lo8(40)
+ 653 0426 8883      		st Y,r24
+ 654 0428 E0E0      		ldi r30,lo8(0)
+ 655 042a F0E0      		ldi r31,hi8(0)
+ 656 042c CF01      		movw r24,r30
+ 657 042e DF91      		pop r29
+ 658 0430 CF91      		pop r28
+ 659 0432 0895      		ret
+ 660               	.L63:
+ 661 0434 1D92      		st X+,__zero_reg__
+ 662 0436 1C92      		st X,__zero_reg__
+ 663               	/* #APP */
+ 664               	 ;  157 "c:/software/uCOS-II/lab2/source/os_mutex.c" 1
+ 665 0438 7894      		sei
+ 666               	 ;  0 "" 2
+ 667               	/* #NOAPP */
+ 668 043a 84E0      		ldi r24,lo8(4)
+ 669 043c 8883      		st Y,r24
+ 670 043e CF01      		movw r24,r30
+ 671 0440 DF91      		pop r29
+ 672 0442 CF91      		pop r28
+ 673 0444 0895      		ret
+ 674               	.L61:
+ 675 0446 8DE8      		ldi r24,lo8(-115)
+ 676 0448 8883      		st Y,r24
+ 677 044a E0E0      		ldi r30,lo8(0)
+ 678 044c F0E0      		ldi r31,hi8(0)
+ 679 044e 00C0      		rjmp .L57
+ 680               		.size	OSMutexCreate, .-OSMutexCreate
+ 681               	.global	OSQCreate
+ 682               		.type	OSQCreate, @function
+ 683               	OSQCreate:
+ 684               	/* prologue: function */
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 13
+
+
+ 685               	/* frame size = 0 */
+ 686 0450 9C01      		movw r18,r24
+ 687 0452 8091 0000 		lds r24,OSIntNesting
+ 688 0456 8823      		tst r24
+ 689 0458 01F0      		breq .+2
+ 690 045a 00C0      		rjmp .L70
+ 691               	/* #APP */
+ 692               	 ;  103 "c:/software/uCOS-II/lab2/source/os_q.c" 1
+ 693 045c F894      		cli
+ 694               	 ;  0 "" 2
+ 695               	/* #NOAPP */
+ 696 045e E091 0000 		lds r30,OSEventFreeList
+ 697 0462 F091 0000 		lds r31,(OSEventFreeList)+1
+ 698 0466 3097      		sbiw r30,0
+ 699 0468 01F0      		breq .L67
+ 700 046a 8481      		ldd r24,Z+4
+ 701 046c 9581      		ldd r25,Z+5
+ 702 046e 9093 0000 		sts (OSEventFreeList)+1,r25
+ 703 0472 8093 0000 		sts OSEventFreeList,r24
+ 704               	.L67:
+ 705               	/* #APP */
+ 706               	 ;  108 "c:/software/uCOS-II/lab2/source/os_q.c" 1
+ 707 0476 7894      		sei
+ 708               	 ;  0 "" 2
+ 709               	/* #NOAPP */
+ 710 0478 3097      		sbiw r30,0
+ 711 047a 01F0      		breq .L66
+ 712               	/* #APP */
+ 713               	 ;  110 "c:/software/uCOS-II/lab2/source/os_q.c" 1
+ 714 047c F894      		cli
+ 715               	 ;  0 "" 2
+ 716               	/* #NOAPP */
+ 717 047e A091 0000 		lds r26,OSQFreeList
+ 718 0482 B091 0000 		lds r27,(OSQFreeList)+1
+ 719 0486 1097      		sbiw r26,0
+ 720 0488 01F0      		breq .L68
+ 721 048a 8D91      		ld r24,X+
+ 722 048c 9C91      		ld r25,X
+ 723 048e 1197      		sbiw r26,1
+ 724 0490 9093 0000 		sts (OSQFreeList)+1,r25
+ 725 0494 8093 0000 		sts OSQFreeList,r24
+ 726               	/* #APP */
+ 727               	 ;  114 "c:/software/uCOS-II/lab2/source/os_q.c" 1
+ 728 0498 7894      		sei
+ 729               	 ;  0 "" 2
+ 730               	/* #NOAPP */
+ 731 049a 1396      		adiw r26,2+1
+ 732 049c 3C93      		st X,r19
+ 733 049e 2E93      		st -X,r18
+ 734 04a0 1297      		sbiw r26,2
+ 735 04a2 CB01      		movw r24,r22
+ 736 04a4 880F      		lsl r24
+ 737 04a6 991F      		rol r25
+ 738 04a8 820F      		add r24,r18
+ 739 04aa 931F      		adc r25,r19
+ 740 04ac 1596      		adiw r26,4+1
+ 741 04ae 9C93      		st X,r25
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 14
+
+
+ 742 04b0 8E93      		st -X,r24
+ 743 04b2 1497      		sbiw r26,4
+ 744 04b4 1796      		adiw r26,6+1
+ 745 04b6 3C93      		st X,r19
+ 746 04b8 2E93      		st -X,r18
+ 747 04ba 1697      		sbiw r26,6
+ 748 04bc 1996      		adiw r26,8+1
+ 749 04be 3C93      		st X,r19
+ 750 04c0 2E93      		st -X,r18
+ 751 04c2 1897      		sbiw r26,8
+ 752 04c4 1B96      		adiw r26,10+1
+ 753 04c6 7C93      		st X,r23
+ 754 04c8 6E93      		st -X,r22
+ 755 04ca 1A97      		sbiw r26,10
+ 756 04cc 1D96      		adiw r26,12+1
+ 757 04ce 1C92      		st X,__zero_reg__
+ 758 04d0 1E92      		st -X,__zero_reg__
+ 759 04d2 1C97      		sbiw r26,12
+ 760 04d4 82E0      		ldi r24,lo8(2)
+ 761 04d6 8083      		st Z,r24
+ 762 04d8 1382      		std Z+3,__zero_reg__
+ 763 04da 1282      		std Z+2,__zero_reg__
+ 764 04dc B583      		std Z+5,r27
+ 765 04de A483      		std Z+4,r26
+ 766 04e0 1182      		std Z+1,__zero_reg__
+ 767 04e2 1682      		std Z+6,__zero_reg__
+ 768 04e4 1782      		std Z+7,__zero_reg__
+ 769               	.L66:
+ 770 04e6 CF01      		movw r24,r30
+ 771               	/* epilogue start */
+ 772 04e8 0895      		ret
+ 773               	.L68:
+ 774 04ea 8091 0000 		lds r24,OSEventFreeList
+ 775 04ee 9091 0000 		lds r25,(OSEventFreeList)+1
+ 776 04f2 9583      		std Z+5,r25
+ 777 04f4 8483      		std Z+4,r24
+ 778 04f6 F093 0000 		sts (OSEventFreeList)+1,r31
+ 779 04fa E093 0000 		sts OSEventFreeList,r30
+ 780               	/* #APP */
+ 781               	 ;  128 "c:/software/uCOS-II/lab2/source/os_q.c" 1
+ 782 04fe 7894      		sei
+ 783               	 ;  0 "" 2
+ 784               	/* #NOAPP */
+ 785               	.L70:
+ 786 0500 E0E0      		ldi r30,lo8(0)
+ 787 0502 F0E0      		ldi r31,hi8(0)
+ 788 0504 CF01      		movw r24,r30
+ 789 0506 0895      		ret
+ 790               		.size	OSQCreate, .-OSQCreate
+ 791               	.global	OS_QInit
+ 792               		.type	OS_QInit, @function
+ 793               	OS_QInit:
+ 794               	/* prologue: function */
+ 795               	/* frame size = 0 */
+ 796 0508 80E0      		ldi r24,lo8(OSQTbl+14)
+ 797 050a 90E0      		ldi r25,hi8(OSQTbl+14)
+ 798 050c 9093 0000 		sts (OSQTbl)+1,r25
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 15
+
+
+ 799 0510 8093 0000 		sts OSQTbl,r24
+ 800 0514 0E97      		sbiw r24,14
+ 801 0516 1092 0000 		sts (OSQTbl+14)+1,__zero_reg__
+ 802 051a 1092 0000 		sts OSQTbl+14,__zero_reg__
+ 803 051e 9093 0000 		sts (OSQFreeList)+1,r25
+ 804 0522 8093 0000 		sts OSQFreeList,r24
+ 805               	/* epilogue start */
+ 806 0526 0895      		ret
+ 807               		.size	OS_QInit, .-OS_QInit
+ 808               	.global	OSSemCreate
+ 809               		.type	OSSemCreate, @function
+ 810               	OSSemCreate:
+ 811               	/* prologue: function */
+ 812               	/* frame size = 0 */
+ 813 0528 9C01      		movw r18,r24
+ 814 052a 8091 0000 		lds r24,OSIntNesting
+ 815 052e 8823      		tst r24
+ 816 0530 01F4      		brne .L78
+ 817               	/* #APP */
+ 818               	 ;  94 "c:/software/uCOS-II/lab2/source/os_sem.c" 1
+ 819 0532 F894      		cli
+ 820               	 ;  0 "" 2
+ 821               	/* #NOAPP */
+ 822 0534 E091 0000 		lds r30,OSEventFreeList
+ 823 0538 F091 0000 		lds r31,(OSEventFreeList)+1
+ 824 053c 3097      		sbiw r30,0
+ 825 053e 01F0      		breq .L76
+ 826 0540 8481      		ldd r24,Z+4
+ 827 0542 9581      		ldd r25,Z+5
+ 828 0544 9093 0000 		sts (OSEventFreeList)+1,r25
+ 829 0548 8093 0000 		sts OSEventFreeList,r24
+ 830               	.L76:
+ 831               	/* #APP */
+ 832               	 ;  99 "c:/software/uCOS-II/lab2/source/os_sem.c" 1
+ 833 054c 7894      		sei
+ 834               	 ;  0 "" 2
+ 835               	/* #NOAPP */
+ 836 054e 3097      		sbiw r30,0
+ 837 0550 01F0      		breq .L75
+ 838 0552 83E0      		ldi r24,lo8(3)
+ 839 0554 8083      		st Z,r24
+ 840 0556 3383      		std Z+3,r19
+ 841 0558 2283      		std Z+2,r18
+ 842 055a 1582      		std Z+5,__zero_reg__
+ 843 055c 1482      		std Z+4,__zero_reg__
+ 844 055e 1182      		std Z+1,__zero_reg__
+ 845 0560 1682      		std Z+6,__zero_reg__
+ 846 0562 1782      		std Z+7,__zero_reg__
+ 847               	.L75:
+ 848 0564 CF01      		movw r24,r30
+ 849               	/* epilogue start */
+ 850 0566 0895      		ret
+ 851               	.L78:
+ 852 0568 E0E0      		ldi r30,lo8(0)
+ 853 056a F0E0      		ldi r31,hi8(0)
+ 854 056c CF01      		movw r24,r30
+ 855 056e 0895      		ret
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 16
+
+
+ 856               		.size	OSSemCreate, .-OSSemCreate
+ 857               	.global	OS_TCBInit
+ 858               		.type	OS_TCBInit, @function
+ 859               	OS_TCBInit:
+ 860 0570 1F93      		push r17
+ 861 0572 CF93      		push r28
+ 862 0574 DF93      		push r29
+ 863               	/* prologue: function */
+ 864               	/* frame size = 0 */
+ 865 0576 182F      		mov r17,r24
+ 866               	/* #APP */
+ 867               	 ;  1043 "c:/software/uCOS-II/lab2/source/os_core.c" 1
+ 868 0578 F894      		cli
+ 869               	 ;  0 "" 2
+ 870               	/* #NOAPP */
+ 871 057a C091 0000 		lds r28,OSTCBFreeList
+ 872 057e D091 0000 		lds r29,(OSTCBFreeList)+1
+ 873 0582 2097      		sbiw r28,0
+ 874 0584 01F4      		brne .+2
+ 875 0586 00C0      		rjmp .L80
+ 876 0588 8A81      		ldd r24,Y+2
+ 877 058a 9B81      		ldd r25,Y+3
+ 878 058c 9093 0000 		sts (OSTCBFreeList)+1,r25
+ 879 0590 8093 0000 		sts OSTCBFreeList,r24
+ 880               	/* #APP */
+ 881               	 ;  1047 "c:/software/uCOS-II/lab2/source/os_core.c" 1
+ 882 0594 7894      		sei
+ 883               	 ;  0 "" 2
+ 884               	/* #NOAPP */
+ 885 0596 7983      		std Y+1,r23
+ 886 0598 6883      		st Y,r22
+ 887 059a 1E87      		std Y+14,r17
+ 888 059c 1D86      		std Y+13,__zero_reg__
+ 889 059e 1C86      		std Y+12,__zero_reg__
+ 890 05a0 1B86      		std Y+11,__zero_reg__
+ 891 05a2 E12F      		mov r30,r17
+ 892 05a4 E695      		lsr r30
+ 893 05a6 E695      		lsr r30
+ 894 05a8 E695      		lsr r30
+ 895 05aa E88B      		std Y+16,r30
+ 896 05ac F0E0      		ldi r31,lo8(0)
+ 897 05ae E050      		subi r30,lo8(-(OSMapTbl))
+ 898 05b0 F040      		sbci r31,hi8(-(OSMapTbl))
+ 899 05b2 8081      		ld r24,Z
+ 900 05b4 8A8B      		std Y+18,r24
+ 901 05b6 E12F      		mov r30,r17
+ 902 05b8 E770      		andi r30,lo8(7)
+ 903 05ba EF87      		std Y+15,r30
+ 904 05bc F0E0      		ldi r31,lo8(0)
+ 905 05be E050      		subi r30,lo8(-(OSMapTbl))
+ 906 05c0 F040      		sbci r31,hi8(-(OSMapTbl))
+ 907 05c2 8081      		ld r24,Z
+ 908 05c4 898B      		std Y+17,r24
+ 909 05c6 1F82      		std Y+7,__zero_reg__
+ 910 05c8 1E82      		std Y+6,__zero_reg__
+ 911 05ca 1986      		std Y+9,__zero_reg__
+ 912 05cc 1886      		std Y+8,__zero_reg__
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 17
+
+
+ 913 05ce CE01      		movw r24,r28
+ 914 05d0 0E94 0000 		call OSTCBInitHook
+ 915 05d4 CE01      		movw r24,r28
+ 916 05d6 0E94 0000 		call OSTaskCreateHook
+ 917               	/* #APP */
+ 918               	 ;  1094 "c:/software/uCOS-II/lab2/source/os_core.c" 1
+ 919 05da F894      		cli
+ 920               	 ;  0 "" 2
+ 921               	/* #NOAPP */
+ 922 05dc E12F      		mov r30,r17
+ 923 05de F0E0      		ldi r31,lo8(0)
+ 924 05e0 EE0F      		lsl r30
+ 925 05e2 FF1F      		rol r31
+ 926 05e4 E050      		subi r30,lo8(-(OSTCBPrioTbl))
+ 927 05e6 F040      		sbci r31,hi8(-(OSTCBPrioTbl))
+ 928 05e8 D183      		std Z+1,r29
+ 929 05ea C083      		st Z,r28
+ 930 05ec E091 0000 		lds r30,OSTCBList
+ 931 05f0 F091 0000 		lds r31,(OSTCBList)+1
+ 932 05f4 FB83      		std Y+3,r31
+ 933 05f6 EA83      		std Y+2,r30
+ 934 05f8 1D82      		std Y+5,__zero_reg__
+ 935 05fa 1C82      		std Y+4,__zero_reg__
+ 936 05fc 3097      		sbiw r30,0
+ 937 05fe 01F0      		breq .L81
+ 938 0600 D583      		std Z+5,r29
+ 939 0602 C483      		std Z+4,r28
+ 940               	.L81:
+ 941 0604 D093 0000 		sts (OSTCBList)+1,r29
+ 942 0608 C093 0000 		sts OSTCBList,r28
+ 943 060c 8091 0000 		lds r24,OSRdyGrp
+ 944 0610 9A89      		ldd r25,Y+18
+ 945 0612 892B      		or r24,r25
+ 946 0614 8093 0000 		sts OSRdyGrp,r24
+ 947 0618 E889      		ldd r30,Y+16
+ 948 061a F0E0      		ldi r31,lo8(0)
+ 949 061c E050      		subi r30,lo8(-(OSRdyTbl))
+ 950 061e F040      		sbci r31,hi8(-(OSRdyTbl))
+ 951 0620 8081      		ld r24,Z
+ 952 0622 9989      		ldd r25,Y+17
+ 953 0624 892B      		or r24,r25
+ 954 0626 8083      		st Z,r24
+ 955               	/* #APP */
+ 956               	 ;  1104 "c:/software/uCOS-II/lab2/source/os_core.c" 1
+ 957 0628 7894      		sei
+ 958               	 ;  0 "" 2
+ 959               	/* #NOAPP */
+ 960 062a 80E0      		ldi r24,lo8(0)
+ 961               	/* epilogue start */
+ 962 062c DF91      		pop r29
+ 963 062e CF91      		pop r28
+ 964 0630 1F91      		pop r17
+ 965 0632 0895      		ret
+ 966               	.L80:
+ 967               	/* #APP */
+ 968               	 ;  1107 "c:/software/uCOS-II/lab2/source/os_core.c" 1
+ 969 0634 7894      		sei
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 18
+
+
+ 970               	 ;  0 "" 2
+ 971               	/* #NOAPP */
+ 972 0636 86E4      		ldi r24,lo8(70)
+ 973 0638 DF91      		pop r29
+ 974 063a CF91      		pop r28
+ 975 063c 1F91      		pop r17
+ 976 063e 0895      		ret
+ 977               		.size	OS_TCBInit, .-OS_TCBInit
+ 978               	.global	OS_TaskIdle
+ 979               		.type	OS_TaskIdle, @function
+ 980               	OS_TaskIdle:
+ 981               	/* prologue: function */
+ 982               	/* frame size = 0 */
+ 983               	.L85:
+ 984               	/* #APP */
+ 985               	 ;  920 "c:/software/uCOS-II/lab2/source/os_core.c" 1
+ 986 0640 F894      		cli
+ 987               	 ;  0 "" 2
+ 988               	/* #NOAPP */
+ 989 0642 8091 0000 		lds r24,OSIdleCtr
+ 990 0646 9091 0000 		lds r25,(OSIdleCtr)+1
+ 991 064a A091 0000 		lds r26,(OSIdleCtr)+2
+ 992 064e B091 0000 		lds r27,(OSIdleCtr)+3
+ 993 0652 0196      		adiw r24,1
+ 994 0654 A11D      		adc r26,__zero_reg__
+ 995 0656 B11D      		adc r27,__zero_reg__
+ 996 0658 8093 0000 		sts OSIdleCtr,r24
+ 997 065c 9093 0000 		sts (OSIdleCtr)+1,r25
+ 998 0660 A093 0000 		sts (OSIdleCtr)+2,r26
+ 999 0664 B093 0000 		sts (OSIdleCtr)+3,r27
+ 1000               	/* #APP */
+ 1001               	 ;  922 "c:/software/uCOS-II/lab2/source/os_core.c" 1
+ 1002 0668 7894      		sei
+ 1003               	 ;  0 "" 2
+ 1004               	/* #NOAPP */
+ 1005 066a 0E94 0000 		call OSTaskIdleHook
+ 1006 066e 00C0      		rjmp .L85
+ 1007               		.size	OS_TaskIdle, .-OS_TaskIdle
+ 1008               	.global	OS_Sched
+ 1009               		.type	OS_Sched, @function
+ 1010               	OS_Sched:
+ 1011               	/* prologue: function */
+ 1012               	/* frame size = 0 */
+ 1013               	/* #APP */
+ 1014               	 ;  877 "c:/software/uCOS-II/lab2/source/os_core.c" 1
+ 1015 0670 F894      		cli
+ 1016               	 ;  0 "" 2
+ 1017               	/* #NOAPP */
+ 1018 0672 8091 0000 		lds r24,OSIntNesting
+ 1019 0676 8823      		tst r24
+ 1020 0678 01F0      		breq .+2
+ 1021 067a 00C0      		rjmp .L88
+ 1022 067c 8091 0000 		lds r24,OSLockNesting
+ 1023 0680 8823      		tst r24
+ 1024 0682 01F4      		brne .L88
+ 1025 0684 E091 0000 		lds r30,OSRdyGrp
+ 1026 0688 F0E0      		ldi r31,lo8(0)
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 19
+
+
+ 1027 068a E050      		subi r30,lo8(-(OSUnMapTbl))
+ 1028 068c F040      		sbci r31,hi8(-(OSUnMapTbl))
+ 1029 068e 8081      		ld r24,Z
+ 1030 0690 E82F      		mov r30,r24
+ 1031 0692 F0E0      		ldi r31,lo8(0)
+ 1032 0694 E050      		subi r30,lo8(-(OSRdyTbl))
+ 1033 0696 F040      		sbci r31,hi8(-(OSRdyTbl))
+ 1034 0698 E081      		ld r30,Z
+ 1035 069a F0E0      		ldi r31,lo8(0)
+ 1036 069c E050      		subi r30,lo8(-(OSUnMapTbl))
+ 1037 069e F040      		sbci r31,hi8(-(OSUnMapTbl))
+ 1038 06a0 982F      		mov r25,r24
+ 1039 06a2 990F      		lsl r25
+ 1040 06a4 990F      		lsl r25
+ 1041 06a6 990F      		lsl r25
+ 1042 06a8 8081      		ld r24,Z
+ 1043 06aa 980F      		add r25,r24
+ 1044 06ac 9093 0000 		sts OSPrioHighRdy,r25
+ 1045 06b0 8091 0000 		lds r24,OSPrioCur
+ 1046 06b4 9817      		cp r25,r24
+ 1047 06b6 01F0      		breq .L88
+ 1048 06b8 E92F      		mov r30,r25
+ 1049 06ba F0E0      		ldi r31,lo8(0)
+ 1050 06bc EE0F      		lsl r30
+ 1051 06be FF1F      		rol r31
+ 1052 06c0 E050      		subi r30,lo8(-(OSTCBPrioTbl))
+ 1053 06c2 F040      		sbci r31,hi8(-(OSTCBPrioTbl))
+ 1054 06c4 8081      		ld r24,Z
+ 1055 06c6 9181      		ldd r25,Z+1
+ 1056 06c8 9093 0000 		sts (OSTCBHighRdy)+1,r25
+ 1057 06cc 8093 0000 		sts OSTCBHighRdy,r24
+ 1058 06d0 8091 0000 		lds r24,OSCtxSwCtr
+ 1059 06d4 9091 0000 		lds r25,(OSCtxSwCtr)+1
+ 1060 06d8 A091 0000 		lds r26,(OSCtxSwCtr)+2
+ 1061 06dc B091 0000 		lds r27,(OSCtxSwCtr)+3
+ 1062 06e0 0196      		adiw r24,1
+ 1063 06e2 A11D      		adc r26,__zero_reg__
+ 1064 06e4 B11D      		adc r27,__zero_reg__
+ 1065 06e6 8093 0000 		sts OSCtxSwCtr,r24
+ 1066 06ea 9093 0000 		sts (OSCtxSwCtr)+1,r25
+ 1067 06ee A093 0000 		sts (OSCtxSwCtr)+2,r26
+ 1068 06f2 B093 0000 		sts (OSCtxSwCtr)+3,r27
+ 1069 06f6 0E94 0000 		call OSCtxSw
+ 1070               	.L88:
+ 1071               	/* #APP */
+ 1072               	 ;  887 "c:/software/uCOS-II/lab2/source/os_core.c" 1
+ 1073 06fa 7894      		sei
+ 1074               	 ;  0 "" 2
+ 1075               	/* epilogue start */
+ 1076               	/* #NOAPP */
+ 1077 06fc 0895      		ret
+ 1078               		.size	OS_Sched, .-OS_Sched
+ 1079               	.global	OSTimeDly
+ 1080               		.type	OSTimeDly, @function
+ 1081               	OSTimeDly:
+ 1082               	/* prologue: function */
+ 1083               	/* frame size = 0 */
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 20
+
+
+ 1084 06fe 9C01      		movw r18,r24
+ 1085 0700 0097      		sbiw r24,0
+ 1086 0702 01F0      		breq .L93
+ 1087               	/* #APP */
+ 1088               	 ;  43 "c:/software/uCOS-II/lab2/source/os_time.c" 1
+ 1089 0704 F894      		cli
+ 1090               	 ;  0 "" 2
+ 1091               	/* #NOAPP */
+ 1092 0706 A091 0000 		lds r26,OSTCBCur
+ 1093 070a B091 0000 		lds r27,(OSTCBCur)+1
+ 1094 070e 5096      		adiw r26,16
+ 1095 0710 EC91      		ld r30,X
+ 1096 0712 5097      		sbiw r26,16
+ 1097 0714 F0E0      		ldi r31,lo8(0)
+ 1098 0716 E050      		subi r30,lo8(-(OSRdyTbl))
+ 1099 0718 F040      		sbci r31,hi8(-(OSRdyTbl))
+ 1100 071a 5196      		adiw r26,17
+ 1101 071c 8C91      		ld r24,X
+ 1102 071e 5197      		sbiw r26,17
+ 1103 0720 8095      		com r24
+ 1104 0722 9081      		ld r25,Z
+ 1105 0724 8923      		and r24,r25
+ 1106 0726 8083      		st Z,r24
+ 1107 0728 8823      		tst r24
+ 1108 072a 01F4      		brne .L92
+ 1109 072c 5296      		adiw r26,18
+ 1110 072e 9C91      		ld r25,X
+ 1111 0730 5297      		sbiw r26,18
+ 1112 0732 9095      		com r25
+ 1113 0734 8091 0000 		lds r24,OSRdyGrp
+ 1114 0738 8923      		and r24,r25
+ 1115 073a 8093 0000 		sts OSRdyGrp,r24
+ 1116               	.L92:
+ 1117 073e 1C96      		adiw r26,11+1
+ 1118 0740 3C93      		st X,r19
+ 1119 0742 2E93      		st -X,r18
+ 1120 0744 1B97      		sbiw r26,11
+ 1121               	/* #APP */
+ 1122               	 ;  48 "c:/software/uCOS-II/lab2/source/os_time.c" 1
+ 1123 0746 7894      		sei
+ 1124               	 ;  0 "" 2
+ 1125               	/* #NOAPP */
+ 1126 0748 0E94 0000 		call OS_Sched
+ 1127               	.L93:
+ 1128 074c 0895      		ret
+ 1129               		.size	OSTimeDly, .-OSTimeDly
+ 1130               	.global	OSTimeDlyHMSM
+ 1131               		.type	OSTimeDlyHMSM, @function
+ 1132               	OSTimeDlyHMSM:
+ 1133 074e 8F92      		push r8
+ 1134 0750 9F92      		push r9
+ 1135 0752 AF92      		push r10
+ 1136 0754 BF92      		push r11
+ 1137 0756 CF92      		push r12
+ 1138 0758 DF92      		push r13
+ 1139 075a EF92      		push r14
+ 1140 075c FF92      		push r15
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 21
+
+
+ 1141 075e 0F93      		push r16
+ 1142 0760 1F93      		push r17
+ 1143 0762 CF93      		push r28
+ 1144 0764 DF93      		push r29
+ 1145               	/* prologue: function */
+ 1146               	/* frame size = 0 */
+ 1147 0766 882E      		mov r8,r24
+ 1148 0768 162F      		mov r17,r22
+ 1149 076a 942E      		mov r9,r20
+ 1150 076c 8823      		tst r24
+ 1151 076e 01F0      		breq .L105
+ 1152               	.L95:
+ 1153 0770 1C33      		cpi r17,lo8(60)
+ 1154 0772 00F4      		brsh .L106
+ 1155               	.L96:
+ 1156 0774 8BE3      		ldi r24,lo8(59)
+ 1157 0776 8915      		cp r24,r9
+ 1158 0778 00F0      		brlo .L107
+ 1159               	.L97:
+ 1160 077a 93E0      		ldi r25,hi8(1000)
+ 1161 077c 283E      		cpi r18,lo8(1000)
+ 1162 077e 3907      		cpc r19,r25
+ 1163 0780 00F0      		brlo .L99
+ 1164 0782 83E5      		ldi r24,lo8(83)
+ 1165               	.L98:
+ 1166               	/* epilogue start */
+ 1167 0784 DF91      		pop r29
+ 1168 0786 CF91      		pop r28
+ 1169 0788 1F91      		pop r17
+ 1170 078a 0F91      		pop r16
+ 1171 078c FF90      		pop r15
+ 1172 078e EF90      		pop r14
+ 1173 0790 DF90      		pop r13
+ 1174 0792 CF90      		pop r12
+ 1175 0794 BF90      		pop r11
+ 1176 0796 AF90      		pop r10
+ 1177 0798 9F90      		pop r9
+ 1178 079a 8F90      		pop r8
+ 1179 079c 0895      		ret
+ 1180               	.L107:
+ 1181 079e 82E5      		ldi r24,lo8(82)
+ 1182 07a0 00C0      		rjmp .L98
+ 1183               	.L105:
+ 1184 07a2 6623      		tst r22
+ 1185 07a4 01F4      		brne .L95
+ 1186 07a6 4423      		tst r20
+ 1187 07a8 01F4      		brne .L96
+ 1188 07aa 2115      		cp r18,__zero_reg__
+ 1189 07ac 3105      		cpc r19,__zero_reg__
+ 1190 07ae 01F4      		brne .L97
+ 1191 07b0 84E5      		ldi r24,lo8(84)
+ 1192 07b2 00C0      		rjmp .L98
+ 1193               	.L106:
+ 1194 07b4 81E5      		ldi r24,lo8(81)
+ 1195 07b6 00C0      		rjmp .L98
+ 1196               	.L99:
+ 1197 07b8 B901      		movw r22,r18
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 22
+
+
+ 1198 07ba 80E0      		ldi r24,lo8(0)
+ 1199 07bc 90E0      		ldi r25,hi8(0)
+ 1200 07be 24E6      		ldi r18,lo8(100)
+ 1201 07c0 30E0      		ldi r19,hi8(100)
+ 1202 07c2 40E0      		ldi r20,hlo8(100)
+ 1203 07c4 50E0      		ldi r21,hhi8(100)
+ 1204 07c6 0E94 0000 		call __mulsi3
+ 1205 07ca 6C50      		subi r22,lo8(-(500))
+ 1206 07cc 7E4F      		sbci r23,hi8(-(500))
+ 1207 07ce 8F4F      		sbci r24,hlo8(-(500))
+ 1208 07d0 9F4F      		sbci r25,hhi8(-(500))
+ 1209 07d2 28EE      		ldi r18,lo8(1000)
+ 1210 07d4 33E0      		ldi r19,hi8(1000)
+ 1211 07d6 40E0      		ldi r20,hlo8(1000)
+ 1212 07d8 50E0      		ldi r21,hhi8(1000)
+ 1213 07da 0E94 0000 		call __udivmodsi4
+ 1214 07de 5901      		movw r10,r18
+ 1215 07e0 6A01      		movw r12,r20
+ 1216 07e2 612F      		mov r22,r17
+ 1217 07e4 70E0      		ldi r23,lo8(0)
+ 1218 07e6 80E0      		ldi r24,lo8(0)
+ 1219 07e8 90E0      		ldi r25,hi8(0)
+ 1220 07ea 2CE3      		ldi r18,lo8(60)
+ 1221 07ec 30E0      		ldi r19,hi8(60)
+ 1222 07ee 40E0      		ldi r20,hlo8(60)
+ 1223 07f0 50E0      		ldi r21,hhi8(60)
+ 1224 07f2 0E94 0000 		call __mulsi3
+ 1225 07f6 7B01      		movw r14,r22
+ 1226 07f8 8C01      		movw r16,r24
+ 1227 07fa E90C      		add r14,r9
+ 1228 07fc F11C      		adc r15,__zero_reg__
+ 1229 07fe 011D      		adc r16,__zero_reg__
+ 1230 0800 111D      		adc r17,__zero_reg__
+ 1231 0802 682D      		mov r22,r8
+ 1232 0804 70E0      		ldi r23,lo8(0)
+ 1233 0806 80E0      		ldi r24,lo8(0)
+ 1234 0808 90E0      		ldi r25,hi8(0)
+ 1235 080a 20E1      		ldi r18,lo8(3600)
+ 1236 080c 3EE0      		ldi r19,hi8(3600)
+ 1237 080e 40E0      		ldi r20,hlo8(3600)
+ 1238 0810 50E0      		ldi r21,hhi8(3600)
+ 1239 0812 0E94 0000 		call __mulsi3
+ 1240 0816 E60E      		add r14,r22
+ 1241 0818 F71E      		adc r15,r23
+ 1242 081a 081F      		adc r16,r24
+ 1243 081c 191F      		adc r17,r25
+ 1244 081e C801      		movw r24,r16
+ 1245 0820 B701      		movw r22,r14
+ 1246 0822 24E6      		ldi r18,lo8(100)
+ 1247 0824 30E0      		ldi r19,hi8(100)
+ 1248 0826 40E0      		ldi r20,hlo8(100)
+ 1249 0828 50E0      		ldi r21,hhi8(100)
+ 1250 082a 0E94 0000 		call __mulsi3
+ 1251 082e A60E      		add r10,r22
+ 1252 0830 B71E      		adc r11,r23
+ 1253 0832 C81E      		adc r12,r24
+ 1254 0834 D91E      		adc r13,r25
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 23
+
+
+ 1255 0836 7601      		movw r14,r12
+ 1256 0838 0027      		clr r16
+ 1257 083a 1127      		clr r17
+ 1258 083c E701      		movw r28,r14
+ 1259 083e 8FEF      		ldi r24,lo8(65535)
+ 1260 0840 9FEF      		ldi r25,hi8(65535)
+ 1261 0842 A0E0      		ldi r26,hlo8(65535)
+ 1262 0844 B0E0      		ldi r27,hhi8(65535)
+ 1263 0846 A822      		and r10,r24
+ 1264 0848 B922      		and r11,r25
+ 1265 084a CA22      		and r12,r26
+ 1266 084c DB22      		and r13,r27
+ 1267 084e C501      		movw r24,r10
+ 1268 0850 0E94 0000 		call OSTimeDly
+ 1269 0854 EF28      		or r14,r15
+ 1270 0856 01F0      		breq .L100
+ 1271               	.L103:
+ 1272 0858 80E0      		ldi r24,lo8(-32768)
+ 1273 085a 90E8      		ldi r25,hi8(-32768)
+ 1274 085c 0E94 0000 		call OSTimeDly
+ 1275 0860 80E0      		ldi r24,lo8(-32768)
+ 1276 0862 90E8      		ldi r25,hi8(-32768)
+ 1277 0864 0E94 0000 		call OSTimeDly
+ 1278 0868 2197      		sbiw r28,1
+ 1279 086a 01F4      		brne .L103
+ 1280               	.L100:
+ 1281 086c 80E0      		ldi r24,lo8(0)
+ 1282 086e 00C0      		rjmp .L98
+ 1283               		.size	OSTimeDlyHMSM, .-OSTimeDlyHMSM
+ 1284               	.global	OS_TaskStat
+ 1285               		.type	OS_TaskStat, @function
+ 1286               	OS_TaskStat:
+ 1287 0870 DF92      		push r13
+ 1288 0872 EF92      		push r14
+ 1289 0874 FF92      		push r15
+ 1290 0876 0F93      		push r16
+ 1291 0878 1F93      		push r17
+ 1292               	/* prologue: function */
+ 1293               	/* frame size = 0 */
+ 1294 087a 8091 0000 		lds r24,OSStatRdy
+ 1295 087e 8823      		tst r24
+ 1296 0880 01F4      		brne .L109
+ 1297               	.L116:
+ 1298 0882 88EC      		ldi r24,lo8(200)
+ 1299 0884 90E0      		ldi r25,hi8(200)
+ 1300 0886 0E94 0000 		call OSTimeDly
+ 1301 088a 8091 0000 		lds r24,OSStatRdy
+ 1302 088e 8823      		tst r24
+ 1303 0890 01F0      		breq .L116
+ 1304               	.L109:
+ 1305 0892 6091 0000 		lds r22,OSIdleCtrMax
+ 1306 0896 7091 0000 		lds r23,(OSIdleCtrMax)+1
+ 1307 089a 8091 0000 		lds r24,(OSIdleCtrMax)+2
+ 1308 089e 9091 0000 		lds r25,(OSIdleCtrMax)+3
+ 1309 08a2 24E6      		ldi r18,lo8(100)
+ 1310 08a4 30E0      		ldi r19,hi8(100)
+ 1311 08a6 40E0      		ldi r20,hlo8(100)
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 24
+
+
+ 1312 08a8 50E0      		ldi r21,hhi8(100)
+ 1313 08aa 0E94 0000 		call __udivmodsi4
+ 1314 08ae C901      		movw r24,r18
+ 1315 08b0 DA01      		movw r26,r20
+ 1316 08b2 7C01      		movw r14,r24
+ 1317 08b4 8D01      		movw r16,r26
+ 1318 08b6 F4E6      		ldi r31,lo8(100)
+ 1319 08b8 DF2E      		mov r13,r31
+ 1320 08ba 00C0      		rjmp .L114
+ 1321               	.L118:
+ 1322 08bc A801      		movw r20,r16
+ 1323 08be 9701      		movw r18,r14
+ 1324 08c0 0E94 0000 		call __udivmodsi4
+ 1325 08c4 8D2D      		mov r24,r13
+ 1326 08c6 821B      		sub r24,r18
+ 1327 08c8 87FD      		sbrc r24,7
+ 1328 08ca 00C0      		rjmp .L112
+ 1329 08cc 8093 0000 		sts OSCPUUsage,r24
+ 1330               	.L113:
+ 1331 08d0 0E94 0000 		call OSTaskStatHook
+ 1332 08d4 84E6      		ldi r24,lo8(100)
+ 1333 08d6 90E0      		ldi r25,hi8(100)
+ 1334 08d8 0E94 0000 		call OSTimeDly
+ 1335               	.L114:
+ 1336               	/* #APP */
+ 1337               	 ;  970 "c:/software/uCOS-II/lab2/source/os_core.c" 1
+ 1338 08dc F894      		cli
+ 1339               	 ;  0 "" 2
+ 1340               	/* #NOAPP */
+ 1341 08de 8091 0000 		lds r24,OSIdleCtr
+ 1342 08e2 9091 0000 		lds r25,(OSIdleCtr)+1
+ 1343 08e6 A091 0000 		lds r26,(OSIdleCtr)+2
+ 1344 08ea B091 0000 		lds r27,(OSIdleCtr)+3
+ 1345 08ee 8093 0000 		sts OSIdleCtrRun,r24
+ 1346 08f2 9093 0000 		sts (OSIdleCtrRun)+1,r25
+ 1347 08f6 A093 0000 		sts (OSIdleCtrRun)+2,r26
+ 1348 08fa B093 0000 		sts (OSIdleCtrRun)+3,r27
+ 1349 08fe 6091 0000 		lds r22,OSIdleCtr
+ 1350 0902 7091 0000 		lds r23,(OSIdleCtr)+1
+ 1351 0906 8091 0000 		lds r24,(OSIdleCtr)+2
+ 1352 090a 9091 0000 		lds r25,(OSIdleCtr)+3
+ 1353 090e 1092 0000 		sts OSIdleCtr,__zero_reg__
+ 1354 0912 1092 0000 		sts (OSIdleCtr)+1,__zero_reg__
+ 1355 0916 1092 0000 		sts (OSIdleCtr)+2,__zero_reg__
+ 1356 091a 1092 0000 		sts (OSIdleCtr)+3,__zero_reg__
+ 1357               	/* #APP */
+ 1358               	 ;  974 "c:/software/uCOS-II/lab2/source/os_core.c" 1
+ 1359 091e 7894      		sei
+ 1360               	 ;  0 "" 2
+ 1361               	/* #NOAPP */
+ 1362 0920 E114      		cp r14,__zero_reg__
+ 1363 0922 F104      		cpc r15,__zero_reg__
+ 1364 0924 0105      		cpc r16,__zero_reg__
+ 1365 0926 1105      		cpc r17,__zero_reg__
+ 1366 0928 01F4      		brne .L118
+ 1367 092a 1092 0000 		sts OSCPUUsage,__zero_reg__
+ 1368 092e 6091 0000 		lds r22,OSIdleCtrMax
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 25
+
+
+ 1369 0932 7091 0000 		lds r23,(OSIdleCtrMax)+1
+ 1370 0936 8091 0000 		lds r24,(OSIdleCtrMax)+2
+ 1371 093a 9091 0000 		lds r25,(OSIdleCtrMax)+3
+ 1372 093e 24E6      		ldi r18,lo8(100)
+ 1373 0940 30E0      		ldi r19,hi8(100)
+ 1374 0942 40E0      		ldi r20,hlo8(100)
+ 1375 0944 50E0      		ldi r21,hhi8(100)
+ 1376 0946 0E94 0000 		call __udivmodsi4
+ 1377 094a C901      		movw r24,r18
+ 1378 094c DA01      		movw r26,r20
+ 1379 094e 7C01      		movw r14,r24
+ 1380 0950 8D01      		movw r16,r26
+ 1381 0952 00C0      		rjmp .L113
+ 1382               	.L112:
+ 1383 0954 1092 0000 		sts OSCPUUsage,__zero_reg__
+ 1384 0958 00C0      		rjmp .L113
+ 1385               		.size	OS_TaskStat, .-OS_TaskStat
+ 1386               	.global	OSStatInit
+ 1387               		.type	OSStatInit, @function
+ 1388               	OSStatInit:
+ 1389               	/* prologue: function */
+ 1390               	/* frame size = 0 */
+ 1391 095a 82E0      		ldi r24,lo8(2)
+ 1392 095c 90E0      		ldi r25,hi8(2)
+ 1393 095e 0E94 0000 		call OSTimeDly
+ 1394               	/* #APP */
+ 1395               	 ;  339 "c:/software/uCOS-II/lab2/source/os_core.c" 1
+ 1396 0962 F894      		cli
+ 1397               	 ;  0 "" 2
+ 1398               	/* #NOAPP */
+ 1399 0964 1092 0000 		sts OSIdleCtr,__zero_reg__
+ 1400 0968 1092 0000 		sts (OSIdleCtr)+1,__zero_reg__
+ 1401 096c 1092 0000 		sts (OSIdleCtr)+2,__zero_reg__
+ 1402 0970 1092 0000 		sts (OSIdleCtr)+3,__zero_reg__
+ 1403               	/* #APP */
+ 1404               	 ;  341 "c:/software/uCOS-II/lab2/source/os_core.c" 1
+ 1405 0974 7894      		sei
+ 1406               	 ;  0 "" 2
+ 1407               	/* #NOAPP */
+ 1408 0976 84E6      		ldi r24,lo8(100)
+ 1409 0978 90E0      		ldi r25,hi8(100)
+ 1410 097a 0E94 0000 		call OSTimeDly
+ 1411               	/* #APP */
+ 1412               	 ;  343 "c:/software/uCOS-II/lab2/source/os_core.c" 1
+ 1413 097e F894      		cli
+ 1414               	 ;  0 "" 2
+ 1415               	/* #NOAPP */
+ 1416 0980 8091 0000 		lds r24,OSIdleCtr
+ 1417 0984 9091 0000 		lds r25,(OSIdleCtr)+1
+ 1418 0988 A091 0000 		lds r26,(OSIdleCtr)+2
+ 1419 098c B091 0000 		lds r27,(OSIdleCtr)+3
+ 1420 0990 8093 0000 		sts OSIdleCtrMax,r24
+ 1421 0994 9093 0000 		sts (OSIdleCtrMax)+1,r25
+ 1422 0998 A093 0000 		sts (OSIdleCtrMax)+2,r26
+ 1423 099c B093 0000 		sts (OSIdleCtrMax)+3,r27
+ 1424 09a0 81E0      		ldi r24,lo8(1)
+ 1425 09a2 8093 0000 		sts OSStatRdy,r24
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 26
+
+
+ 1426               	/* #APP */
+ 1427               	 ;  346 "c:/software/uCOS-II/lab2/source/os_core.c" 1
+ 1428 09a6 7894      		sei
+ 1429               	 ;  0 "" 2
+ 1430               	/* epilogue start */
+ 1431               	/* #NOAPP */
+ 1432 09a8 0895      		ret
+ 1433               		.size	OSStatInit, .-OSStatInit
+ 1434               	.global	OSTaskCreate
+ 1435               		.type	OSTaskCreate, @function
+ 1436               	OSTaskCreate:
+ 1437 09aa AF92      		push r10
+ 1438 09ac BF92      		push r11
+ 1439 09ae CF92      		push r12
+ 1440 09b0 DF92      		push r13
+ 1441 09b2 EF92      		push r14
+ 1442 09b4 FF92      		push r15
+ 1443 09b6 0F93      		push r16
+ 1444 09b8 1F93      		push r17
+ 1445 09ba CF93      		push r28
+ 1446 09bc DF93      		push r29
+ 1447               	/* prologue: function */
+ 1448               	/* frame size = 0 */
+ 1449 09be FC01      		movw r30,r24
+ 1450 09c0 122F      		mov r17,r18
+ 1451               	/* #APP */
+ 1452               	 ;  172 "c:/software/uCOS-II/lab2/source/os_task.c" 1
+ 1453 09c2 F894      		cli
+ 1454               	 ;  0 "" 2
+ 1455               	/* #NOAPP */
+ 1456 09c4 C22F      		mov r28,r18
+ 1457 09c6 D0E0      		ldi r29,lo8(0)
+ 1458 09c8 CC0F      		lsl r28
+ 1459 09ca DD1F      		rol r29
+ 1460 09cc C050      		subi r28,lo8(-(OSTCBPrioTbl))
+ 1461 09ce D040      		sbci r29,hi8(-(OSTCBPrioTbl))
+ 1462 09d0 8881      		ld r24,Y
+ 1463 09d2 9981      		ldd r25,Y+1
+ 1464 09d4 892B      		or r24,r25
+ 1465 09d6 01F0      		breq .L126
+ 1466               	/* #APP */
+ 1467               	 ;  193 "c:/software/uCOS-II/lab2/source/os_task.c" 1
+ 1468 09d8 7894      		sei
+ 1469               	 ;  0 "" 2
+ 1470               	/* #NOAPP */
+ 1471 09da 18E2      		ldi r17,lo8(40)
+ 1472               	.L124:
+ 1473 09dc 812F      		mov r24,r17
+ 1474               	/* epilogue start */
+ 1475 09de DF91      		pop r29
+ 1476 09e0 CF91      		pop r28
+ 1477 09e2 1F91      		pop r17
+ 1478 09e4 0F91      		pop r16
+ 1479 09e6 FF90      		pop r15
+ 1480 09e8 EF90      		pop r14
+ 1481 09ea DF90      		pop r13
+ 1482 09ec CF90      		pop r12
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 27
+
+
+ 1483 09ee BF90      		pop r11
+ 1484 09f0 AF90      		pop r10
+ 1485 09f2 0895      		ret
+ 1486               	.L126:
+ 1487 09f4 81E0      		ldi r24,lo8(1)
+ 1488 09f6 90E0      		ldi r25,hi8(1)
+ 1489 09f8 9983      		std Y+1,r25
+ 1490 09fa 8883      		st Y,r24
+ 1491               	/* #APP */
+ 1492               	 ;  176 "c:/software/uCOS-II/lab2/source/os_task.c" 1
+ 1493 09fc 7894      		sei
+ 1494               	 ;  0 "" 2
+ 1495               	/* #NOAPP */
+ 1496 09fe CF01      		movw r24,r30
+ 1497 0a00 20E0      		ldi r18,lo8(0)
+ 1498 0a02 30E0      		ldi r19,hi8(0)
+ 1499 0a04 0E94 0000 		call OSTaskStkInit
+ 1500 0a08 BC01      		movw r22,r24
+ 1501 0a0a 812F      		mov r24,r17
+ 1502 0a0c 40E0      		ldi r20,lo8(0)
+ 1503 0a0e 50E0      		ldi r21,hi8(0)
+ 1504 0a10 20E0      		ldi r18,lo8(0)
+ 1505 0a12 30E0      		ldi r19,hi8(0)
+ 1506 0a14 EE24      		clr r14
+ 1507 0a16 FF24      		clr r15
+ 1508 0a18 8701      		movw r16,r14
+ 1509 0a1a CC24      		clr r12
+ 1510 0a1c DD24      		clr r13
+ 1511 0a1e AA24      		clr r10
+ 1512 0a20 BB24      		clr r11
+ 1513 0a22 0E94 0000 		call OS_TCBInit
+ 1514 0a26 182F      		mov r17,r24
+ 1515 0a28 8823      		tst r24
+ 1516 0a2a 01F4      		brne .L123
+ 1517               	/* #APP */
+ 1518               	 ;  180 "c:/software/uCOS-II/lab2/source/os_task.c" 1
+ 1519 0a2c F894      		cli
+ 1520               	 ;  0 "" 2
+ 1521               	/* #NOAPP */
+ 1522 0a2e 8091 0000 		lds r24,OSTaskCtr
+ 1523 0a32 8F5F      		subi r24,lo8(-(1))
+ 1524 0a34 8093 0000 		sts OSTaskCtr,r24
+ 1525               	/* #APP */
+ 1526               	 ;  182 "c:/software/uCOS-II/lab2/source/os_task.c" 1
+ 1527 0a38 7894      		sei
+ 1528               	 ;  0 "" 2
+ 1529               	/* #NOAPP */
+ 1530 0a3a 8091 0000 		lds r24,OSRunning
+ 1531 0a3e 8130      		cpi r24,lo8(1)
+ 1532 0a40 01F4      		brne .L124
+ 1533 0a42 0E94 0000 		call OS_Sched
+ 1534 0a46 00C0      		rjmp .L124
+ 1535               	.L123:
+ 1536               	/* #APP */
+ 1537               	 ;  187 "c:/software/uCOS-II/lab2/source/os_task.c" 1
+ 1538 0a48 F894      		cli
+ 1539               	 ;  0 "" 2
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 28
+
+
+ 1540               	/* #NOAPP */
+ 1541 0a4a 1982      		std Y+1,__zero_reg__
+ 1542 0a4c 1882      		st Y,__zero_reg__
+ 1543               	/* #APP */
+ 1544               	 ;  189 "c:/software/uCOS-II/lab2/source/os_task.c" 1
+ 1545 0a4e 7894      		sei
+ 1546               	 ;  0 "" 2
+ 1547               	/* #NOAPP */
+ 1548 0a50 00C0      		rjmp .L124
+ 1549               		.size	OSTaskCreate, .-OSTaskCreate
+ 1550               	.global	OSSemPost
+ 1551               		.type	OSSemPost, @function
+ 1552               	OSSemPost:
+ 1553               	/* prologue: function */
+ 1554               	/* frame size = 0 */
+ 1555 0a52 FC01      		movw r30,r24
+ 1556               	/* #APP */
+ 1557               	 ;  323 "c:/software/uCOS-II/lab2/source/os_sem.c" 1
+ 1558 0a54 F894      		cli
+ 1559               	 ;  0 "" 2
+ 1560               	/* #NOAPP */
+ 1561 0a56 8181      		ldd r24,Z+1
+ 1562 0a58 8823      		tst r24
+ 1563 0a5a 01F4      		brne .L132
+ 1564 0a5c 8281      		ldd r24,Z+2
+ 1565 0a5e 9381      		ldd r25,Z+3
+ 1566 0a60 2FEF      		ldi r18,hi8(-1)
+ 1567 0a62 8F3F      		cpi r24,lo8(-1)
+ 1568 0a64 9207      		cpc r25,r18
+ 1569 0a66 01F0      		breq .L130
+ 1570 0a68 0196      		adiw r24,1
+ 1571 0a6a 9383      		std Z+3,r25
+ 1572 0a6c 8283      		std Z+2,r24
+ 1573               	/* #APP */
+ 1574               	 ;  332 "c:/software/uCOS-II/lab2/source/os_sem.c" 1
+ 1575 0a6e 7894      		sei
+ 1576               	 ;  0 "" 2
+ 1577               	/* #NOAPP */
+ 1578 0a70 80E0      		ldi r24,lo8(0)
+ 1579 0a72 0895      		ret
+ 1580               	.L130:
+ 1581               	/* #APP */
+ 1582               	 ;  335 "c:/software/uCOS-II/lab2/source/os_sem.c" 1
+ 1583 0a74 7894      		sei
+ 1584               	 ;  0 "" 2
+ 1585               	/* #NOAPP */
+ 1586 0a76 82E3      		ldi r24,lo8(50)
+ 1587 0a78 0895      		ret
+ 1588               	.L132:
+ 1589 0a7a CF01      		movw r24,r30
+ 1590 0a7c 60E0      		ldi r22,lo8(0)
+ 1591 0a7e 70E0      		ldi r23,hi8(0)
+ 1592 0a80 41E0      		ldi r20,lo8(1)
+ 1593 0a82 0E94 0000 		call OS_EventTaskRdy
+ 1594               	/* #APP */
+ 1595               	 ;  326 "c:/software/uCOS-II/lab2/source/os_sem.c" 1
+ 1596 0a86 7894      		sei
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 29
+
+
+ 1597               	 ;  0 "" 2
+ 1598               	/* #NOAPP */
+ 1599 0a88 0E94 0000 		call OS_Sched
+ 1600 0a8c 80E0      		ldi r24,lo8(0)
+ 1601 0a8e 0895      		ret
+ 1602               		.size	OSSemPost, .-OSSemPost
+ 1603               	.global	OSSemPend
+ 1604               		.type	OSSemPend, @function
+ 1605               	OSSemPend:
+ 1606 0a90 0F93      		push r16
+ 1607 0a92 1F93      		push r17
+ 1608 0a94 CF93      		push r28
+ 1609 0a96 DF93      		push r29
+ 1610               	/* prologue: function */
+ 1611               	/* frame size = 0 */
+ 1612 0a98 EC01      		movw r28,r24
+ 1613 0a9a 8A01      		movw r16,r20
+ 1614 0a9c 8091 0000 		lds r24,OSIntNesting
+ 1615 0aa0 8823      		tst r24
+ 1616 0aa2 01F4      		brne .L139
+ 1617               	/* #APP */
+ 1618               	 ;  265 "c:/software/uCOS-II/lab2/source/os_sem.c" 1
+ 1619 0aa4 F894      		cli
+ 1620               	 ;  0 "" 2
+ 1621               	/* #NOAPP */
+ 1622 0aa6 8A81      		ldd r24,Y+2
+ 1623 0aa8 9B81      		ldd r25,Y+3
+ 1624 0aaa 0097      		sbiw r24,0
+ 1625 0aac 01F0      		breq .L136
+ 1626 0aae 0197      		sbiw r24,1
+ 1627 0ab0 9B83      		std Y+3,r25
+ 1628 0ab2 8A83      		std Y+2,r24
+ 1629               	/* #APP */
+ 1630               	 ;  268 "c:/software/uCOS-II/lab2/source/os_sem.c" 1
+ 1631 0ab4 7894      		sei
+ 1632               	 ;  0 "" 2
+ 1633               	/* #NOAPP */
+ 1634 0ab6 FA01      		movw r30,r20
+ 1635 0ab8 1082      		st Z,__zero_reg__
+ 1636               	.L138:
+ 1637               	/* epilogue start */
+ 1638 0aba DF91      		pop r29
+ 1639 0abc CF91      		pop r28
+ 1640 0abe 1F91      		pop r17
+ 1641 0ac0 0F91      		pop r16
+ 1642 0ac2 0895      		ret
+ 1643               	.L139:
+ 1644 0ac4 82E0      		ldi r24,lo8(2)
+ 1645 0ac6 FA01      		movw r30,r20
+ 1646 0ac8 8083      		st Z,r24
+ 1647 0aca DF91      		pop r29
+ 1648 0acc CF91      		pop r28
+ 1649 0ace 1F91      		pop r17
+ 1650 0ad0 0F91      		pop r16
+ 1651 0ad2 0895      		ret
+ 1652               	.L136:
+ 1653 0ad4 E091 0000 		lds r30,OSTCBCur
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 30
+
+
+ 1654 0ad8 F091 0000 		lds r31,(OSTCBCur)+1
+ 1655 0adc 8585      		ldd r24,Z+13
+ 1656 0ade 8160      		ori r24,lo8(1)
+ 1657 0ae0 8587      		std Z+13,r24
+ 1658 0ae2 7487      		std Z+12,r23
+ 1659 0ae4 6387      		std Z+11,r22
+ 1660 0ae6 CE01      		movw r24,r28
+ 1661 0ae8 0E94 0000 		call OS_EventTaskWait
+ 1662               	/* #APP */
+ 1663               	 ;  276 "c:/software/uCOS-II/lab2/source/os_sem.c" 1
+ 1664 0aec 7894      		sei
+ 1665               	 ;  0 "" 2
+ 1666               	/* #NOAPP */
+ 1667 0aee 0E94 0000 		call OS_Sched
+ 1668               	/* #APP */
+ 1669               	 ;  278 "c:/software/uCOS-II/lab2/source/os_sem.c" 1
+ 1670 0af2 F894      		cli
+ 1671               	 ;  0 "" 2
+ 1672               	/* #NOAPP */
+ 1673 0af4 E091 0000 		lds r30,OSTCBCur
+ 1674 0af8 F091 0000 		lds r31,(OSTCBCur)+1
+ 1675 0afc 8585      		ldd r24,Z+13
+ 1676 0afe 80FD      		sbrc r24,0
+ 1677 0b00 00C0      		rjmp .L140
+ 1678 0b02 1782      		std Z+7,__zero_reg__
+ 1679 0b04 1682      		std Z+6,__zero_reg__
+ 1680               	/* #APP */
+ 1681               	 ;  286 "c:/software/uCOS-II/lab2/source/os_sem.c" 1
+ 1682 0b06 7894      		sei
+ 1683               	 ;  0 "" 2
+ 1684               	/* #NOAPP */
+ 1685 0b08 F801      		movw r30,r16
+ 1686 0b0a 1082      		st Z,__zero_reg__
+ 1687 0b0c DF91      		pop r29
+ 1688 0b0e CF91      		pop r28
+ 1689 0b10 1F91      		pop r17
+ 1690 0b12 0F91      		pop r16
+ 1691 0b14 0895      		ret
+ 1692               	.L140:
+ 1693 0b16 CE01      		movw r24,r28
+ 1694 0b18 0E94 0000 		call OS_EventTO
+ 1695               	/* #APP */
+ 1696               	 ;  281 "c:/software/uCOS-II/lab2/source/os_sem.c" 1
+ 1697 0b1c 7894      		sei
+ 1698               	 ;  0 "" 2
+ 1699               	/* #NOAPP */
+ 1700 0b1e 8AE0      		ldi r24,lo8(10)
+ 1701 0b20 F801      		movw r30,r16
+ 1702 0b22 8083      		st Z,r24
+ 1703 0b24 00C0      		rjmp .L138
+ 1704               		.size	OSSemPend, .-OSSemPend
+ 1705               	.global	OSQPost
+ 1706               		.type	OSQPost, @function
+ 1707               	OSQPost:
+ 1708               	/* prologue: function */
+ 1709               	/* frame size = 0 */
+ 1710 0b26 FC01      		movw r30,r24
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 31
+
+
+ 1711               	/* #APP */
+ 1712               	 ;  417 "c:/software/uCOS-II/lab2/source/os_q.c" 1
+ 1713 0b28 F894      		cli
+ 1714               	 ;  0 "" 2
+ 1715               	/* #NOAPP */
+ 1716 0b2a 8181      		ldd r24,Z+1
+ 1717 0b2c 8823      		tst r24
+ 1718 0b2e 01F4      		brne .L147
+ 1719 0b30 A481      		ldd r26,Z+4
+ 1720 0b32 B581      		ldd r27,Z+5
+ 1721 0b34 1C96      		adiw r26,12
+ 1722 0b36 2D91      		ld r18,X+
+ 1723 0b38 3C91      		ld r19,X
+ 1724 0b3a 1D97      		sbiw r26,12+1
+ 1725 0b3c 1A96      		adiw r26,10
+ 1726 0b3e 8D91      		ld r24,X+
+ 1727 0b40 9C91      		ld r25,X
+ 1728 0b42 1B97      		sbiw r26,10+1
+ 1729 0b44 2817      		cp r18,r24
+ 1730 0b46 3907      		cpc r19,r25
+ 1731 0b48 00F0      		brlo .L144
+ 1732               	/* #APP */
+ 1733               	 ;  426 "c:/software/uCOS-II/lab2/source/os_q.c" 1
+ 1734 0b4a 7894      		sei
+ 1735               	 ;  0 "" 2
+ 1736               	/* #NOAPP */
+ 1737 0b4c 8EE1      		ldi r24,lo8(30)
+ 1738 0b4e 0895      		ret
+ 1739               	.L144:
+ 1740 0b50 1696      		adiw r26,6
+ 1741 0b52 ED91      		ld r30,X+
+ 1742 0b54 FC91      		ld r31,X
+ 1743 0b56 1797      		sbiw r26,6+1
+ 1744 0b58 6193      		st Z+,r22
+ 1745 0b5a 7193      		st Z+,r23
+ 1746 0b5c 1796      		adiw r26,6+1
+ 1747 0b5e FC93      		st X,r31
+ 1748 0b60 EE93      		st -X,r30
+ 1749 0b62 1697      		sbiw r26,6
+ 1750 0b64 2F5F      		subi r18,lo8(-(1))
+ 1751 0b66 3F4F      		sbci r19,hi8(-(1))
+ 1752 0b68 1D96      		adiw r26,12+1
+ 1753 0b6a 3C93      		st X,r19
+ 1754 0b6c 2E93      		st -X,r18
+ 1755 0b6e 1C97      		sbiw r26,12
+ 1756 0b70 1496      		adiw r26,4
+ 1757 0b72 8D91      		ld r24,X+
+ 1758 0b74 9C91      		ld r25,X
+ 1759 0b76 1597      		sbiw r26,4+1
+ 1760 0b78 E817      		cp r30,r24
+ 1761 0b7a F907      		cpc r31,r25
+ 1762 0b7c 01F0      		breq .L148
+ 1763               	.L145:
+ 1764               	/* #APP */
+ 1765               	 ;  434 "c:/software/uCOS-II/lab2/source/os_q.c" 1
+ 1766 0b7e 7894      		sei
+ 1767               	 ;  0 "" 2
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 32
+
+
+ 1768               	/* #NOAPP */
+ 1769 0b80 80E0      		ldi r24,lo8(0)
+ 1770 0b82 0895      		ret
+ 1771               	.L147:
+ 1772 0b84 CF01      		movw r24,r30
+ 1773 0b86 44E0      		ldi r20,lo8(4)
+ 1774 0b88 0E94 0000 		call OS_EventTaskRdy
+ 1775               	/* #APP */
+ 1776               	 ;  420 "c:/software/uCOS-II/lab2/source/os_q.c" 1
+ 1777 0b8c 7894      		sei
+ 1778               	 ;  0 "" 2
+ 1779               	/* #NOAPP */
+ 1780 0b8e 0E94 0000 		call OS_Sched
+ 1781 0b92 80E0      		ldi r24,lo8(0)
+ 1782 0b94 0895      		ret
+ 1783               	.L148:
+ 1784 0b96 1296      		adiw r26,2
+ 1785 0b98 8D91      		ld r24,X+
+ 1786 0b9a 9C91      		ld r25,X
+ 1787 0b9c 1397      		sbiw r26,2+1
+ 1788 0b9e 1796      		adiw r26,6+1
+ 1789 0ba0 9C93      		st X,r25
+ 1790 0ba2 8E93      		st -X,r24
+ 1791 0ba4 1697      		sbiw r26,6
+ 1792 0ba6 00C0      		rjmp .L145
+ 1793               		.size	OSQPost, .-OSQPost
+ 1794               	.global	OSQPend
+ 1795               		.type	OSQPend, @function
+ 1796               	OSQPend:
+ 1797 0ba8 EF92      		push r14
+ 1798 0baa FF92      		push r15
+ 1799 0bac 0F93      		push r16
+ 1800 0bae 1F93      		push r17
+ 1801 0bb0 CF93      		push r28
+ 1802 0bb2 DF93      		push r29
+ 1803               	/* prologue: function */
+ 1804               	/* frame size = 0 */
+ 1805 0bb4 8C01      		movw r16,r24
+ 1806 0bb6 7A01      		movw r14,r20
+ 1807 0bb8 8091 0000 		lds r24,OSIntNesting
+ 1808 0bbc 8823      		tst r24
+ 1809 0bbe 01F0      		breq .+2
+ 1810 0bc0 00C0      		rjmp .L156
+ 1811               	/* #APP */
+ 1812               	 ;  346 "c:/software/uCOS-II/lab2/source/os_q.c" 1
+ 1813 0bc2 F894      		cli
+ 1814               	 ;  0 "" 2
+ 1815               	/* #NOAPP */
+ 1816 0bc4 F801      		movw r30,r16
+ 1817 0bc6 A481      		ldd r26,Z+4
+ 1818 0bc8 B581      		ldd r27,Z+5
+ 1819 0bca 1C96      		adiw r26,12
+ 1820 0bcc 8D91      		ld r24,X+
+ 1821 0bce 9C91      		ld r25,X
+ 1822 0bd0 1D97      		sbiw r26,12+1
+ 1823 0bd2 0097      		sbiw r24,0
+ 1824 0bd4 01F0      		breq .L152
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 33
+
+
+ 1825 0bd6 1896      		adiw r26,8
+ 1826 0bd8 ED91      		ld r30,X+
+ 1827 0bda FC91      		ld r31,X
+ 1828 0bdc 1997      		sbiw r26,8+1
+ 1829 0bde C191      		ld r28,Z+
+ 1830 0be0 D191      		ld r29,Z+
+ 1831 0be2 1996      		adiw r26,8+1
+ 1832 0be4 FC93      		st X,r31
+ 1833 0be6 EE93      		st -X,r30
+ 1834 0be8 1897      		sbiw r26,8
+ 1835 0bea 0197      		sbiw r24,1
+ 1836 0bec 1D96      		adiw r26,12+1
+ 1837 0bee 9C93      		st X,r25
+ 1838 0bf0 8E93      		st -X,r24
+ 1839 0bf2 1C97      		sbiw r26,12
+ 1840 0bf4 1496      		adiw r26,4
+ 1841 0bf6 8D91      		ld r24,X+
+ 1842 0bf8 9C91      		ld r25,X
+ 1843 0bfa 1597      		sbiw r26,4+1
+ 1844 0bfc E817      		cp r30,r24
+ 1845 0bfe F907      		cpc r31,r25
+ 1846 0c00 01F0      		breq .L157
+ 1847               	.L153:
+ 1848               	/* #APP */
+ 1849               	 ;  354 "c:/software/uCOS-II/lab2/source/os_q.c" 1
+ 1850 0c02 7894      		sei
+ 1851               	 ;  0 "" 2
+ 1852               	/* #NOAPP */
+ 1853 0c04 F701      		movw r30,r14
+ 1854 0c06 1082      		st Z,__zero_reg__
+ 1855               	.L151:
+ 1856 0c08 CE01      		movw r24,r28
+ 1857               	/* epilogue start */
+ 1858 0c0a DF91      		pop r29
+ 1859 0c0c CF91      		pop r28
+ 1860 0c0e 1F91      		pop r17
+ 1861 0c10 0F91      		pop r16
+ 1862 0c12 FF90      		pop r15
+ 1863 0c14 EF90      		pop r14
+ 1864 0c16 0895      		ret
+ 1865               	.L152:
+ 1866 0c18 E091 0000 		lds r30,OSTCBCur
+ 1867 0c1c F091 0000 		lds r31,(OSTCBCur)+1
+ 1868 0c20 8585      		ldd r24,Z+13
+ 1869 0c22 8460      		ori r24,lo8(4)
+ 1870 0c24 8587      		std Z+13,r24
+ 1871 0c26 7487      		std Z+12,r23
+ 1872 0c28 6387      		std Z+11,r22
+ 1873 0c2a C801      		movw r24,r16
+ 1874 0c2c 0E94 0000 		call OS_EventTaskWait
+ 1875               	/* #APP */
+ 1876               	 ;  361 "c:/software/uCOS-II/lab2/source/os_q.c" 1
+ 1877 0c30 7894      		sei
+ 1878               	 ;  0 "" 2
+ 1879               	/* #NOAPP */
+ 1880 0c32 0E94 0000 		call OS_Sched
+ 1881               	/* #APP */
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 34
+
+
+ 1882               	 ;  363 "c:/software/uCOS-II/lab2/source/os_q.c" 1
+ 1883 0c36 F894      		cli
+ 1884               	 ;  0 "" 2
+ 1885               	/* #NOAPP */
+ 1886 0c38 E091 0000 		lds r30,OSTCBCur
+ 1887 0c3c F091 0000 		lds r31,(OSTCBCur)+1
+ 1888 0c40 C085      		ldd r28,Z+8
+ 1889 0c42 D185      		ldd r29,Z+9
+ 1890 0c44 2097      		sbiw r28,0
+ 1891 0c46 01F0      		breq .L154
+ 1892 0c48 1186      		std Z+9,__zero_reg__
+ 1893 0c4a 1086      		std Z+8,__zero_reg__
+ 1894 0c4c 1586      		std Z+13,__zero_reg__
+ 1895 0c4e 1782      		std Z+7,__zero_reg__
+ 1896 0c50 1682      		std Z+6,__zero_reg__
+ 1897               	/* #APP */
+ 1898               	 ;  369 "c:/software/uCOS-II/lab2/source/os_q.c" 1
+ 1899 0c52 7894      		sei
+ 1900               	 ;  0 "" 2
+ 1901               	/* #NOAPP */
+ 1902 0c54 F701      		movw r30,r14
+ 1903 0c56 1082      		st Z,__zero_reg__
+ 1904 0c58 CE01      		movw r24,r28
+ 1905 0c5a DF91      		pop r29
+ 1906 0c5c CF91      		pop r28
+ 1907 0c5e 1F91      		pop r17
+ 1908 0c60 0F91      		pop r16
+ 1909 0c62 FF90      		pop r15
+ 1910 0c64 EF90      		pop r14
+ 1911 0c66 0895      		ret
+ 1912               	.L157:
+ 1913 0c68 1296      		adiw r26,2
+ 1914 0c6a 8D91      		ld r24,X+
+ 1915 0c6c 9C91      		ld r25,X
+ 1916 0c6e 1397      		sbiw r26,2+1
+ 1917 0c70 1996      		adiw r26,8+1
+ 1918 0c72 9C93      		st X,r25
+ 1919 0c74 8E93      		st -X,r24
+ 1920 0c76 1897      		sbiw r26,8
+ 1921 0c78 00C0      		rjmp .L153
+ 1922               	.L156:
+ 1923 0c7a 82E0      		ldi r24,lo8(2)
+ 1924 0c7c FA01      		movw r30,r20
+ 1925 0c7e 8083      		st Z,r24
+ 1926 0c80 C0E0      		ldi r28,lo8(0)
+ 1927 0c82 D0E0      		ldi r29,hi8(0)
+ 1928 0c84 00C0      		rjmp .L151
+ 1929               	.L154:
+ 1930 0c86 C801      		movw r24,r16
+ 1931 0c88 0E94 0000 		call OS_EventTO
+ 1932               	/* #APP */
+ 1933               	 ;  374 "c:/software/uCOS-II/lab2/source/os_q.c" 1
+ 1934 0c8c 7894      		sei
+ 1935               	 ;  0 "" 2
+ 1936               	/* #NOAPP */
+ 1937 0c8e 8AE0      		ldi r24,lo8(10)
+ 1938 0c90 F701      		movw r30,r14
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 35
+
+
+ 1939 0c92 8083      		st Z,r24
+ 1940 0c94 00C0      		rjmp .L151
+ 1941               		.size	OSQPend, .-OSQPend
+ 1942               	.global	OSMutexPost
+ 1943               		.type	OSMutexPost, @function
+ 1944               	OSMutexPost:
+ 1945 0c96 CF93      		push r28
+ 1946 0c98 DF93      		push r29
+ 1947               	/* prologue: function */
+ 1948               	/* frame size = 0 */
+ 1949 0c9a EC01      		movw r28,r24
+ 1950 0c9c 8091 0000 		lds r24,OSIntNesting
+ 1951 0ca0 8823      		tst r24
+ 1952 0ca2 01F4      		brne .L167
+ 1953               	/* #APP */
+ 1954               	 ;  419 "c:/software/uCOS-II/lab2/source/os_mutex.c" 1
+ 1955 0ca4 F894      		cli
+ 1956               	 ;  0 "" 2
+ 1957               	/* #NOAPP */
+ 1958 0ca6 3A81      		ldd r19,Y+2
+ 1959 0ca8 4B81      		ldd r20,Y+3
+ 1960 0caa A091 0000 		lds r26,OSTCBCur
+ 1961 0cae B091 0000 		lds r27,(OSTCBCur)+1
+ 1962 0cb2 1E96      		adiw r26,14
+ 1963 0cb4 8C91      		ld r24,X
+ 1964 0cb6 1E97      		sbiw r26,14
+ 1965 0cb8 8417      		cp r24,r20
+ 1966 0cba 01F0      		breq .L161
+ 1967 0cbc 3817      		cp r19,r24
+ 1968 0cbe 01F4      		brne .+2
+ 1969 0cc0 00C0      		rjmp .L162
+ 1970               	/* #APP */
+ 1971               	 ;  424 "c:/software/uCOS-II/lab2/source/os_mutex.c" 1
+ 1972 0cc2 7894      		sei
+ 1973               	 ;  0 "" 2
+ 1974               	/* #NOAPP */
+ 1975 0cc4 88E7      		ldi r24,lo8(120)
+ 1976               	.L160:
+ 1977               	/* epilogue start */
+ 1978 0cc6 DF91      		pop r29
+ 1979 0cc8 CF91      		pop r28
+ 1980 0cca 0895      		ret
+ 1981               	.L167:
+ 1982 0ccc 85E0      		ldi r24,lo8(5)
+ 1983 0cce DF91      		pop r29
+ 1984 0cd0 CF91      		pop r28
+ 1985 0cd2 0895      		ret
+ 1986               	.L161:
+ 1987 0cd4 5096      		adiw r26,16
+ 1988 0cd6 EC91      		ld r30,X
+ 1989 0cd8 5097      		sbiw r26,16
+ 1990 0cda F0E0      		ldi r31,lo8(0)
+ 1991 0cdc E050      		subi r30,lo8(-(OSRdyTbl))
+ 1992 0cde F040      		sbci r31,hi8(-(OSRdyTbl))
+ 1993 0ce0 5196      		adiw r26,17
+ 1994 0ce2 8C91      		ld r24,X
+ 1995 0ce4 5197      		sbiw r26,17
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 36
+
+
+ 1996 0ce6 8095      		com r24
+ 1997 0ce8 9081      		ld r25,Z
+ 1998 0cea 8923      		and r24,r25
+ 1999 0cec 8083      		st Z,r24
+ 2000 0cee 8823      		tst r24
+ 2001 0cf0 01F4      		brne .L163
+ 2002 0cf2 5296      		adiw r26,18
+ 2003 0cf4 9C91      		ld r25,X
+ 2004 0cf6 5297      		sbiw r26,18
+ 2005 0cf8 9095      		com r25
+ 2006 0cfa 8091 0000 		lds r24,OSRdyGrp
+ 2007 0cfe 8923      		and r24,r25
+ 2008 0d00 8093 0000 		sts OSRdyGrp,r24
+ 2009               	.L163:
+ 2010 0d04 1E96      		adiw r26,14
+ 2011 0d06 3C93      		st X,r19
+ 2012 0d08 1E97      		sbiw r26,14
+ 2013 0d0a E32F      		mov r30,r19
+ 2014 0d0c E695      		lsr r30
+ 2015 0d0e E695      		lsr r30
+ 2016 0d10 E695      		lsr r30
+ 2017 0d12 5096      		adiw r26,16
+ 2018 0d14 EC93      		st X,r30
+ 2019 0d16 5097      		sbiw r26,16
+ 2020 0d18 F0E0      		ldi r31,lo8(0)
+ 2021 0d1a E050      		subi r30,lo8(-(OSMapTbl))
+ 2022 0d1c F040      		sbci r31,hi8(-(OSMapTbl))
+ 2023 0d1e 2081      		ld r18,Z
+ 2024 0d20 5296      		adiw r26,18
+ 2025 0d22 2C93      		st X,r18
+ 2026 0d24 5297      		sbiw r26,18
+ 2027 0d26 E32F      		mov r30,r19
+ 2028 0d28 E770      		andi r30,lo8(7)
+ 2029 0d2a 1F96      		adiw r26,15
+ 2030 0d2c EC93      		st X,r30
+ 2031 0d2e 1F97      		sbiw r26,15
+ 2032 0d30 F0E0      		ldi r31,lo8(0)
+ 2033 0d32 E050      		subi r30,lo8(-(OSMapTbl))
+ 2034 0d34 F040      		sbci r31,hi8(-(OSMapTbl))
+ 2035 0d36 9081      		ld r25,Z
+ 2036 0d38 5196      		adiw r26,17
+ 2037 0d3a 9C93      		st X,r25
+ 2038 0d3c 5197      		sbiw r26,17
+ 2039 0d3e 8091 0000 		lds r24,OSRdyGrp
+ 2040 0d42 822B      		or r24,r18
+ 2041 0d44 8093 0000 		sts OSRdyGrp,r24
+ 2042 0d48 5096      		adiw r26,16
+ 2043 0d4a EC91      		ld r30,X
+ 2044 0d4c 5097      		sbiw r26,16
+ 2045 0d4e F0E0      		ldi r31,lo8(0)
+ 2046 0d50 E050      		subi r30,lo8(-(OSRdyTbl))
+ 2047 0d52 F040      		sbci r31,hi8(-(OSRdyTbl))
+ 2048 0d54 8081      		ld r24,Z
+ 2049 0d56 982B      		or r25,r24
+ 2050 0d58 9083      		st Z,r25
+ 2051 0d5a E32F      		mov r30,r19
+ 2052 0d5c F0E0      		ldi r31,lo8(0)
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 37
+
+
+ 2053 0d5e EE0F      		lsl r30
+ 2054 0d60 FF1F      		rol r31
+ 2055 0d62 E050      		subi r30,lo8(-(OSTCBPrioTbl))
+ 2056 0d64 F040      		sbci r31,hi8(-(OSTCBPrioTbl))
+ 2057 0d66 B183      		std Z+1,r27
+ 2058 0d68 A083      		st Z,r26
+ 2059               	.L162:
+ 2060 0d6a E42F      		mov r30,r20
+ 2061 0d6c F0E0      		ldi r31,lo8(0)
+ 2062 0d6e EE0F      		lsl r30
+ 2063 0d70 FF1F      		rol r31
+ 2064 0d72 E050      		subi r30,lo8(-(OSTCBPrioTbl))
+ 2065 0d74 F040      		sbci r31,hi8(-(OSTCBPrioTbl))
+ 2066 0d76 81E0      		ldi r24,lo8(1)
+ 2067 0d78 90E0      		ldi r25,hi8(1)
+ 2068 0d7a 9183      		std Z+1,r25
+ 2069 0d7c 8083      		st Z,r24
+ 2070 0d7e 8981      		ldd r24,Y+1
+ 2071 0d80 8823      		tst r24
+ 2072 0d82 01F4      		brne .L168
+ 2073 0d84 8A81      		ldd r24,Y+2
+ 2074 0d86 9B81      		ldd r25,Y+3
+ 2075 0d88 8F6F      		ori r24,lo8(255)
+ 2076 0d8a 9B83      		std Y+3,r25
+ 2077 0d8c 8A83      		std Y+2,r24
+ 2078 0d8e 1D82      		std Y+5,__zero_reg__
+ 2079 0d90 1C82      		std Y+4,__zero_reg__
+ 2080               	/* #APP */
+ 2081               	 ;  455 "c:/software/uCOS-II/lab2/source/os_mutex.c" 1
+ 2082 0d92 7894      		sei
+ 2083               	 ;  0 "" 2
+ 2084               	/* #NOAPP */
+ 2085 0d94 80E0      		ldi r24,lo8(0)
+ 2086 0d96 DF91      		pop r29
+ 2087 0d98 CF91      		pop r28
+ 2088 0d9a 0895      		ret
+ 2089               	.L168:
+ 2090 0d9c CE01      		movw r24,r28
+ 2091 0d9e 60E0      		ldi r22,lo8(0)
+ 2092 0da0 70E0      		ldi r23,hi8(0)
+ 2093 0da2 40E1      		ldi r20,lo8(16)
+ 2094 0da4 0E94 0000 		call OS_EventTaskRdy
+ 2095 0da8 E82F      		mov r30,r24
+ 2096 0daa F0E0      		ldi r31,lo8(0)
+ 2097 0dac 8A81      		ldd r24,Y+2
+ 2098 0dae 9B81      		ldd r25,Y+3
+ 2099 0db0 8070      		andi r24,lo8(-256)
+ 2100 0db2 8E2B      		or r24,r30
+ 2101 0db4 9F2B      		or r25,r31
+ 2102 0db6 9B83      		std Y+3,r25
+ 2103 0db8 8A83      		std Y+2,r24
+ 2104 0dba EE0F      		lsl r30
+ 2105 0dbc FF1F      		rol r31
+ 2106 0dbe E050      		subi r30,lo8(-(OSTCBPrioTbl))
+ 2107 0dc0 F040      		sbci r31,hi8(-(OSTCBPrioTbl))
+ 2108 0dc2 8081      		ld r24,Z
+ 2109 0dc4 9181      		ldd r25,Z+1
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 38
+
+
+ 2110 0dc6 9D83      		std Y+5,r25
+ 2111 0dc8 8C83      		std Y+4,r24
+ 2112               	/* #APP */
+ 2113               	 ;  449 "c:/software/uCOS-II/lab2/source/os_mutex.c" 1
+ 2114 0dca 7894      		sei
+ 2115               	 ;  0 "" 2
+ 2116               	/* #NOAPP */
+ 2117 0dcc 0E94 0000 		call OS_Sched
+ 2118 0dd0 80E0      		ldi r24,lo8(0)
+ 2119 0dd2 00C0      		rjmp .L160
+ 2120               		.size	OSMutexPost, .-OSMutexPost
+ 2121               	.global	OSMutexPend
+ 2122               		.type	OSMutexPend, @function
+ 2123               	OSMutexPend:
+ 2124 0dd4 0F93      		push r16
+ 2125 0dd6 1F93      		push r17
+ 2126 0dd8 CF93      		push r28
+ 2127 0dda DF93      		push r29
+ 2128               	/* prologue: function */
+ 2129               	/* frame size = 0 */
+ 2130 0ddc EC01      		movw r28,r24
+ 2131 0dde 8A01      		movw r16,r20
+ 2132 0de0 8091 0000 		lds r24,OSIntNesting
+ 2133 0de4 8823      		tst r24
+ 2134 0de6 01F4      		brne .L182
+ 2135               	/* #APP */
+ 2136               	 ;  331 "c:/software/uCOS-II/lab2/source/os_mutex.c" 1
+ 2137 0de8 F894      		cli
+ 2138               	 ;  0 "" 2
+ 2139               	/* #NOAPP */
+ 2140 0dea 2A81      		ldd r18,Y+2
+ 2141 0dec 3B81      		ldd r19,Y+3
+ 2142 0dee 2F3F      		cpi r18,lo8(-1)
+ 2143 0df0 01F4      		brne .+2
+ 2144 0df2 00C0      		rjmp .L183
+ 2145 0df4 432F      		mov r20,r19
+ 2146 0df6 AC81      		ldd r26,Y+4
+ 2147 0df8 BD81      		ldd r27,Y+5
+ 2148 0dfa 1E96      		adiw r26,14
+ 2149 0dfc 8C91      		ld r24,X
+ 2150 0dfe 1E97      		sbiw r26,14
+ 2151 0e00 8317      		cp r24,r19
+ 2152 0e02 01F4      		brne .+2
+ 2153 0e04 00C0      		rjmp .L181
+ 2154 0e06 E091 0000 		lds r30,OSTCBCur
+ 2155 0e0a F091 0000 		lds r31,(OSTCBCur)+1
+ 2156 0e0e 8685      		ldd r24,Z+14
+ 2157 0e10 8217      		cp r24,r18
+ 2158 0e12 00F4      		brsh .+2
+ 2159 0e14 00C0      		rjmp .L184
+ 2160               	.L173:
+ 2161 0e16 8585      		ldd r24,Z+13
+ 2162 0e18 8061      		ori r24,lo8(16)
+ 2163 0e1a 8587      		std Z+13,r24
+ 2164 0e1c 7487      		std Z+12,r23
+ 2165 0e1e 6387      		std Z+11,r22
+ 2166 0e20 CE01      		movw r24,r28
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 39
+
+
+ 2167 0e22 0E94 0000 		call OS_EventTaskWait
+ 2168               	/* #APP */
+ 2169               	 ;  368 "c:/software/uCOS-II/lab2/source/os_mutex.c" 1
+ 2170 0e26 7894      		sei
+ 2171               	 ;  0 "" 2
+ 2172               	/* #NOAPP */
+ 2173 0e28 0E94 0000 		call OS_Sched
+ 2174               	/* #APP */
+ 2175               	 ;  370 "c:/software/uCOS-II/lab2/source/os_mutex.c" 1
+ 2176 0e2c F894      		cli
+ 2177               	 ;  0 "" 2
+ 2178               	/* #NOAPP */
+ 2179 0e2e E091 0000 		lds r30,OSTCBCur
+ 2180 0e32 F091 0000 		lds r31,(OSTCBCur)+1
+ 2181 0e36 8585      		ldd r24,Z+13
+ 2182 0e38 84FD      		sbrc r24,4
+ 2183 0e3a 00C0      		rjmp .L185
+ 2184 0e3c 1782      		std Z+7,__zero_reg__
+ 2185 0e3e 1682      		std Z+6,__zero_reg__
+ 2186               	/* #APP */
+ 2187               	 ;  378 "c:/software/uCOS-II/lab2/source/os_mutex.c" 1
+ 2188 0e40 7894      		sei
+ 2189               	 ;  0 "" 2
+ 2190               	/* #NOAPP */
+ 2191 0e42 F801      		movw r30,r16
+ 2192 0e44 1082      		st Z,__zero_reg__
+ 2193               	/* epilogue start */
+ 2194 0e46 DF91      		pop r29
+ 2195 0e48 CF91      		pop r28
+ 2196 0e4a 1F91      		pop r17
+ 2197 0e4c 0F91      		pop r16
+ 2198 0e4e 0895      		ret
+ 2199               	.L182:
+ 2200 0e50 82E0      		ldi r24,lo8(2)
+ 2201 0e52 FA01      		movw r30,r20
+ 2202 0e54 8083      		st Z,r24
+ 2203 0e56 DF91      		pop r29
+ 2204 0e58 CF91      		pop r28
+ 2205 0e5a 1F91      		pop r17
+ 2206 0e5c 0F91      		pop r16
+ 2207 0e5e 0895      		ret
+ 2208               	.L174:
+ 2209 0e60 1E96      		adiw r26,14
+ 2210 0e62 3C93      		st X,r19
+ 2211 0e64 1E97      		sbiw r26,14
+ 2212 0e66 E32F      		mov r30,r19
+ 2213 0e68 E695      		lsr r30
+ 2214 0e6a E695      		lsr r30
+ 2215 0e6c E695      		lsr r30
+ 2216 0e6e 5096      		adiw r26,16
+ 2217 0e70 EC93      		st X,r30
+ 2218 0e72 5097      		sbiw r26,16
+ 2219 0e74 F0E0      		ldi r31,lo8(0)
+ 2220 0e76 E050      		subi r30,lo8(-(OSMapTbl))
+ 2221 0e78 F040      		sbci r31,hi8(-(OSMapTbl))
+ 2222 0e7a 8081      		ld r24,Z
+ 2223 0e7c 5296      		adiw r26,18
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 40
+
+
+ 2224 0e7e 8C93      		st X,r24
+ 2225 0e80 5297      		sbiw r26,18
+ 2226 0e82 E32F      		mov r30,r19
+ 2227 0e84 E770      		andi r30,lo8(7)
+ 2228 0e86 1F96      		adiw r26,15
+ 2229 0e88 EC93      		st X,r30
+ 2230 0e8a 1F97      		sbiw r26,15
+ 2231 0e8c F0E0      		ldi r31,lo8(0)
+ 2232 0e8e E050      		subi r30,lo8(-(OSMapTbl))
+ 2233 0e90 F040      		sbci r31,hi8(-(OSMapTbl))
+ 2234 0e92 8081      		ld r24,Z
+ 2235 0e94 5196      		adiw r26,17
+ 2236 0e96 8C93      		st X,r24
+ 2237 0e98 5197      		sbiw r26,17
+ 2238               	.L177:
+ 2239 0e9a E42F      		mov r30,r20
+ 2240 0e9c F0E0      		ldi r31,lo8(0)
+ 2241 0e9e EE0F      		lsl r30
+ 2242 0ea0 FF1F      		rol r31
+ 2243 0ea2 E050      		subi r30,lo8(-(OSTCBPrioTbl))
+ 2244 0ea4 F040      		sbci r31,hi8(-(OSTCBPrioTbl))
+ 2245 0ea6 B183      		std Z+1,r27
+ 2246 0ea8 A083      		st Z,r26
+ 2247               	.L181:
+ 2248 0eaa E091 0000 		lds r30,OSTCBCur
+ 2249 0eae F091 0000 		lds r31,(OSTCBCur)+1
+ 2250 0eb2 00C0      		rjmp .L173
+ 2251               	.L183:
+ 2252 0eb4 C901      		movw r24,r18
+ 2253 0eb6 8070      		andi r24,lo8(-256)
+ 2254 0eb8 9B83      		std Y+3,r25
+ 2255 0eba 8A83      		std Y+2,r24
+ 2256 0ebc E091 0000 		lds r30,OSTCBCur
+ 2257 0ec0 F091 0000 		lds r31,(OSTCBCur)+1
+ 2258 0ec4 2685      		ldd r18,Z+14
+ 2259 0ec6 30E0      		ldi r19,lo8(0)
+ 2260 0ec8 282B      		or r18,r24
+ 2261 0eca 392B      		or r19,r25
+ 2262 0ecc 3B83      		std Y+3,r19
+ 2263 0ece 2A83      		std Y+2,r18
+ 2264 0ed0 FD83      		std Y+5,r31
+ 2265 0ed2 EC83      		std Y+4,r30
+ 2266               	/* #APP */
+ 2267               	 ;  336 "c:/software/uCOS-II/lab2/source/os_mutex.c" 1
+ 2268 0ed4 7894      		sei
+ 2269               	 ;  0 "" 2
+ 2270               	/* #NOAPP */
+ 2271 0ed6 FA01      		movw r30,r20
+ 2272 0ed8 1082      		st Z,__zero_reg__
+ 2273 0eda DF91      		pop r29
+ 2274 0edc CF91      		pop r28
+ 2275 0ede 1F91      		pop r17
+ 2276 0ee0 0F91      		pop r16
+ 2277 0ee2 0895      		ret
+ 2278               	.L184:
+ 2279 0ee4 5096      		adiw r26,16
+ 2280 0ee6 8C91      		ld r24,X
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 41
+
+
+ 2281 0ee8 5097      		sbiw r26,16
+ 2282 0eea E82F      		mov r30,r24
+ 2283 0eec F0E0      		ldi r31,lo8(0)
+ 2284 0eee E050      		subi r30,lo8(-(OSRdyTbl))
+ 2285 0ef0 F040      		sbci r31,hi8(-(OSRdyTbl))
+ 2286 0ef2 5081      		ld r21,Z
+ 2287 0ef4 5196      		adiw r26,17
+ 2288 0ef6 9C91      		ld r25,X
+ 2289 0ef8 5197      		sbiw r26,17
+ 2290 0efa 852F      		mov r24,r21
+ 2291 0efc 8923      		and r24,r25
+ 2292 0efe 01F4      		brne .+2
+ 2293 0f00 00C0      		rjmp .L174
+ 2294 0f02 892F      		mov r24,r25
+ 2295 0f04 8095      		com r24
+ 2296 0f06 8523      		and r24,r21
+ 2297 0f08 8083      		st Z,r24
+ 2298 0f0a 8823      		tst r24
+ 2299 0f0c 01F4      		brne .L175
+ 2300 0f0e 5296      		adiw r26,18
+ 2301 0f10 9C91      		ld r25,X
+ 2302 0f12 5297      		sbiw r26,18
+ 2303 0f14 9095      		com r25
+ 2304 0f16 8091 0000 		lds r24,OSRdyGrp
+ 2305 0f1a 8923      		and r24,r25
+ 2306 0f1c 8093 0000 		sts OSRdyGrp,r24
+ 2307               	.L175:
+ 2308 0f20 1E96      		adiw r26,14
+ 2309 0f22 4C93      		st X,r20
+ 2310 0f24 1E97      		sbiw r26,14
+ 2311 0f26 E42F      		mov r30,r20
+ 2312 0f28 E695      		lsr r30
+ 2313 0f2a E695      		lsr r30
+ 2314 0f2c E695      		lsr r30
+ 2315 0f2e 5096      		adiw r26,16
+ 2316 0f30 EC93      		st X,r30
+ 2317 0f32 5097      		sbiw r26,16
+ 2318 0f34 F0E0      		ldi r31,lo8(0)
+ 2319 0f36 E050      		subi r30,lo8(-(OSMapTbl))
+ 2320 0f38 F040      		sbci r31,hi8(-(OSMapTbl))
+ 2321 0f3a 2081      		ld r18,Z
+ 2322 0f3c 5296      		adiw r26,18
+ 2323 0f3e 2C93      		st X,r18
+ 2324 0f40 5297      		sbiw r26,18
+ 2325 0f42 E42F      		mov r30,r20
+ 2326 0f44 E770      		andi r30,lo8(7)
+ 2327 0f46 1F96      		adiw r26,15
+ 2328 0f48 EC93      		st X,r30
+ 2329 0f4a 1F97      		sbiw r26,15
+ 2330 0f4c F0E0      		ldi r31,lo8(0)
+ 2331 0f4e E050      		subi r30,lo8(-(OSMapTbl))
+ 2332 0f50 F040      		sbci r31,hi8(-(OSMapTbl))
+ 2333 0f52 9081      		ld r25,Z
+ 2334 0f54 5196      		adiw r26,17
+ 2335 0f56 9C93      		st X,r25
+ 2336 0f58 5197      		sbiw r26,17
+ 2337 0f5a 8091 0000 		lds r24,OSRdyGrp
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 42
+
+
+ 2338 0f5e 822B      		or r24,r18
+ 2339 0f60 8093 0000 		sts OSRdyGrp,r24
+ 2340 0f64 5096      		adiw r26,16
+ 2341 0f66 EC91      		ld r30,X
+ 2342 0f68 5097      		sbiw r26,16
+ 2343 0f6a F0E0      		ldi r31,lo8(0)
+ 2344 0f6c E050      		subi r30,lo8(-(OSRdyTbl))
+ 2345 0f6e F040      		sbci r31,hi8(-(OSRdyTbl))
+ 2346 0f70 8081      		ld r24,Z
+ 2347 0f72 982B      		or r25,r24
+ 2348 0f74 9083      		st Z,r25
+ 2349 0f76 00C0      		rjmp .L177
+ 2350               	.L185:
+ 2351 0f78 CE01      		movw r24,r28
+ 2352 0f7a 0E94 0000 		call OS_EventTO
+ 2353               	/* #APP */
+ 2354               	 ;  373 "c:/software/uCOS-II/lab2/source/os_mutex.c" 1
+ 2355 0f7e 7894      		sei
+ 2356               	 ;  0 "" 2
+ 2357               	/* #NOAPP */
+ 2358 0f80 8AE0      		ldi r24,lo8(10)
+ 2359 0f82 F801      		movw r30,r16
+ 2360 0f84 8083      		st Z,r24
+ 2361 0f86 DF91      		pop r29
+ 2362 0f88 CF91      		pop r28
+ 2363 0f8a 1F91      		pop r17
+ 2364 0f8c 0F91      		pop r16
+ 2365 0f8e 0895      		ret
+ 2366               		.size	OSMutexPend, .-OSMutexPend
+ 2367               	.global	OSMboxPost
+ 2368               		.type	OSMboxPost, @function
+ 2369               	OSMboxPost:
+ 2370               	/* prologue: function */
+ 2371               	/* frame size = 0 */
+ 2372 0f90 FC01      		movw r30,r24
+ 2373               	/* #APP */
+ 2374               	 ;  328 "c:/software/uCOS-II/lab2/source/os_mbox.c" 1
+ 2375 0f92 F894      		cli
+ 2376               	 ;  0 "" 2
+ 2377               	/* #NOAPP */
+ 2378 0f94 8181      		ldd r24,Z+1
+ 2379 0f96 8823      		tst r24
+ 2380 0f98 01F4      		brne .L191
+ 2381 0f9a 8481      		ldd r24,Z+4
+ 2382 0f9c 9581      		ldd r25,Z+5
+ 2383 0f9e 892B      		or r24,r25
+ 2384 0fa0 01F0      		breq .L189
+ 2385               	/* #APP */
+ 2386               	 ;  336 "c:/software/uCOS-II/lab2/source/os_mbox.c" 1
+ 2387 0fa2 7894      		sei
+ 2388               	 ;  0 "" 2
+ 2389               	/* #NOAPP */
+ 2390 0fa4 84E1      		ldi r24,lo8(20)
+ 2391 0fa6 0895      		ret
+ 2392               	.L191:
+ 2393 0fa8 CF01      		movw r24,r30
+ 2394 0faa 42E0      		ldi r20,lo8(2)
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 43
+
+
+ 2395 0fac 0E94 0000 		call OS_EventTaskRdy
+ 2396               	/* #APP */
+ 2397               	 ;  331 "c:/software/uCOS-II/lab2/source/os_mbox.c" 1
+ 2398 0fb0 7894      		sei
+ 2399               	 ;  0 "" 2
+ 2400               	/* #NOAPP */
+ 2401 0fb2 0E94 0000 		call OS_Sched
+ 2402 0fb6 80E0      		ldi r24,lo8(0)
+ 2403 0fb8 0895      		ret
+ 2404               	.L189:
+ 2405 0fba 7583      		std Z+5,r23
+ 2406 0fbc 6483      		std Z+4,r22
+ 2407               	/* #APP */
+ 2408               	 ;  340 "c:/software/uCOS-II/lab2/source/os_mbox.c" 1
+ 2409 0fbe 7894      		sei
+ 2410               	 ;  0 "" 2
+ 2411               	/* #NOAPP */
+ 2412 0fc0 80E0      		ldi r24,lo8(0)
+ 2413 0fc2 0895      		ret
+ 2414               		.size	OSMboxPost, .-OSMboxPost
+ 2415               	.global	OSMboxPend
+ 2416               		.type	OSMboxPend, @function
+ 2417               	OSMboxPend:
+ 2418 0fc4 EF92      		push r14
+ 2419 0fc6 FF92      		push r15
+ 2420 0fc8 0F93      		push r16
+ 2421 0fca 1F93      		push r17
+ 2422 0fcc CF93      		push r28
+ 2423 0fce DF93      		push r29
+ 2424               	/* prologue: function */
+ 2425               	/* frame size = 0 */
+ 2426 0fd0 8C01      		movw r16,r24
+ 2427 0fd2 7A01      		movw r14,r20
+ 2428 0fd4 8091 0000 		lds r24,OSIntNesting
+ 2429 0fd8 8823      		tst r24
+ 2430 0fda 01F4      		brne .L198
+ 2431               	/* #APP */
+ 2432               	 ;  260 "c:/software/uCOS-II/lab2/source/os_mbox.c" 1
+ 2433 0fdc F894      		cli
+ 2434               	 ;  0 "" 2
+ 2435               	/* #NOAPP */
+ 2436 0fde F801      		movw r30,r16
+ 2437 0fe0 C481      		ldd r28,Z+4
+ 2438 0fe2 D581      		ldd r29,Z+5
+ 2439 0fe4 2097      		sbiw r28,0
+ 2440 0fe6 01F0      		breq .L195
+ 2441 0fe8 1582      		std Z+5,__zero_reg__
+ 2442 0fea 1482      		std Z+4,__zero_reg__
+ 2443               	/* #APP */
+ 2444               	 ;  264 "c:/software/uCOS-II/lab2/source/os_mbox.c" 1
+ 2445 0fec 7894      		sei
+ 2446               	 ;  0 "" 2
+ 2447               	/* #NOAPP */
+ 2448 0fee FA01      		movw r30,r20
+ 2449 0ff0 1082      		st Z,__zero_reg__
+ 2450               	.L194:
+ 2451 0ff2 CE01      		movw r24,r28
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 44
+
+
+ 2452               	/* epilogue start */
+ 2453 0ff4 DF91      		pop r29
+ 2454 0ff6 CF91      		pop r28
+ 2455 0ff8 1F91      		pop r17
+ 2456 0ffa 0F91      		pop r16
+ 2457 0ffc FF90      		pop r15
+ 2458 0ffe EF90      		pop r14
+ 2459 1000 0895      		ret
+ 2460               	.L195:
+ 2461 1002 E091 0000 		lds r30,OSTCBCur
+ 2462 1006 F091 0000 		lds r31,(OSTCBCur)+1
+ 2463 100a 8585      		ldd r24,Z+13
+ 2464 100c 8260      		ori r24,lo8(2)
+ 2465 100e 8587      		std Z+13,r24
+ 2466 1010 7487      		std Z+12,r23
+ 2467 1012 6387      		std Z+11,r22
+ 2468 1014 C801      		movw r24,r16
+ 2469 1016 0E94 0000 		call OS_EventTaskWait
+ 2470               	/* #APP */
+ 2471               	 ;  271 "c:/software/uCOS-II/lab2/source/os_mbox.c" 1
+ 2472 101a 7894      		sei
+ 2473               	 ;  0 "" 2
+ 2474               	/* #NOAPP */
+ 2475 101c 0E94 0000 		call OS_Sched
+ 2476               	/* #APP */
+ 2477               	 ;  273 "c:/software/uCOS-II/lab2/source/os_mbox.c" 1
+ 2478 1020 F894      		cli
+ 2479               	 ;  0 "" 2
+ 2480               	/* #NOAPP */
+ 2481 1022 E091 0000 		lds r30,OSTCBCur
+ 2482 1026 F091 0000 		lds r31,(OSTCBCur)+1
+ 2483 102a C085      		ldd r28,Z+8
+ 2484 102c D185      		ldd r29,Z+9
+ 2485 102e 2097      		sbiw r28,0
+ 2486 1030 01F0      		breq .L196
+ 2487 1032 1186      		std Z+9,__zero_reg__
+ 2488 1034 1086      		std Z+8,__zero_reg__
+ 2489 1036 1586      		std Z+13,__zero_reg__
+ 2490 1038 1782      		std Z+7,__zero_reg__
+ 2491 103a 1682      		std Z+6,__zero_reg__
+ 2492               	/* #APP */
+ 2493               	 ;  279 "c:/software/uCOS-II/lab2/source/os_mbox.c" 1
+ 2494 103c 7894      		sei
+ 2495               	 ;  0 "" 2
+ 2496               	/* #NOAPP */
+ 2497 103e F701      		movw r30,r14
+ 2498 1040 1082      		st Z,__zero_reg__
+ 2499 1042 00C0      		rjmp .L194
+ 2500               	.L198:
+ 2501 1044 82E0      		ldi r24,lo8(2)
+ 2502 1046 FA01      		movw r30,r20
+ 2503 1048 8083      		st Z,r24
+ 2504 104a C0E0      		ldi r28,lo8(0)
+ 2505 104c D0E0      		ldi r29,hi8(0)
+ 2506 104e 00C0      		rjmp .L194
+ 2507               	.L196:
+ 2508 1050 C801      		movw r24,r16
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 45
+
+
+ 2509 1052 0E94 0000 		call OS_EventTO
+ 2510               	/* #APP */
+ 2511               	 ;  284 "c:/software/uCOS-II/lab2/source/os_mbox.c" 1
+ 2512 1056 7894      		sei
+ 2513               	 ;  0 "" 2
+ 2514               	/* #NOAPP */
+ 2515 1058 8AE0      		ldi r24,lo8(10)
+ 2516 105a F701      		movw r30,r14
+ 2517 105c 8083      		st Z,r24
+ 2518 105e 00C0      		rjmp .L194
+ 2519               		.size	OSMboxPend, .-OSMboxPend
+ 2520               	.global	OSFlagPost
+ 2521               		.type	OSFlagPost, @function
+ 2522               	OSFlagPost:
+ 2523 1060 CF92      		push r12
+ 2524 1062 DF92      		push r13
+ 2525 1064 EF92      		push r14
+ 2526 1066 FF92      		push r15
+ 2527 1068 0F93      		push r16
+ 2528 106a 1F93      		push r17
+ 2529 106c DF93      		push r29
+ 2530 106e CF93      		push r28
+ 2531 1070 0F92      		push __tmp_reg__
+ 2532 1072 CDB7      		in r28,__SP_L__
+ 2533 1074 DEB7      		in r29,__SP_H__
+ 2534               	/* prologue: function */
+ 2535               	/* frame size = 1 */
+ 2536 1076 8C01      		movw r16,r24
+ 2537 1078 7901      		movw r14,r18
+ 2538               	/* #APP */
+ 2539               	 ;  577 "c:/software/uCOS-II/lab2/source/os_flag.c" 1
+ 2540 107a F894      		cli
+ 2541               	 ;  0 "" 2
+ 2542               	/* #NOAPP */
+ 2543 107c 4423      		tst r20
+ 2544 107e 01F0      		breq .+2
+ 2545 1080 00C0      		rjmp .L218
+ 2546 1082 6095      		com r22
+ 2547 1084 FC01      		movw r30,r24
+ 2548 1086 8381      		ldd r24,Z+3
+ 2549 1088 8623      		and r24,r22
+ 2550 108a 8383      		std Z+3,r24
+ 2551               	.L203:
+ 2552 108c F801      		movw r30,r16
+ 2553 108e C180      		ldd r12,Z+1
+ 2554 1090 D280      		ldd r13,Z+2
+ 2555 1092 C114      		cp r12,__zero_reg__
+ 2556 1094 D104      		cpc r13,__zero_reg__
+ 2557 1096 01F4      		brne .+2
+ 2558 1098 00C0      		rjmp .L219
+ 2559 109a 1982      		std Y+1,__zero_reg__
+ 2560 109c 00C0      		rjmp .L211
+ 2561               	.L221:
+ 2562 109e 8330      		cpi r24,lo8(3)
+ 2563 10a0 01F0      		breq .L220
+ 2564               	.L207:
+ 2565 10a2 F601      		movw r30,r12
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 46
+
+
+ 2566 10a4 8081      		ld r24,Z
+ 2567 10a6 9181      		ldd r25,Z+1
+ 2568 10a8 9C01      		movw r18,r24
+ 2569 10aa 6901      		movw r12,r18
+ 2570 10ac 2115      		cp r18,__zero_reg__
+ 2571 10ae 3105      		cpc r19,__zero_reg__
+ 2572 10b0 01F0      		breq .L206
+ 2573               	.L211:
+ 2574 10b2 F601      		movw r30,r12
+ 2575 10b4 8185      		ldd r24,Z+9
+ 2576 10b6 8230      		cpi r24,lo8(2)
+ 2577 10b8 01F4      		brne .L221
+ 2578 10ba F601      		movw r30,r12
+ 2579 10bc 6085      		ldd r22,Z+8
+ 2580 10be F801      		movw r30,r16
+ 2581 10c0 8381      		ldd r24,Z+3
+ 2582 10c2 8623      		and r24,r22
+ 2583 10c4 6817      		cp r22,r24
+ 2584 10c6 01F4      		brne .L207
+ 2585 10c8 C601      		movw r24,r12
+ 2586 10ca 0E94 0000 		call OS_FlagTaskRdy
+ 2587 10ce 8130      		cpi r24,lo8(1)
+ 2588 10d0 01F4      		brne .L207
+ 2589               	.L223:
+ 2590 10d2 F1E0      		ldi r31,lo8(1)
+ 2591 10d4 F983      		std Y+1,r31
+ 2592 10d6 F601      		movw r30,r12
+ 2593 10d8 8081      		ld r24,Z
+ 2594 10da 9181      		ldd r25,Z+1
+ 2595 10dc 9C01      		movw r18,r24
+ 2596 10de 6901      		movw r12,r18
+ 2597 10e0 2115      		cp r18,__zero_reg__
+ 2598 10e2 3105      		cpc r19,__zero_reg__
+ 2599 10e4 01F4      		brne .L211
+ 2600               	.L206:
+ 2601               	/* #APP */
+ 2602               	 ;  636 "c:/software/uCOS-II/lab2/source/os_flag.c" 1
+ 2603 10e6 7894      		sei
+ 2604               	 ;  0 "" 2
+ 2605               	/* #NOAPP */
+ 2606 10e8 F981      		ldd r31,Y+1
+ 2607 10ea F130      		cpi r31,lo8(1)
+ 2608 10ec 01F0      		breq .L222
+ 2609               	.L212:
+ 2610               	/* #APP */
+ 2611               	 ;  640 "c:/software/uCOS-II/lab2/source/os_flag.c" 1
+ 2612 10ee F894      		cli
+ 2613               	 ;  0 "" 2
+ 2614               	/* #NOAPP */
+ 2615 10f0 F801      		movw r30,r16
+ 2616 10f2 8381      		ldd r24,Z+3
+ 2617               	/* #APP */
+ 2618               	 ;  642 "c:/software/uCOS-II/lab2/source/os_flag.c" 1
+ 2619 10f4 7894      		sei
+ 2620               	 ;  0 "" 2
+ 2621               	/* #NOAPP */
+ 2622 10f6 F701      		movw r30,r14
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 47
+
+
+ 2623 10f8 1082      		st Z,__zero_reg__
+ 2624               	.L204:
+ 2625               	/* epilogue start */
+ 2626 10fa 0F90      		pop __tmp_reg__
+ 2627 10fc CF91      		pop r28
+ 2628 10fe DF91      		pop r29
+ 2629 1100 1F91      		pop r17
+ 2630 1102 0F91      		pop r16
+ 2631 1104 FF90      		pop r15
+ 2632 1106 EF90      		pop r14
+ 2633 1108 DF90      		pop r13
+ 2634 110a CF90      		pop r12
+ 2635 110c 0895      		ret
+ 2636               	.L220:
+ 2637 110e F601      		movw r30,r12
+ 2638 1110 6085      		ldd r22,Z+8
+ 2639 1112 F801      		movw r30,r16
+ 2640 1114 8381      		ldd r24,Z+3
+ 2641 1116 6823      		and r22,r24
+ 2642 1118 01F4      		brne .+2
+ 2643 111a 00C0      		rjmp .L207
+ 2644 111c C601      		movw r24,r12
+ 2645 111e 0E94 0000 		call OS_FlagTaskRdy
+ 2646 1122 8130      		cpi r24,lo8(1)
+ 2647 1124 01F0      		breq .+2
+ 2648 1126 00C0      		rjmp .L207
+ 2649 1128 00C0      		rjmp .L223
+ 2650               	.L218:
+ 2651 112a 4130      		cpi r20,lo8(1)
+ 2652 112c 01F0      		breq .L224
+ 2653               	/* #APP */
+ 2654               	 ;  588 "c:/software/uCOS-II/lab2/source/os_flag.c" 1
+ 2655 112e 7894      		sei
+ 2656               	 ;  0 "" 2
+ 2657               	/* #NOAPP */
+ 2658 1130 89E9      		ldi r24,lo8(-103)
+ 2659 1132 F901      		movw r30,r18
+ 2660 1134 8083      		st Z,r24
+ 2661 1136 80E0      		ldi r24,lo8(0)
+ 2662 1138 00C0      		rjmp .L204
+ 2663               	.L224:
+ 2664 113a FC01      		movw r30,r24
+ 2665 113c 8381      		ldd r24,Z+3
+ 2666 113e 862B      		or r24,r22
+ 2667 1140 8383      		std Z+3,r24
+ 2668 1142 00C0      		rjmp .L203
+ 2669               	.L222:
+ 2670 1144 0E94 0000 		call OS_Sched
+ 2671 1148 00C0      		rjmp .L212
+ 2672               	.L219:
+ 2673 114a 1982      		std Y+1,__zero_reg__
+ 2674 114c 00C0      		rjmp .L206
+ 2675               		.size	OSFlagPost, .-OSFlagPost
+ 2676               	.global	OSFlagPend
+ 2677               		.type	OSFlagPend, @function
+ 2678               	OSFlagPend:
+ 2679 114e 8F92      		push r8
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 48
+
+
+ 2680 1150 9F92      		push r9
+ 2681 1152 AF92      		push r10
+ 2682 1154 BF92      		push r11
+ 2683 1156 CF92      		push r12
+ 2684 1158 DF92      		push r13
+ 2685 115a FF92      		push r15
+ 2686 115c 0F93      		push r16
+ 2687 115e 1F93      		push r17
+ 2688 1160 DF93      		push r29
+ 2689 1162 CF93      		push r28
+ 2690 1164 CDB7      		in r28,__SP_L__
+ 2691 1166 DEB7      		in r29,__SP_H__
+ 2692 1168 2B97      		sbiw r28,11
+ 2693 116a 0FB6      		in __tmp_reg__,__SREG__
+ 2694 116c F894      		cli
+ 2695 116e DEBF      		out __SP_H__,r29
+ 2696 1170 0FBE      		out __SREG__,__tmp_reg__
+ 2697 1172 CDBF      		out __SP_L__,r28
+ 2698               	/* prologue: function */
+ 2699               	/* frame size = 11 */
+ 2700 1174 6C01      		movw r12,r24
+ 2701 1176 562F      		mov r21,r22
+ 2702 1178 F42E      		mov r15,r20
+ 2703 117a F901      		movw r30,r18
+ 2704 117c 5801      		movw r10,r16
+ 2705 117e 8091 0000 		lds r24,OSIntNesting
+ 2706 1182 8823      		tst r24
+ 2707 1184 01F4      		brne .L247
+ 2708 1186 47FD      		sbrc r20,7
+ 2709 1188 00C0      		rjmp .L228
+ 2710 118a 1B86      		std Y+11,__zero_reg__
+ 2711               	/* #APP */
+ 2712               	 ;  409 "c:/software/uCOS-II/lab2/source/os_flag.c" 1
+ 2713 118c F894      		cli
+ 2714               	 ;  0 "" 2
+ 2715               	/* #NOAPP */
+ 2716 118e 82E0      		ldi r24,lo8(2)
+ 2717 1190 F816      		cp r15,r24
+ 2718 1192 01F0      		breq .L231
+ 2719               	.L249:
+ 2720 1194 A3E0      		ldi r26,lo8(3)
+ 2721 1196 FA16      		cp r15,r26
+ 2722 1198 01F0      		breq .L248
+ 2723               	/* #APP */
+ 2724               	 ;  478 "c:/software/uCOS-II/lab2/source/os_flag.c" 1
+ 2725 119a 7894      		sei
+ 2726               	 ;  0 "" 2
+ 2727               	/* #NOAPP */
+ 2728 119c 87E9      		ldi r24,lo8(-105)
+ 2729 119e F501      		movw r30,r10
+ 2730 11a0 8083      		st Z,r24
+ 2731 11a2 80E0      		ldi r24,lo8(0)
+ 2732               	.L227:
+ 2733               	/* epilogue start */
+ 2734 11a4 2B96      		adiw r28,11
+ 2735 11a6 0FB6      		in __tmp_reg__,__SREG__
+ 2736 11a8 F894      		cli
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 49
+
+
+ 2737 11aa DEBF      		out __SP_H__,r29
+ 2738 11ac 0FBE      		out __SREG__,__tmp_reg__
+ 2739 11ae CDBF      		out __SP_L__,r28
+ 2740 11b0 CF91      		pop r28
+ 2741 11b2 DF91      		pop r29
+ 2742 11b4 1F91      		pop r17
+ 2743 11b6 0F91      		pop r16
+ 2744 11b8 FF90      		pop r15
+ 2745 11ba DF90      		pop r13
+ 2746 11bc CF90      		pop r12
+ 2747 11be BF90      		pop r11
+ 2748 11c0 AF90      		pop r10
+ 2749 11c2 9F90      		pop r9
+ 2750 11c4 8F90      		pop r8
+ 2751 11c6 0895      		ret
+ 2752               	.L247:
+ 2753 11c8 82E0      		ldi r24,lo8(2)
+ 2754 11ca D801      		movw r26,r16
+ 2755 11cc 8C93      		st X,r24
+ 2756 11ce 80E0      		ldi r24,lo8(0)
+ 2757 11d0 00C0      		rjmp .L227
+ 2758               	.L228:
+ 2759 11d2 BFE7      		ldi r27,lo8(127)
+ 2760 11d4 FB22      		and r15,r27
+ 2761 11d6 21E0      		ldi r18,lo8(1)
+ 2762 11d8 2B87      		std Y+11,r18
+ 2763               	/* #APP */
+ 2764               	 ;  409 "c:/software/uCOS-II/lab2/source/os_flag.c" 1
+ 2765 11da F894      		cli
+ 2766               	 ;  0 "" 2
+ 2767               	/* #NOAPP */
+ 2768 11dc 82E0      		ldi r24,lo8(2)
+ 2769 11de F816      		cp r15,r24
+ 2770 11e0 01F4      		brne .L249
+ 2771               	.L231:
+ 2772 11e2 D601      		movw r26,r12
+ 2773 11e4 1396      		adiw r26,3
+ 2774 11e6 9C91      		ld r25,X
+ 2775 11e8 852F      		mov r24,r21
+ 2776 11ea 8923      		and r24,r25
+ 2777 11ec 8517      		cp r24,r21
+ 2778 11ee 01F4      		brne .L233
+ 2779 11f0 BB85      		ldd r27,Y+11
+ 2780 11f2 B130      		cpi r27,lo8(1)
+ 2781 11f4 01F4      		brne .L234
+ 2782 11f6 852F      		mov r24,r21
+ 2783 11f8 8095      		com r24
+ 2784 11fa 8923      		and r24,r25
+ 2785 11fc F601      		movw r30,r12
+ 2786 11fe 8383      		std Z+3,r24
+ 2787 1200 982F      		mov r25,r24
+ 2788               	.L234:
+ 2789 1202 892F      		mov r24,r25
+ 2790               	/* #APP */
+ 2791               	 ;  418 "c:/software/uCOS-II/lab2/source/os_flag.c" 1
+ 2792 1204 7894      		sei
+ 2793               	 ;  0 "" 2
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 50
+
+
+ 2794               	/* #NOAPP */
+ 2795 1206 D501      		movw r26,r10
+ 2796 1208 1C92      		st X,__zero_reg__
+ 2797 120a 00C0      		rjmp .L227
+ 2798               	.L248:
+ 2799 120c D601      		movw r26,r12
+ 2800 120e 1396      		adiw r26,3
+ 2801 1210 9C91      		ld r25,X
+ 2802 1212 852F      		mov r24,r21
+ 2803 1214 8923      		and r24,r25
+ 2804 1216 01F0      		breq .L236
+ 2805 1218 BB85      		ldd r27,Y+11
+ 2806 121a B130      		cpi r27,lo8(1)
+ 2807 121c 01F4      		brne .L237
+ 2808 121e 8095      		com r24
+ 2809 1220 8923      		and r24,r25
+ 2810 1222 F601      		movw r30,r12
+ 2811 1224 8383      		std Z+3,r24
+ 2812 1226 982F      		mov r25,r24
+ 2813               	.L237:
+ 2814 1228 892F      		mov r24,r25
+ 2815               	/* #APP */
+ 2816               	 ;  434 "c:/software/uCOS-II/lab2/source/os_flag.c" 1
+ 2817 122a 7894      		sei
+ 2818               	 ;  0 "" 2
+ 2819               	/* #NOAPP */
+ 2820 122c D501      		movw r26,r10
+ 2821 122e 1C92      		st X,__zero_reg__
+ 2822 1230 00C0      		rjmp .L227
+ 2823               	.L233:
+ 2824 1232 C601      		movw r24,r12
+ 2825 1234 4E01      		movw r8,r28
+ 2826 1236 0894      		sec
+ 2827 1238 811C      		adc r8,__zero_reg__
+ 2828 123a 911C      		adc r9,__zero_reg__
+ 2829 123c B401      		movw r22,r8
+ 2830 123e 452F      		mov r20,r21
+ 2831 1240 22E0      		ldi r18,lo8(2)
+ 2832 1242 8F01      		movw r16,r30
+ 2833 1244 0E94 0000 		call OS_FlagBlock
+ 2834               	/* #APP */
+ 2835               	 ;  423 "c:/software/uCOS-II/lab2/source/os_flag.c" 1
+ 2836 1248 7894      		sei
+ 2837               	 ;  0 "" 2
+ 2838               	/* #NOAPP */
+ 2839               	.L235:
+ 2840 124a 0E94 0000 		call OS_Sched
+ 2841               	/* #APP */
+ 2842               	 ;  484 "c:/software/uCOS-II/lab2/source/os_flag.c" 1
+ 2843 124e F894      		cli
+ 2844               	 ;  0 "" 2
+ 2845               	/* #NOAPP */
+ 2846 1250 E091 0000 		lds r30,OSTCBCur
+ 2847 1254 F091 0000 		lds r31,(OSTCBCur)+1
+ 2848 1258 8585      		ldd r24,Z+13
+ 2849 125a 85FD      		sbrc r24,5
+ 2850 125c 00C0      		rjmp .L250
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 51
+
+
+ 2851 125e BB85      		ldd r27,Y+11
+ 2852 1260 B130      		cpi r27,lo8(1)
+ 2853 1262 01F0      		breq .L245
+ 2854 1264 F601      		movw r30,r12
+ 2855 1266 9381      		ldd r25,Z+3
+ 2856               	.L239:
+ 2857 1268 892F      		mov r24,r25
+ 2858               	/* #APP */
+ 2859               	 ;  508 "c:/software/uCOS-II/lab2/source/os_flag.c" 1
+ 2860 126a 7894      		sei
+ 2861               	 ;  0 "" 2
+ 2862               	/* #NOAPP */
+ 2863 126c D501      		movw r26,r10
+ 2864 126e 1C92      		st X,__zero_reg__
+ 2865 1270 00C0      		rjmp .L227
+ 2866               	.L236:
+ 2867 1272 C601      		movw r24,r12
+ 2868 1274 4E01      		movw r8,r28
+ 2869 1276 0894      		sec
+ 2870 1278 811C      		adc r8,__zero_reg__
+ 2871 127a 911C      		adc r9,__zero_reg__
+ 2872 127c B401      		movw r22,r8
+ 2873 127e 452F      		mov r20,r21
+ 2874 1280 23E0      		ldi r18,lo8(3)
+ 2875 1282 8F01      		movw r16,r30
+ 2876 1284 0E94 0000 		call OS_FlagBlock
+ 2877               	/* #APP */
+ 2878               	 ;  439 "c:/software/uCOS-II/lab2/source/os_flag.c" 1
+ 2879 1288 7894      		sei
+ 2880               	 ;  0 "" 2
+ 2881               	/* #NOAPP */
+ 2882 128a 00C0      		rjmp .L235
+ 2883               	.L250:
+ 2884 128c C401      		movw r24,r8
+ 2885 128e 0E94 0000 		call OS_FlagUnlink
+ 2886 1292 E091 0000 		lds r30,OSTCBCur
+ 2887 1296 F091 0000 		lds r31,(OSTCBCur)+1
+ 2888 129a 1586      		std Z+13,__zero_reg__
+ 2889               	/* #APP */
+ 2890               	 ;  488 "c:/software/uCOS-II/lab2/source/os_flag.c" 1
+ 2891 129c 7894      		sei
+ 2892               	 ;  0 "" 2
+ 2893               	/* #NOAPP */
+ 2894 129e 8AE0      		ldi r24,lo8(10)
+ 2895 12a0 D501      		movw r26,r10
+ 2896 12a2 8C93      		st X,r24
+ 2897 12a4 80E0      		ldi r24,lo8(0)
+ 2898 12a6 00C0      		rjmp .L227
+ 2899               	.L245:
+ 2900 12a8 2EEF      		ldi r18,lo8(-2)
+ 2901 12aa F20E      		add r15,r18
+ 2902 12ac 81E0      		ldi r24,lo8(1)
+ 2903 12ae 8F15      		cp r24,r15
+ 2904 12b0 00F4      		brsh .L246
+ 2905 12b2 D601      		movw r26,r12
+ 2906 12b4 1396      		adiw r26,3
+ 2907 12b6 9C91      		ld r25,X
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 52
+
+
+ 2908 12b8 00C0      		rjmp .L239
+ 2909               	.L246:
+ 2910 12ba 8285      		ldd r24,Z+10
+ 2911 12bc 8095      		com r24
+ 2912 12be F601      		movw r30,r12
+ 2913 12c0 9381      		ldd r25,Z+3
+ 2914 12c2 9823      		and r25,r24
+ 2915 12c4 9383      		std Z+3,r25
+ 2916 12c6 00C0      		rjmp .L239
+ 2917               		.size	OSFlagPend, .-OSFlagPend
+ 2918               	.global	OSSchedUnlock
+ 2919               		.type	OSSchedUnlock, @function
+ 2920               	OSSchedUnlock:
+ 2921               	/* prologue: function */
+ 2922               	/* frame size = 0 */
+ 2923 12c8 8091 0000 		lds r24,OSRunning
+ 2924 12cc 8130      		cpi r24,lo8(1)
+ 2925 12ce 01F0      		breq .L256
+ 2926 12d0 0895      		ret
+ 2927               	.L256:
+ 2928               	/* #APP */
+ 2929               	 ;  256 "c:/software/uCOS-II/lab2/source/os_core.c" 1
+ 2930 12d2 F894      		cli
+ 2931               	 ;  0 "" 2
+ 2932               	/* #NOAPP */
+ 2933 12d4 8091 0000 		lds r24,OSLockNesting
+ 2934 12d8 8823      		tst r24
+ 2935 12da 01F0      		breq .L253
+ 2936 12dc 8150      		subi r24,lo8(-(-1))
+ 2937 12de 8093 0000 		sts OSLockNesting,r24
+ 2938 12e2 8823      		tst r24
+ 2939 12e4 01F4      		brne .L254
+ 2940 12e6 8091 0000 		lds r24,OSIntNesting
+ 2941 12ea 8823      		tst r24
+ 2942 12ec 01F0      		breq .L257
+ 2943               	.L254:
+ 2944               	/* #APP */
+ 2945               	 ;  263 "c:/software/uCOS-II/lab2/source/os_core.c" 1
+ 2946 12ee 7894      		sei
+ 2947               	 ;  0 "" 2
+ 2948               	/* #NOAPP */
+ 2949 12f0 0895      		ret
+ 2950               	.L253:
+ 2951               	/* #APP */
+ 2952               	 ;  266 "c:/software/uCOS-II/lab2/source/os_core.c" 1
+ 2953 12f2 7894      		sei
+ 2954               	 ;  0 "" 2
+ 2955               	/* #NOAPP */
+ 2956 12f4 0895      		ret
+ 2957               	.L257:
+ 2958               	/* #APP */
+ 2959               	 ;  260 "c:/software/uCOS-II/lab2/source/os_core.c" 1
+ 2960 12f6 7894      		sei
+ 2961               	 ;  0 "" 2
+ 2962               	/* #NOAPP */
+ 2963 12f8 0E94 0000 		call OS_Sched
+ 2964 12fc 0895      		ret
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 53
+
+
+ 2965               		.size	OSSchedUnlock, .-OSSchedUnlock
+ 2966               	.global	OSTimeTick
+ 2967               		.type	OSTimeTick, @function
+ 2968               	OSTimeTick:
+ 2969               	/* prologue: function */
+ 2970               	/* frame size = 0 */
+ 2971 12fe 0E94 0000 		call OSTimeTickHook
+ 2972 1302 8091 0000 		lds r24,OSRunning
+ 2973 1306 8130      		cpi r24,lo8(1)
+ 2974 1308 01F0      		breq .L265
+ 2975               	.L263:
+ 2976 130a 0895      		ret
+ 2977               	.L265:
+ 2978 130c A091 0000 		lds r26,OSTCBList
+ 2979 1310 B091 0000 		lds r27,(OSTCBList)+1
+ 2980 1314 1E96      		adiw r26,14
+ 2981 1316 8C91      		ld r24,X
+ 2982 1318 1E97      		sbiw r26,14
+ 2983 131a 8C30      		cpi r24,lo8(12)
+ 2984 131c 01F0      		breq .L263
+ 2985 131e 2091 0000 		lds r18,OSRdyGrp
+ 2986 1322 41E0      		ldi r20,lo8(1)
+ 2987 1324 50E0      		ldi r21,hi8(1)
+ 2988 1326 00C0      		rjmp .L262
+ 2989               	.L267:
+ 2990 1328 5296      		adiw r26,18
+ 2991 132a 8C91      		ld r24,X
+ 2992 132c 5297      		sbiw r26,18
+ 2993 132e 282B      		or r18,r24
+ 2994 1330 5096      		adiw r26,16
+ 2995 1332 EC91      		ld r30,X
+ 2996 1334 5097      		sbiw r26,16
+ 2997 1336 F0E0      		ldi r31,lo8(0)
+ 2998 1338 E050      		subi r30,lo8(-(OSRdyTbl))
+ 2999 133a F040      		sbci r31,hi8(-(OSRdyTbl))
+ 3000 133c 8081      		ld r24,Z
+ 3001 133e 5196      		adiw r26,17
+ 3002 1340 9C91      		ld r25,X
+ 3003 1342 5197      		sbiw r26,17
+ 3004 1344 892B      		or r24,r25
+ 3005 1346 8083      		st Z,r24
+ 3006               	.L260:
+ 3007 1348 1296      		adiw r26,2
+ 3008 134a 0D90      		ld __tmp_reg__,X+
+ 3009 134c BC91      		ld r27,X
+ 3010 134e A02D      		mov r26,__tmp_reg__
+ 3011               	/* #APP */
+ 3012               	 ;  393 "c:/software/uCOS-II/lab2/source/os_core.c" 1
+ 3013 1350 7894      		sei
+ 3014               	 ;  0 "" 2
+ 3015               	/* #NOAPP */
+ 3016 1352 1E96      		adiw r26,14
+ 3017 1354 8C91      		ld r24,X
+ 3018 1356 1E97      		sbiw r26,14
+ 3019 1358 8C30      		cpi r24,lo8(12)
+ 3020 135a 01F0      		breq .L266
+ 3021               	.L262:
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 54
+
+
+ 3022               	/* #APP */
+ 3023               	 ;  381 "c:/software/uCOS-II/lab2/source/os_core.c" 1
+ 3024 135c F894      		cli
+ 3025               	 ;  0 "" 2
+ 3026               	/* #NOAPP */
+ 3027 135e 1B96      		adiw r26,11
+ 3028 1360 8D91      		ld r24,X+
+ 3029 1362 9C91      		ld r25,X
+ 3030 1364 1C97      		sbiw r26,11+1
+ 3031 1366 0097      		sbiw r24,0
+ 3032 1368 01F0      		breq .L260
+ 3033 136a 0197      		sbiw r24,1
+ 3034 136c 1C96      		adiw r26,11+1
+ 3035 136e 9C93      		st X,r25
+ 3036 1370 8E93      		st -X,r24
+ 3037 1372 1B97      		sbiw r26,11
+ 3038 1374 892B      		or r24,r25
+ 3039 1376 01F4      		brne .L260
+ 3040 1378 1D96      		adiw r26,13
+ 3041 137a 8C91      		ld r24,X
+ 3042 137c 1D97      		sbiw r26,13
+ 3043 137e 83FF      		sbrs r24,3
+ 3044 1380 00C0      		rjmp .L267
+ 3045 1382 1C96      		adiw r26,11+1
+ 3046 1384 5C93      		st X,r21
+ 3047 1386 4E93      		st -X,r20
+ 3048 1388 1B97      		sbiw r26,11
+ 3049 138a 00C0      		rjmp .L260
+ 3050               	.L266:
+ 3051 138c 2093 0000 		sts OSRdyGrp,r18
+ 3052 1390 0895      		ret
+ 3053               		.size	OSTimeTick, .-OSTimeTick
+ 3054               	.global	OSStart
+ 3055               		.type	OSStart, @function
+ 3056               	OSStart:
+ 3057               	/* prologue: function */
+ 3058               	/* frame size = 0 */
+ 3059 1392 8091 0000 		lds r24,OSRunning
+ 3060 1396 8111      		cpse r24,__zero_reg__
+ 3061 1398 0895      		ret
+ 3062               	.L271:
+ 3063 139a E091 0000 		lds r30,OSRdyGrp
+ 3064 139e F0E0      		ldi r31,lo8(0)
+ 3065 13a0 E050      		subi r30,lo8(-(OSUnMapTbl))
+ 3066 13a2 F040      		sbci r31,hi8(-(OSUnMapTbl))
+ 3067 13a4 A081      		ld r26,Z
+ 3068 13a6 EA2F      		mov r30,r26
+ 3069 13a8 F0E0      		ldi r31,lo8(0)
+ 3070 13aa E050      		subi r30,lo8(-(OSRdyTbl))
+ 3071 13ac F040      		sbci r31,hi8(-(OSRdyTbl))
+ 3072 13ae E081      		ld r30,Z
+ 3073 13b0 F0E0      		ldi r31,lo8(0)
+ 3074 13b2 E050      		subi r30,lo8(-(OSUnMapTbl))
+ 3075 13b4 F040      		sbci r31,hi8(-(OSUnMapTbl))
+ 3076 13b6 AA0F      		lsl r26
+ 3077 13b8 AA0F      		lsl r26
+ 3078 13ba AA0F      		lsl r26
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 55
+
+
+ 3079 13bc 8081      		ld r24,Z
+ 3080 13be A80F      		add r26,r24
+ 3081 13c0 A093 0000 		sts OSPrioHighRdy,r26
+ 3082 13c4 A093 0000 		sts OSPrioCur,r26
+ 3083 13c8 B0E0      		ldi r27,lo8(0)
+ 3084 13ca AA0F      		lsl r26
+ 3085 13cc BB1F      		rol r27
+ 3086 13ce A050      		subi r26,lo8(-(OSTCBPrioTbl))
+ 3087 13d0 B040      		sbci r27,hi8(-(OSTCBPrioTbl))
+ 3088 13d2 8D91      		ld r24,X+
+ 3089 13d4 9C91      		ld r25,X
+ 3090 13d6 9093 0000 		sts (OSTCBHighRdy)+1,r25
+ 3091 13da 8093 0000 		sts OSTCBHighRdy,r24
+ 3092 13de 9093 0000 		sts (OSTCBCur)+1,r25
+ 3093 13e2 8093 0000 		sts OSTCBCur,r24
+ 3094 13e6 0E94 0000 		call OSStartHighRdy
+ 3095 13ea 0895      		ret
+ 3096               		.size	OSStart, .-OSStart
+ 3097               	.global	OSIntExit
+ 3098               		.type	OSIntExit, @function
+ 3099               	OSIntExit:
+ 3100               	/* prologue: function */
+ 3101               	/* frame size = 0 */
+ 3102 13ec 8091 0000 		lds r24,OSRunning
+ 3103 13f0 8130      		cpi r24,lo8(1)
+ 3104 13f2 01F0      		breq .L277
+ 3105 13f4 0895      		ret
+ 3106               	.L277:
+ 3107               	/* #APP */
+ 3108               	 ;  180 "c:/software/uCOS-II/lab2/source/os_core.c" 1
+ 3109 13f6 F894      		cli
+ 3110               	 ;  0 "" 2
+ 3111               	/* #NOAPP */
+ 3112 13f8 8091 0000 		lds r24,OSIntNesting
+ 3113 13fc 8823      		tst r24
+ 3114 13fe 01F0      		breq .L274
+ 3115 1400 8150      		subi r24,lo8(-(-1))
+ 3116 1402 8093 0000 		sts OSIntNesting,r24
+ 3117 1406 8823      		tst r24
+ 3118 1408 01F0      		breq .L274
+ 3119               	.L275:
+ 3120               	/* #APP */
+ 3121               	 ;  193 "c:/software/uCOS-II/lab2/source/os_core.c" 1
+ 3122 140a 7894      		sei
+ 3123               	 ;  0 "" 2
+ 3124               	/* #NOAPP */
+ 3125 140c 0895      		ret
+ 3126               	.L274:
+ 3127 140e 8091 0000 		lds r24,OSLockNesting
+ 3128 1412 8823      		tst r24
+ 3129 1414 01F4      		brne .L275
+ 3130 1416 E091 0000 		lds r30,OSRdyGrp
+ 3131 141a F0E0      		ldi r31,lo8(0)
+ 3132 141c E050      		subi r30,lo8(-(OSUnMapTbl))
+ 3133 141e F040      		sbci r31,hi8(-(OSUnMapTbl))
+ 3134 1420 8081      		ld r24,Z
+ 3135 1422 8093 0000 		sts OSIntExitY,r24
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 56
+
+
+ 3136 1426 E82F      		mov r30,r24
+ 3137 1428 F0E0      		ldi r31,lo8(0)
+ 3138 142a E050      		subi r30,lo8(-(OSRdyTbl))
+ 3139 142c F040      		sbci r31,hi8(-(OSRdyTbl))
+ 3140 142e E081      		ld r30,Z
+ 3141 1430 F0E0      		ldi r31,lo8(0)
+ 3142 1432 E050      		subi r30,lo8(-(OSUnMapTbl))
+ 3143 1434 F040      		sbci r31,hi8(-(OSUnMapTbl))
+ 3144 1436 982F      		mov r25,r24
+ 3145 1438 990F      		lsl r25
+ 3146 143a 990F      		lsl r25
+ 3147 143c 990F      		lsl r25
+ 3148 143e 8081      		ld r24,Z
+ 3149 1440 980F      		add r25,r24
+ 3150 1442 9093 0000 		sts OSPrioHighRdy,r25
+ 3151 1446 8091 0000 		lds r24,OSPrioCur
+ 3152 144a 9817      		cp r25,r24
+ 3153 144c 01F0      		breq .L275
+ 3154 144e E92F      		mov r30,r25
+ 3155 1450 F0E0      		ldi r31,lo8(0)
+ 3156 1452 EE0F      		lsl r30
+ 3157 1454 FF1F      		rol r31
+ 3158 1456 E050      		subi r30,lo8(-(OSTCBPrioTbl))
+ 3159 1458 F040      		sbci r31,hi8(-(OSTCBPrioTbl))
+ 3160 145a 8081      		ld r24,Z
+ 3161 145c 9181      		ldd r25,Z+1
+ 3162 145e 9093 0000 		sts (OSTCBHighRdy)+1,r25
+ 3163 1462 8093 0000 		sts OSTCBHighRdy,r24
+ 3164 1466 8091 0000 		lds r24,OSCtxSwCtr
+ 3165 146a 9091 0000 		lds r25,(OSCtxSwCtr)+1
+ 3166 146e A091 0000 		lds r26,(OSCtxSwCtr)+2
+ 3167 1472 B091 0000 		lds r27,(OSCtxSwCtr)+3
+ 3168 1476 0196      		adiw r24,1
+ 3169 1478 A11D      		adc r26,__zero_reg__
+ 3170 147a B11D      		adc r27,__zero_reg__
+ 3171 147c 8093 0000 		sts OSCtxSwCtr,r24
+ 3172 1480 9093 0000 		sts (OSCtxSwCtr)+1,r25
+ 3173 1484 A093 0000 		sts (OSCtxSwCtr)+2,r26
+ 3174 1488 B093 0000 		sts (OSCtxSwCtr)+3,r27
+ 3175 148c 0E94 0000 		call OSIntCtxSw
+ 3176 1490 00C0      		rjmp .L275
+ 3177               		.size	OSIntExit, .-OSIntExit
+ 3178               	.global	OSInit
+ 3179               		.type	OSInit, @function
+ 3180               	OSInit:
+ 3181               	/* prologue: function */
+ 3182               	/* frame size = 0 */
+ 3183 1492 0E94 0000 		call OSInitHookBegin
+ 3184 1496 1092 0000 		sts OSIntNesting,__zero_reg__
+ 3185 149a 1092 0000 		sts OSLockNesting,__zero_reg__
+ 3186 149e 1092 0000 		sts OSTaskCtr,__zero_reg__
+ 3187 14a2 1092 0000 		sts OSRunning,__zero_reg__
+ 3188 14a6 1092 0000 		sts OSCtxSwCtr,__zero_reg__
+ 3189 14aa 1092 0000 		sts (OSCtxSwCtr)+1,__zero_reg__
+ 3190 14ae 1092 0000 		sts (OSCtxSwCtr)+2,__zero_reg__
+ 3191 14b2 1092 0000 		sts (OSCtxSwCtr)+3,__zero_reg__
+ 3192 14b6 1092 0000 		sts OSIdleCtr,__zero_reg__
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 57
+
+
+ 3193 14ba 1092 0000 		sts (OSIdleCtr)+1,__zero_reg__
+ 3194 14be 1092 0000 		sts (OSIdleCtr)+2,__zero_reg__
+ 3195 14c2 1092 0000 		sts (OSIdleCtr)+3,__zero_reg__
+ 3196 14c6 1092 0000 		sts OSRdyGrp,__zero_reg__
+ 3197 14ca 1092 0000 		sts OSRdyTbl,__zero_reg__
+ 3198 14ce 1092 0000 		sts OSRdyTbl+1,__zero_reg__
+ 3199 14d2 1092 0000 		sts OSPrioCur,__zero_reg__
+ 3200 14d6 1092 0000 		sts OSPrioHighRdy,__zero_reg__
+ 3201 14da 1092 0000 		sts (OSTCBHighRdy)+1,__zero_reg__
+ 3202 14de 1092 0000 		sts OSTCBHighRdy,__zero_reg__
+ 3203 14e2 1092 0000 		sts (OSTCBCur)+1,__zero_reg__
+ 3204 14e6 1092 0000 		sts OSTCBCur,__zero_reg__
+ 3205 14ea 1092 0000 		sts (OSTCBList)+1,__zero_reg__
+ 3206 14ee 1092 0000 		sts OSTCBList,__zero_reg__
+ 3207 14f2 E0E0      		ldi r30,lo8(OSTCBPrioTbl)
+ 3208 14f4 F0E0      		ldi r31,hi8(OSTCBPrioTbl)
+ 3209               	.L279:
+ 3210 14f6 1192      		st Z+,__zero_reg__
+ 3211 14f8 1192      		st Z+,__zero_reg__
+ 3212 14fa 20E0      		ldi r18,hi8(OSTCBPrioTbl+26)
+ 3213 14fc E030      		cpi r30,lo8(OSTCBPrioTbl+26)
+ 3214 14fe F207      		cpc r31,r18
+ 3215 1500 01F4      		brne .L279
+ 3216 1502 80E0      		ldi r24,lo8(OSTCBTbl+19)
+ 3217 1504 90E0      		ldi r25,hi8(OSTCBTbl+19)
+ 3218               	.L280:
+ 3219 1506 FC01      		movw r30,r24
+ 3220 1508 7197      		sbiw r30,17
+ 3221 150a 9183      		std Z+1,r25
+ 3222 150c 8083      		st Z,r24
+ 3223 150e 4396      		adiw r24,19
+ 3224 1510 20E0      		ldi r18,hi8(OSTCBTbl+247)
+ 3225 1512 8030      		cpi r24,lo8(OSTCBTbl+247)
+ 3226 1514 9207      		cpc r25,r18
+ 3227 1516 01F4      		brne .L280
+ 3228 1518 1092 0000 		sts (OSTCBTbl+230)+1,__zero_reg__
+ 3229 151c 1092 0000 		sts OSTCBTbl+230,__zero_reg__
+ 3230 1520 80E0      		ldi r24,lo8(OSTCBTbl)
+ 3231 1522 90E0      		ldi r25,hi8(OSTCBTbl)
+ 3232 1524 9093 0000 		sts (OSTCBFreeList)+1,r25
+ 3233 1528 8093 0000 		sts OSTCBFreeList,r24
+ 3234 152c 1092 0000 		sts OSEventTbl,__zero_reg__
+ 3235 1530 80E0      		ldi r24,lo8(OSEventTbl+8)
+ 3236 1532 90E0      		ldi r25,hi8(OSEventTbl+8)
+ 3237 1534 9093 0000 		sts (OSEventTbl+4)+1,r25
+ 3238 1538 8093 0000 		sts OSEventTbl+4,r24
+ 3239 153c 1092 0000 		sts OSEventTbl+8,__zero_reg__
+ 3240 1540 0896      		adiw r24,8
+ 3241 1542 9093 0000 		sts (OSEventTbl+12)+1,r25
+ 3242 1546 8093 0000 		sts OSEventTbl+12,r24
+ 3243 154a 4097      		sbiw r24,16
+ 3244 154c 1092 0000 		sts OSEventTbl+16,__zero_reg__
+ 3245 1550 1092 0000 		sts (OSEventTbl+20)+1,__zero_reg__
+ 3246 1554 1092 0000 		sts OSEventTbl+20,__zero_reg__
+ 3247 1558 9093 0000 		sts (OSEventFreeList)+1,r25
+ 3248 155c 8093 0000 		sts OSEventFreeList,r24
+ 3249 1560 80E0      		ldi r24,lo8(OSFlagTbl)
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 58
+
+
+ 3250 1562 90E0      		ldi r25,hi8(OSFlagTbl)
+ 3251 1564 9093 0000 		sts (OSFlagFreeList)+1,r25
+ 3252 1568 8093 0000 		sts OSFlagFreeList,r24
+ 3253 156c 1092 0000 		sts OSFlagTbl,__zero_reg__
+ 3254 1570 1092 0000 		sts (OSFlagTbl+1)+1,__zero_reg__
+ 3255 1574 1092 0000 		sts OSFlagTbl+1,__zero_reg__
+ 3256 1578 0E94 0000 		call OS_QInit
+ 3257 157c 80E0      		ldi r24,lo8(gs(OS_TaskIdle))
+ 3258 157e 90E0      		ldi r25,hi8(gs(OS_TaskIdle))
+ 3259 1580 60E0      		ldi r22,lo8(0)
+ 3260 1582 70E0      		ldi r23,hi8(0)
+ 3261 1584 40E0      		ldi r20,lo8(OSTaskIdleStk+127)
+ 3262 1586 50E0      		ldi r21,hi8(OSTaskIdleStk+127)
+ 3263 1588 2CE0      		ldi r18,lo8(12)
+ 3264 158a 0E94 0000 		call OSTaskCreate
+ 3265 158e 80E0      		ldi r24,lo8(gs(OS_TaskStat))
+ 3266 1590 90E0      		ldi r25,hi8(gs(OS_TaskStat))
+ 3267 1592 60E0      		ldi r22,lo8(0)
+ 3268 1594 70E0      		ldi r23,hi8(0)
+ 3269 1596 40E0      		ldi r20,lo8(OSTaskStatStk+127)
+ 3270 1598 50E0      		ldi r21,hi8(OSTaskStatStk+127)
+ 3271 159a 2BE0      		ldi r18,lo8(11)
+ 3272 159c 0E94 0000 		call OSTaskCreate
+ 3273 15a0 0E94 0000 		call OSInitHookEnd
+ 3274               	/* epilogue start */
+ 3275 15a4 0895      		ret
+ 3276               		.size	OSInit, .-OSInit
+ 3277               	.global	OSMapTbl
+ 3278               		.data
+ 3279               		.type	OSMapTbl, @object
+ 3280               		.size	OSMapTbl, 8
+ 3281               	OSMapTbl:
+ 3282 0000 01        		.byte	1
+ 3283 0001 02        		.byte	2
+ 3284 0002 04        		.byte	4
+ 3285 0003 08        		.byte	8
+ 3286 0004 10        		.byte	16
+ 3287 0005 20        		.byte	32
+ 3288 0006 40        		.byte	64
+ 3289 0007 80        		.byte	-128
+ 3290               	.global	OSUnMapTbl
+ 3291               		.type	OSUnMapTbl, @object
+ 3292               		.size	OSUnMapTbl, 256
+ 3293               	OSUnMapTbl:
+ 3294 0008 00        		.byte	0
+ 3295 0009 00        		.byte	0
+ 3296 000a 01        		.byte	1
+ 3297 000b 00        		.byte	0
+ 3298 000c 02        		.byte	2
+ 3299 000d 00        		.byte	0
+ 3300 000e 01        		.byte	1
+ 3301 000f 00        		.byte	0
+ 3302 0010 03        		.byte	3
+ 3303 0011 00        		.byte	0
+ 3304 0012 01        		.byte	1
+ 3305 0013 00        		.byte	0
+ 3306 0014 02        		.byte	2
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 59
+
+
+ 3307 0015 00        		.byte	0
+ 3308 0016 01        		.byte	1
+ 3309 0017 00        		.byte	0
+ 3310 0018 04        		.byte	4
+ 3311 0019 00        		.byte	0
+ 3312 001a 01        		.byte	1
+ 3313 001b 00        		.byte	0
+ 3314 001c 02        		.byte	2
+ 3315 001d 00        		.byte	0
+ 3316 001e 01        		.byte	1
+ 3317 001f 00        		.byte	0
+ 3318 0020 03        		.byte	3
+ 3319 0021 00        		.byte	0
+ 3320 0022 01        		.byte	1
+ 3321 0023 00        		.byte	0
+ 3322 0024 02        		.byte	2
+ 3323 0025 00        		.byte	0
+ 3324 0026 01        		.byte	1
+ 3325 0027 00        		.byte	0
+ 3326 0028 05        		.byte	5
+ 3327 0029 00        		.byte	0
+ 3328 002a 01        		.byte	1
+ 3329 002b 00        		.byte	0
+ 3330 002c 02        		.byte	2
+ 3331 002d 00        		.byte	0
+ 3332 002e 01        		.byte	1
+ 3333 002f 00        		.byte	0
+ 3334 0030 03        		.byte	3
+ 3335 0031 00        		.byte	0
+ 3336 0032 01        		.byte	1
+ 3337 0033 00        		.byte	0
+ 3338 0034 02        		.byte	2
+ 3339 0035 00        		.byte	0
+ 3340 0036 01        		.byte	1
+ 3341 0037 00        		.byte	0
+ 3342 0038 04        		.byte	4
+ 3343 0039 00        		.byte	0
+ 3344 003a 01        		.byte	1
+ 3345 003b 00        		.byte	0
+ 3346 003c 02        		.byte	2
+ 3347 003d 00        		.byte	0
+ 3348 003e 01        		.byte	1
+ 3349 003f 00        		.byte	0
+ 3350 0040 03        		.byte	3
+ 3351 0041 00        		.byte	0
+ 3352 0042 01        		.byte	1
+ 3353 0043 00        		.byte	0
+ 3354 0044 02        		.byte	2
+ 3355 0045 00        		.byte	0
+ 3356 0046 01        		.byte	1
+ 3357 0047 00        		.byte	0
+ 3358 0048 06        		.byte	6
+ 3359 0049 00        		.byte	0
+ 3360 004a 01        		.byte	1
+ 3361 004b 00        		.byte	0
+ 3362 004c 02        		.byte	2
+ 3363 004d 00        		.byte	0
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 60
+
+
+ 3364 004e 01        		.byte	1
+ 3365 004f 00        		.byte	0
+ 3366 0050 03        		.byte	3
+ 3367 0051 00        		.byte	0
+ 3368 0052 01        		.byte	1
+ 3369 0053 00        		.byte	0
+ 3370 0054 02        		.byte	2
+ 3371 0055 00        		.byte	0
+ 3372 0056 01        		.byte	1
+ 3373 0057 00        		.byte	0
+ 3374 0058 04        		.byte	4
+ 3375 0059 00        		.byte	0
+ 3376 005a 01        		.byte	1
+ 3377 005b 00        		.byte	0
+ 3378 005c 02        		.byte	2
+ 3379 005d 00        		.byte	0
+ 3380 005e 01        		.byte	1
+ 3381 005f 00        		.byte	0
+ 3382 0060 03        		.byte	3
+ 3383 0061 00        		.byte	0
+ 3384 0062 01        		.byte	1
+ 3385 0063 00        		.byte	0
+ 3386 0064 02        		.byte	2
+ 3387 0065 00        		.byte	0
+ 3388 0066 01        		.byte	1
+ 3389 0067 00        		.byte	0
+ 3390 0068 05        		.byte	5
+ 3391 0069 00        		.byte	0
+ 3392 006a 01        		.byte	1
+ 3393 006b 00        		.byte	0
+ 3394 006c 02        		.byte	2
+ 3395 006d 00        		.byte	0
+ 3396 006e 01        		.byte	1
+ 3397 006f 00        		.byte	0
+ 3398 0070 03        		.byte	3
+ 3399 0071 00        		.byte	0
+ 3400 0072 01        		.byte	1
+ 3401 0073 00        		.byte	0
+ 3402 0074 02        		.byte	2
+ 3403 0075 00        		.byte	0
+ 3404 0076 01        		.byte	1
+ 3405 0077 00        		.byte	0
+ 3406 0078 04        		.byte	4
+ 3407 0079 00        		.byte	0
+ 3408 007a 01        		.byte	1
+ 3409 007b 00        		.byte	0
+ 3410 007c 02        		.byte	2
+ 3411 007d 00        		.byte	0
+ 3412 007e 01        		.byte	1
+ 3413 007f 00        		.byte	0
+ 3414 0080 03        		.byte	3
+ 3415 0081 00        		.byte	0
+ 3416 0082 01        		.byte	1
+ 3417 0083 00        		.byte	0
+ 3418 0084 02        		.byte	2
+ 3419 0085 00        		.byte	0
+ 3420 0086 01        		.byte	1
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 61
+
+
+ 3421 0087 00        		.byte	0
+ 3422 0088 07        		.byte	7
+ 3423 0089 00        		.byte	0
+ 3424 008a 01        		.byte	1
+ 3425 008b 00        		.byte	0
+ 3426 008c 02        		.byte	2
+ 3427 008d 00        		.byte	0
+ 3428 008e 01        		.byte	1
+ 3429 008f 00        		.byte	0
+ 3430 0090 03        		.byte	3
+ 3431 0091 00        		.byte	0
+ 3432 0092 01        		.byte	1
+ 3433 0093 00        		.byte	0
+ 3434 0094 02        		.byte	2
+ 3435 0095 00        		.byte	0
+ 3436 0096 01        		.byte	1
+ 3437 0097 00        		.byte	0
+ 3438 0098 04        		.byte	4
+ 3439 0099 00        		.byte	0
+ 3440 009a 01        		.byte	1
+ 3441 009b 00        		.byte	0
+ 3442 009c 02        		.byte	2
+ 3443 009d 00        		.byte	0
+ 3444 009e 01        		.byte	1
+ 3445 009f 00        		.byte	0
+ 3446 00a0 03        		.byte	3
+ 3447 00a1 00        		.byte	0
+ 3448 00a2 01        		.byte	1
+ 3449 00a3 00        		.byte	0
+ 3450 00a4 02        		.byte	2
+ 3451 00a5 00        		.byte	0
+ 3452 00a6 01        		.byte	1
+ 3453 00a7 00        		.byte	0
+ 3454 00a8 05        		.byte	5
+ 3455 00a9 00        		.byte	0
+ 3456 00aa 01        		.byte	1
+ 3457 00ab 00        		.byte	0
+ 3458 00ac 02        		.byte	2
+ 3459 00ad 00        		.byte	0
+ 3460 00ae 01        		.byte	1
+ 3461 00af 00        		.byte	0
+ 3462 00b0 03        		.byte	3
+ 3463 00b1 00        		.byte	0
+ 3464 00b2 01        		.byte	1
+ 3465 00b3 00        		.byte	0
+ 3466 00b4 02        		.byte	2
+ 3467 00b5 00        		.byte	0
+ 3468 00b6 01        		.byte	1
+ 3469 00b7 00        		.byte	0
+ 3470 00b8 04        		.byte	4
+ 3471 00b9 00        		.byte	0
+ 3472 00ba 01        		.byte	1
+ 3473 00bb 00        		.byte	0
+ 3474 00bc 02        		.byte	2
+ 3475 00bd 00        		.byte	0
+ 3476 00be 01        		.byte	1
+ 3477 00bf 00        		.byte	0
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 62
+
+
+ 3478 00c0 03        		.byte	3
+ 3479 00c1 00        		.byte	0
+ 3480 00c2 01        		.byte	1
+ 3481 00c3 00        		.byte	0
+ 3482 00c4 02        		.byte	2
+ 3483 00c5 00        		.byte	0
+ 3484 00c6 01        		.byte	1
+ 3485 00c7 00        		.byte	0
+ 3486 00c8 06        		.byte	6
+ 3487 00c9 00        		.byte	0
+ 3488 00ca 01        		.byte	1
+ 3489 00cb 00        		.byte	0
+ 3490 00cc 02        		.byte	2
+ 3491 00cd 00        		.byte	0
+ 3492 00ce 01        		.byte	1
+ 3493 00cf 00        		.byte	0
+ 3494 00d0 03        		.byte	3
+ 3495 00d1 00        		.byte	0
+ 3496 00d2 01        		.byte	1
+ 3497 00d3 00        		.byte	0
+ 3498 00d4 02        		.byte	2
+ 3499 00d5 00        		.byte	0
+ 3500 00d6 01        		.byte	1
+ 3501 00d7 00        		.byte	0
+ 3502 00d8 04        		.byte	4
+ 3503 00d9 00        		.byte	0
+ 3504 00da 01        		.byte	1
+ 3505 00db 00        		.byte	0
+ 3506 00dc 02        		.byte	2
+ 3507 00dd 00        		.byte	0
+ 3508 00de 01        		.byte	1
+ 3509 00df 00        		.byte	0
+ 3510 00e0 03        		.byte	3
+ 3511 00e1 00        		.byte	0
+ 3512 00e2 01        		.byte	1
+ 3513 00e3 00        		.byte	0
+ 3514 00e4 02        		.byte	2
+ 3515 00e5 00        		.byte	0
+ 3516 00e6 01        		.byte	1
+ 3517 00e7 00        		.byte	0
+ 3518 00e8 05        		.byte	5
+ 3519 00e9 00        		.byte	0
+ 3520 00ea 01        		.byte	1
+ 3521 00eb 00        		.byte	0
+ 3522 00ec 02        		.byte	2
+ 3523 00ed 00        		.byte	0
+ 3524 00ee 01        		.byte	1
+ 3525 00ef 00        		.byte	0
+ 3526 00f0 03        		.byte	3
+ 3527 00f1 00        		.byte	0
+ 3528 00f2 01        		.byte	1
+ 3529 00f3 00        		.byte	0
+ 3530 00f4 02        		.byte	2
+ 3531 00f5 00        		.byte	0
+ 3532 00f6 01        		.byte	1
+ 3533 00f7 00        		.byte	0
+ 3534 00f8 04        		.byte	4
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 63
+
+
+ 3535 00f9 00        		.byte	0
+ 3536 00fa 01        		.byte	1
+ 3537 00fb 00        		.byte	0
+ 3538 00fc 02        		.byte	2
+ 3539 00fd 00        		.byte	0
+ 3540 00fe 01        		.byte	1
+ 3541 00ff 00        		.byte	0
+ 3542 0100 03        		.byte	3
+ 3543 0101 00        		.byte	0
+ 3544 0102 01        		.byte	1
+ 3545 0103 00        		.byte	0
+ 3546 0104 02        		.byte	2
+ 3547 0105 00        		.byte	0
+ 3548 0106 01        		.byte	1
+ 3549 0107 00        		.byte	0
+ 3550               		.comm OSCtxSwCtr,4,1
+ 3551               		.comm OSEventFreeList,2,1
+ 3552               		.comm OSEventTbl,24,1
+ 3553               		.comm OSFlagTbl,4,1
+ 3554               		.comm OSFlagFreeList,2,1
+ 3555               		.comm OSCPUUsage,1,1
+ 3556               		.comm OSIdleCtrMax,4,1
+ 3557               		.comm OSIdleCtrRun,4,1
+ 3558               		.comm OSStatRdy,1,1
+ 3559               		.comm OSTaskStatStk,128,1
+ 3560               		.comm OSIntNesting,1,1
+ 3561               		.comm OSIntExitY,1,1
+ 3562               		.comm OSLockNesting,1,1
+ 3563               		.comm OSPrioCur,1,1
+ 3564               		.comm OSPrioHighRdy,1,1
+ 3565               		.comm OSRdyGrp,1,1
+ 3566               		.comm OSRdyTbl,2,1
+ 3567               		.comm OSRunning,1,1
+ 3568               		.comm OSTaskCtr,1,1
+ 3569               		.comm OSIdleCtr,4,1
+ 3570               		.comm OSTaskIdleStk,128,1
+ 3571               		.comm OSTCBCur,2,1
+ 3572               		.comm OSTCBFreeList,2,1
+ 3573               		.comm OSTCBHighRdy,2,1
+ 3574               		.comm OSTCBList,2,1
+ 3575               		.comm OSTCBPrioTbl,26,1
+ 3576               		.comm OSTCBTbl,247,1
+ 3577               		.comm OSQFreeList,2,1
+ 3578               		.comm OSQTbl,28,1
+ 3579               	.global __do_copy_data
+ 3580               	.global __do_clear_bss
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 64
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 ucos_ii.c
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:2      *ABS*:0000003f __SREG__
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:3      *ABS*:0000003e __SP_H__
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:4      *ABS*:0000003d __SP_L__
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:5      *ABS*:00000034 __CCP__
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:11     .text:00000000 OSIntEnter
+                            *COM*:00000001 OSRunning
+                            *COM*:00000001 OSIntNesting
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:29     .text:0000001a OSSchedLock
+                            *COM*:00000001 OSLockNesting
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:57     .text:00000038 OSVersion
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:67     .text:0000003e OS_EventTaskRdy
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:3293   .data:00000008 OSUnMapTbl
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:3281   .data:00000000 OSMapTbl
+                            *COM*:0000001a OSTCBPrioTbl
+                            *COM*:00000001 OSRdyGrp
+                            *COM*:00000002 OSRdyTbl
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:165    .text:000000f4 OS_EventTaskWait
+                            *COM*:00000002 OSTCBCur
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:223    .text:0000015e OS_EventTO
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:268    .text:000001ac OS_EventWaitListInit
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:280    .text:000001b6 OSFlagCreate
+                            *COM*:00000002 OSFlagFreeList
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:334    .text:00000202 OS_FlagBlock
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:415    .text:0000029a OS_FlagInit
+                            *COM*:00000004 OSFlagTbl
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:430    .text:000002b4 OS_FlagUnlink
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:469    .text:000002f2 OS_FlagTaskRdy
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:532    .text:00000368 OSMboxCreate
+                            *COM*:00000002 OSEventFreeList
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:581    .text:000003b0 OSMutexCreate
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:683    .text:00000450 OSQCreate
+                            *COM*:00000002 OSQFreeList
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:793    .text:00000508 OS_QInit
+                            *COM*:0000001c OSQTbl
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:810    .text:00000528 OSSemCreate
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:859    .text:00000570 OS_TCBInit
+                            *COM*:00000002 OSTCBFreeList
+                            *COM*:00000002 OSTCBList
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:980    .text:00000640 OS_TaskIdle
+                            *COM*:00000004 OSIdleCtr
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:1010   .text:00000670 OS_Sched
+                            *COM*:00000001 OSPrioHighRdy
+                            *COM*:00000001 OSPrioCur
+                            *COM*:00000002 OSTCBHighRdy
+                            *COM*:00000004 OSCtxSwCtr
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:1081   .text:000006fe OSTimeDly
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:1132   .text:0000074e OSTimeDlyHMSM
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:1286   .text:00000870 OS_TaskStat
+                            *COM*:00000001 OSStatRdy
+                            *COM*:00000004 OSIdleCtrMax
+                            *COM*:00000001 OSCPUUsage
+                            *COM*:00000004 OSIdleCtrRun
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:1388   .text:0000095a OSStatInit
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s 			page 65
+
+
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:1436   .text:000009aa OSTaskCreate
+                            *COM*:00000001 OSTaskCtr
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:1552   .text:00000a52 OSSemPost
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:1605   .text:00000a90 OSSemPend
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:1707   .text:00000b26 OSQPost
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:1796   .text:00000ba8 OSQPend
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:1944   .text:00000c96 OSMutexPost
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:2123   .text:00000dd4 OSMutexPend
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:2369   .text:00000f90 OSMboxPost
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:2417   .text:00000fc4 OSMboxPend
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:2522   .text:00001060 OSFlagPost
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:2678   .text:0000114e OSFlagPend
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:2920   .text:000012c8 OSSchedUnlock
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:2968   .text:000012fe OSTimeTick
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:3056   .text:00001392 OSStart
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:3099   .text:000013ec OSIntExit
+                            *COM*:00000001 OSIntExitY
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccQjmMHG.s:3180   .text:00001492 OSInit
+                            *COM*:000000f7 OSTCBTbl
+                            *COM*:00000018 OSEventTbl
+                            *COM*:00000080 OSTaskIdleStk
+                            *COM*:00000080 OSTaskStatStk
+
+UNDEFINED SYMBOLS
+OSTCBInitHook
+OSTaskCreateHook
+OSTaskIdleHook
+OSCtxSw
+__mulsi3
+__udivmodsi4
+OSTaskStatHook
+OSTaskStkInit
+OSTimeTickHook
+OSStartHighRdy
+OSIntCtxSw
+OSInitHookBegin
+OSInitHookEnd
+__do_copy_data
+__do_clear_bss

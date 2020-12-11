@@ -1,0 +1,1162 @@
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s 			page 1
+
+
+   1               		.file	"lab2.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.text
+   9               	.global	FND_SET
+  10               		.type	FND_SET, @function
+  11               	FND_SET:
+  12               	/* prologue: function */
+  13               	/* frame size = 0 */
+  14               	/* #APP */
+  15               	 ;  50 "lab2.c" 1
+  16 0000 F894      		cli
+  17               	 ;  0 "" 2
+  18               	/* #NOAPP */
+  19 0002 8FEF      		ldi r24,lo8(-1)
+  20 0004 84BB      		out 52-32,r24
+  21 0006 8FE0      		ldi r24,lo8(15)
+  22 0008 8093 6400 		sts 100,r24
+  23               	/* #APP */
+  24               	 ;  53 "lab2.c" 1
+  25 000c 7894      		sei
+  26               	 ;  0 "" 2
+  27               	/* epilogue start */
+  28               	/* #NOAPP */
+  29 000e 0895      		ret
+  30               		.size	FND_SET, .-FND_SET
+  31               	.global	LED_SET
+  32               		.type	LED_SET, @function
+  33               	LED_SET:
+  34               	/* prologue: function */
+  35               	/* frame size = 0 */
+  36               	/* #APP */
+  37               	 ;  57 "lab2.c" 1
+  38 0010 F894      		cli
+  39               	 ;  0 "" 2
+  40               	/* #NOAPP */
+  41 0012 8FEF      		ldi r24,lo8(-1)
+  42 0014 8ABB      		out 58-32,r24
+  43 0016 1BBA      		out 59-32,__zero_reg__
+  44               	/* #APP */
+  45               	 ;  60 "lab2.c" 1
+  46 0018 7894      		sei
+  47               	 ;  0 "" 2
+  48               	/* epilogue start */
+  49               	/* #NOAPP */
+  50 001a 0895      		ret
+  51               		.size	LED_SET, .-LED_SET
+  52               	.global	BUZZER_SET
+  53               		.type	BUZZER_SET, @function
+  54               	BUZZER_SET:
+  55               	/* prologue: function */
+  56               	/* frame size = 0 */
+  57               	/* #APP */
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s 			page 2
+
+
+  58               	 ;  64 "lab2.c" 1
+  59 001c F894      		cli
+  60               	 ;  0 "" 2
+  61               	/* #NOAPP */
+  62 001e 80E1      		ldi r24,lo8(16)
+  63 0020 87BB      		out 55-32,r24
+  64 0022 83E0      		ldi r24,lo8(3)
+  65 0024 85BD      		out 69-32,r24
+  66 0026 87E0      		ldi r24,lo8(7)
+  67 0028 83BF      		out 83-32,r24
+  68 002a 81E4      		ldi r24,lo8(65)
+  69 002c 87BF      		out 87-32,r24
+  70 002e 84E6      		ldi r24,lo8(100)
+  71 0030 82BF      		out 82-32,r24
+  72               	/* #APP */
+  73               	 ;  70 "lab2.c" 1
+  74 0032 7894      		sei
+  75               	 ;  0 "" 2
+  76               	/* epilogue start */
+  77               	/* #NOAPP */
+  78 0034 0895      		ret
+  79               		.size	BUZZER_SET, .-BUZZER_SET
+  80               	.global	CDS_SET
+  81               		.type	CDS_SET, @function
+  82               	CDS_SET:
+  83               	/* prologue: function */
+  84               	/* frame size = 0 */
+  85               	/* #APP */
+  86               	 ;  74 "lab2.c" 1
+  87 0036 F894      		cli
+  88               	 ;  0 "" 2
+  89               	/* #NOAPP */
+  90 0038 17B8      		out 39-32,__zero_reg__
+  91 003a 87E8      		ldi r24,lo8(-121)
+  92 003c 86B9      		out 38-32,r24
+  93               	/* #APP */
+  94               	 ;  77 "lab2.c" 1
+  95 003e 7894      		sei
+  96               	 ;  0 "" 2
+  97               	/* epilogue start */
+  98               	/* #NOAPP */
+  99 0040 0895      		ret
+ 100               		.size	CDS_SET, .-CDS_SET
+ 101               	.global	FND_RESET
+ 102               		.type	FND_RESET, @function
+ 103               	FND_RESET:
+ 104               	/* prologue: function */
+ 105               	/* frame size = 0 */
+ 106               	/* #APP */
+ 107               	 ;  81 "lab2.c" 1
+ 108 0042 F894      		cli
+ 109               	 ;  0 "" 2
+ 110               	/* #NOAPP */
+ 111 0044 8FEF      		ldi r24,lo8(-1)
+ 112 0046 84BB      		out 52-32,r24
+ 113 0048 1092 6400 		sts 100,__zero_reg__
+ 114               	/* #APP */
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s 			page 3
+
+
+ 115               	 ;  84 "lab2.c" 1
+ 116 004c 7894      		sei
+ 117               	 ;  0 "" 2
+ 118               	/* epilogue start */
+ 119               	/* #NOAPP */
+ 120 004e 0895      		ret
+ 121               		.size	FND_RESET, .-FND_RESET
+ 122               	.global	LED_RESET
+ 123               		.type	LED_RESET, @function
+ 124               	LED_RESET:
+ 125               	/* prologue: function */
+ 126               	/* frame size = 0 */
+ 127               	/* #APP */
+ 128               	 ;  88 "lab2.c" 1
+ 129 0050 F894      		cli
+ 130               	 ;  0 "" 2
+ 131               	/* #NOAPP */
+ 132 0052 1ABA      		out 58-32,__zero_reg__
+ 133 0054 1BBA      		out 59-32,__zero_reg__
+ 134               	/* #APP */
+ 135               	 ;  91 "lab2.c" 1
+ 136 0056 7894      		sei
+ 137               	 ;  0 "" 2
+ 138               	/* epilogue start */
+ 139               	/* #NOAPP */
+ 140 0058 0895      		ret
+ 141               		.size	LED_RESET, .-LED_RESET
+ 142               	.global	read_adc
+ 143               		.type	read_adc, @function
+ 144               	read_adc:
+ 145               	/* prologue: function */
+ 146               	/* frame size = 0 */
+ 147 005a 369A      		sbi 38-32,6
+ 148               	.L14:
+ 149 005c 349B      		sbis 38-32,4
+ 150 005e 00C0      		rjmp .L14
+ 151 0060 24B1      		in r18,36-32
+ 152 0062 45B1      		in r20,37-32
+ 153 0064 942F      		mov r25,r20
+ 154 0066 80E0      		ldi r24,lo8(0)
+ 155 0068 30E0      		ldi r19,lo8(0)
+ 156 006a 282B      		or r18,r24
+ 157 006c 392B      		or r19,r25
+ 158 006e C901      		movw r24,r18
+ 159               	/* epilogue start */
+ 160 0070 0895      		ret
+ 161               		.size	read_adc, .-read_adc
+ 162               	.global	Display_FND
+ 163               		.type	Display_FND, @function
+ 164               	Display_FND:
+ 165 0072 0F93      		push r16
+ 166 0074 1F93      		push r17
+ 167               	/* prologue: function */
+ 168               	/* frame size = 0 */
+ 169 0076 8C01      		movw r16,r24
+ 170 0078 6AE0      		ldi r22,lo8(10)
+ 171 007a 70E0      		ldi r23,hi8(10)
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s 			page 4
+
+
+ 172 007c 0E94 0000 		call __divmodhi4
+ 173 0080 FB01      		movw r30,r22
+ 174 0082 20E0      		ldi r18,lo8(FND_DATA)
+ 175 0084 30E0      		ldi r19,hi8(FND_DATA)
+ 176 0086 E20F      		add r30,r18
+ 177 0088 F31F      		adc r31,r19
+ 178 008a 4081      		ld r20,Z
+ 179 008c C801      		movw r24,r16
+ 180 008e 6AE0      		ldi r22,lo8(10)
+ 181 0090 70E0      		ldi r23,hi8(10)
+ 182 0092 0E94 0000 		call __divmodhi4
+ 183 0096 280F      		add r18,r24
+ 184 0098 391F      		adc r19,r25
+ 185 009a F901      		movw r30,r18
+ 186 009c 8081      		ld r24,Z
+ 187 009e 85BB      		out 53-32,r24
+ 188 00a0 E5E6      		ldi r30,lo8(101)
+ 189 00a2 F0E0      		ldi r31,hi8(101)
+ 190 00a4 81E0      		ldi r24,lo8(1)
+ 191 00a6 8083      		st Z,r24
+ 192 00a8 20ED      		ldi r18,lo8(2000)
+ 193 00aa 37E0      		ldi r19,hi8(2000)
+ 194 00ac C901      		movw r24,r18
+ 195               	/* #APP */
+ 196               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 197 00ae 0197      		1: sbiw r24,1
+ 198 00b0 01F4      		brne 1b
+ 199               	 ;  0 "" 2
+ 200               	/* #NOAPP */
+ 201 00b2 45BB      		out 53-32,r20
+ 202 00b4 82E0      		ldi r24,lo8(2)
+ 203 00b6 8083      		st Z,r24
+ 204 00b8 C901      		movw r24,r18
+ 205               	/* #APP */
+ 206               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 207 00ba 0197      		1: sbiw r24,1
+ 208 00bc 01F4      		brne 1b
+ 209               	 ;  0 "" 2
+ 210               	/* epilogue start */
+ 211               	/* #NOAPP */
+ 212 00be 1F91      		pop r17
+ 213 00c0 0F91      		pop r16
+ 214 00c2 0895      		ret
+ 215               		.size	Display_FND, .-Display_FND
+ 216               	.global	Display_LED
+ 217               		.type	Display_LED, @function
+ 218               	Display_LED:
+ 219 00c4 CF92      		push r12
+ 220 00c6 DF92      		push r13
+ 221 00c8 EF92      		push r14
+ 222 00ca FF92      		push r15
+ 223 00cc 0F93      		push r16
+ 224 00ce 1F93      		push r17
+ 225               	/* prologue: function */
+ 226               	/* frame size = 0 */
+ 227 00d0 C090 0000 		lds r12,maxCnt
+ 228 00d4 D090 0000 		lds r13,(maxCnt)+1
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s 			page 5
+
+
+ 229 00d8 AA27      		clr r26
+ 230 00da 97FD      		sbrc r25,7
+ 231 00dc A095      		com r26
+ 232 00de BA2F      		mov r27,r26
+ 233 00e0 BC01      		movw r22,r24
+ 234 00e2 CD01      		movw r24,r26
+ 235 00e4 0E94 0000 		call __floatsisf
+ 236 00e8 7B01      		movw r14,r22
+ 237 00ea 8C01      		movw r16,r24
+ 238 00ec 88E0      		ldi r24,lo8(8)
+ 239 00ee 90E0      		ldi r25,hi8(8)
+ 240 00f0 B601      		movw r22,r12
+ 241 00f2 0E94 0000 		call __divmodhi4
+ 242 00f6 8827      		clr r24
+ 243 00f8 77FD      		sbrc r23,7
+ 244 00fa 8095      		com r24
+ 245 00fc 982F      		mov r25,r24
+ 246 00fe 0E94 0000 		call __floatsisf
+ 247 0102 9B01      		movw r18,r22
+ 248 0104 AC01      		movw r20,r24
+ 249 0106 C801      		movw r24,r16
+ 250 0108 B701      		movw r22,r14
+ 251 010a 0E94 0000 		call __mulsf3
+ 252 010e 0E94 0000 		call __fixsfsi
+ 253 0112 FB01      		movw r30,r22
+ 254 0114 6930      		cpi r22,9
+ 255 0116 7105      		cpc r23,__zero_reg__
+ 256 0118 04F0      		brlt .L21
+ 257 011a E8E0      		ldi r30,lo8(8)
+ 258 011c F0E0      		ldi r31,hi8(8)
+ 259               	.L21:
+ 260 011e EE0F      		lsl r30
+ 261 0120 FF1F      		rol r31
+ 262 0122 E050      		subi r30,lo8(-(LED_DATA))
+ 263 0124 F040      		sbci r31,hi8(-(LED_DATA))
+ 264 0126 8081      		ld r24,Z
+ 265 0128 8BBB      		out 59-32,r24
+ 266               	/* epilogue start */
+ 267 012a 1F91      		pop r17
+ 268 012c 0F91      		pop r16
+ 269 012e FF90      		pop r15
+ 270 0130 EF90      		pop r14
+ 271 0132 DF90      		pop r13
+ 272 0134 CF90      		pop r12
+ 273 0136 0895      		ret
+ 274               		.size	Display_LED, .-Display_LED
+ 275               	.global	Display_OVER
+ 276               		.type	Display_OVER, @function
+ 277               	Display_OVER:
+ 278               	/* prologue: function */
+ 279               	/* frame size = 0 */
+ 280 0138 80E5      		ldi r24,lo8(80)
+ 281 013a 85BB      		out 53-32,r24
+ 282 013c E5E6      		ldi r30,lo8(101)
+ 283 013e F0E0      		ldi r31,hi8(101)
+ 284 0140 81E0      		ldi r24,lo8(1)
+ 285 0142 8083      		st Z,r24
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s 			page 6
+
+
+ 286 0144 20ED      		ldi r18,lo8(2000)
+ 287 0146 37E0      		ldi r19,hi8(2000)
+ 288 0148 C901      		movw r24,r18
+ 289               	/* #APP */
+ 290               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 291 014a 0197      		1: sbiw r24,1
+ 292 014c 01F4      		brne 1b
+ 293               	 ;  0 "" 2
+ 294               	/* #NOAPP */
+ 295 014e 89E7      		ldi r24,lo8(121)
+ 296 0150 85BB      		out 53-32,r24
+ 297 0152 82E0      		ldi r24,lo8(2)
+ 298 0154 8083      		st Z,r24
+ 299 0156 C901      		movw r24,r18
+ 300               	/* #APP */
+ 301               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 302 0158 0197      		1: sbiw r24,1
+ 303 015a 01F4      		brne 1b
+ 304               	 ;  0 "" 2
+ 305               	/* #NOAPP */
+ 306 015c 8EE3      		ldi r24,lo8(62)
+ 307 015e 85BB      		out 53-32,r24
+ 308 0160 84E0      		ldi r24,lo8(4)
+ 309 0162 8083      		st Z,r24
+ 310 0164 C901      		movw r24,r18
+ 311               	/* #APP */
+ 312               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 313 0166 0197      		1: sbiw r24,1
+ 314 0168 01F4      		brne 1b
+ 315               	 ;  0 "" 2
+ 316               	/* #NOAPP */
+ 317 016a 8FE3      		ldi r24,lo8(63)
+ 318 016c 85BB      		out 53-32,r24
+ 319 016e 88E0      		ldi r24,lo8(8)
+ 320 0170 8083      		st Z,r24
+ 321 0172 C901      		movw r24,r18
+ 322               	/* #APP */
+ 323               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 324 0174 0197      		1: sbiw r24,1
+ 325 0176 01F4      		brne 1b
+ 326               	 ;  0 "" 2
+ 327               	/* epilogue start */
+ 328               	/* #NOAPP */
+ 329 0178 0895      		ret
+ 330               		.size	Display_OVER, .-Display_OVER
+ 331               	.global	__vector_10
+ 332               		.type	__vector_10, @function
+ 333               	__vector_10:
+ 334 017a 1F92      		push __zero_reg__
+ 335 017c 0F92      		push r0
+ 336 017e 0FB6      		in r0,__SREG__
+ 337 0180 0F92      		push r0
+ 338 0182 1124      		clr __zero_reg__
+ 339 0184 2F93      		push r18
+ 340 0186 8F93      		push r24
+ 341 0188 9F93      		push r25
+ 342               	/* prologue: Signal */
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s 			page 7
+
+
+ 343               	/* frame size = 0 */
+ 344 018a 8091 0000 		lds r24,OVER
+ 345 018e 9091 0000 		lds r25,(OVER)+1
+ 346 0192 892B      		or r24,r25
+ 347 0194 01F0      		breq .L29
+ 348 0196 8091 0000 		lds r24,sound
+ 349 019a 9091 0000 		lds r25,(sound)+1
+ 350 019e 8F5F      		subi r24,lo8(-1)
+ 351 01a0 9F4F      		sbci r25,hi8(-1)
+ 352 01a2 01F0      		breq .L29
+ 353 01a4 8091 0000 		lds r24,state
+ 354 01a8 9091 0000 		lds r25,(state)+1
+ 355 01ac 0197      		sbiw r24,1
+ 356 01ae 01F0      		breq .L30
+ 357 01b0 C49A      		sbi 56-32,4
+ 358 01b2 81E0      		ldi r24,lo8(1)
+ 359 01b4 90E0      		ldi r25,hi8(1)
+ 360 01b6 9093 0000 		sts (state)+1,r25
+ 361 01ba 8093 0000 		sts state,r24
+ 362               	.L28:
+ 363 01be 8091 0000 		lds r24,sound
+ 364 01c2 9091 0000 		lds r25,(sound)+1
+ 365 01c6 84BD      		out 68-32,r24
+ 366               	.L29:
+ 367               	/* epilogue start */
+ 368 01c8 9F91      		pop r25
+ 369 01ca 8F91      		pop r24
+ 370 01cc 2F91      		pop r18
+ 371 01ce 0F90      		pop r0
+ 372 01d0 0FBE      		out __SREG__,r0
+ 373 01d2 0F90      		pop r0
+ 374 01d4 1F90      		pop __zero_reg__
+ 375 01d6 1895      		reti
+ 376               	.L30:
+ 377 01d8 C498      		cbi 56-32,4
+ 378 01da 1092 0000 		sts (state)+1,__zero_reg__
+ 379 01de 1092 0000 		sts state,__zero_reg__
+ 380 01e2 00C0      		rjmp .L28
+ 381               		.size	__vector_10, .-__vector_10
+ 382               	.global	main
+ 383               		.type	main, @function
+ 384               	main:
+ 385               	/* prologue: function */
+ 386               	/* frame size = 0 */
+ 387 01e4 0E94 0000 		call OSInit
+ 388               	/* #APP */
+ 389               	 ;  50 "lab2.c" 1
+ 390 01e8 F894      		cli
+ 391               	 ;  0 "" 2
+ 392               	/* #NOAPP */
+ 393 01ea 9FEF      		ldi r25,lo8(-1)
+ 394 01ec 94BB      		out 52-32,r25
+ 395 01ee 8FE0      		ldi r24,lo8(15)
+ 396 01f0 8093 6400 		sts 100,r24
+ 397               	/* #APP */
+ 398               	 ;  53 "lab2.c" 1
+ 399 01f4 7894      		sei
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s 			page 8
+
+
+ 400               	 ;  0 "" 2
+ 401               	 ;  57 "lab2.c" 1
+ 402 01f6 F894      		cli
+ 403               	 ;  0 "" 2
+ 404               	/* #NOAPP */
+ 405 01f8 9ABB      		out 58-32,r25
+ 406 01fa 1BBA      		out 59-32,__zero_reg__
+ 407               	/* #APP */
+ 408               	 ;  60 "lab2.c" 1
+ 409 01fc 7894      		sei
+ 410               	 ;  0 "" 2
+ 411               	/* #NOAPP */
+ 412 01fe 0E94 0000 		call BUZZER_SET
+ 413               	/* #APP */
+ 414               	 ;  74 "lab2.c" 1
+ 415 0202 F894      		cli
+ 416               	 ;  0 "" 2
+ 417               	/* #NOAPP */
+ 418 0204 17B8      		out 39-32,__zero_reg__
+ 419 0206 87E8      		ldi r24,lo8(-121)
+ 420 0208 86B9      		out 38-32,r24
+ 421               	/* #APP */
+ 422               	 ;  77 "lab2.c" 1
+ 423 020a 7894      		sei
+ 424               	 ;  0 "" 2
+ 425               	/* #NOAPP */
+ 426 020c 8FEC      		ldi r24,lo8(-49)
+ 427 020e 82B9      		out 34-32,r24
+ 428 0210 80E3      		ldi r24,lo8(48)
+ 429 0212 89BF      		out 89-32,r24
+ 430 0214 8AE0      		ldi r24,lo8(10)
+ 431 0216 8ABF      		out 90-32,r24
+ 432               	/* #APP */
+ 433               	 ;  275 "lab2.c" 1
+ 434 0218 7894      		sei
+ 435               	 ;  0 "" 2
+ 436               	/* #NOAPP */
+ 437 021a 80E0      		ldi r24,lo8(0)
+ 438 021c 90E0      		ldi r25,hi8(0)
+ 439 021e 0E94 0000 		call OSMboxCreate
+ 440 0222 9093 0000 		sts (Mbox)+1,r25
+ 441 0226 8093 0000 		sts Mbox,r24
+ 442 022a 81E0      		ldi r24,lo8(1)
+ 443 022c 90E0      		ldi r25,hi8(1)
+ 444 022e 0E94 0000 		call OSSemCreate
+ 445 0232 9093 0000 		sts (Sem)+1,r25
+ 446 0236 8093 0000 		sts Sem,r24
+ 447 023a 81E0      		ldi r24,lo8(1)
+ 448 023c 60E0      		ldi r22,lo8(err)
+ 449 023e 70E0      		ldi r23,hi8(err)
+ 450 0240 0E94 0000 		call OSFlagCreate
+ 451 0244 9093 0000 		sts (F_grp)+1,r25
+ 452 0248 8093 0000 		sts F_grp,r24
+ 453 024c 80E0      		ldi r24,lo8(gs(BeginTask))
+ 454 024e 90E0      		ldi r25,hi8(gs(BeginTask))
+ 455 0250 60E0      		ldi r22,lo8(0)
+ 456 0252 70E0      		ldi r23,hi8(0)
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s 			page 9
+
+
+ 457 0254 40E0      		ldi r20,lo8(TaskStk+127)
+ 458 0256 50E0      		ldi r21,hi8(TaskStk+127)
+ 459 0258 20E0      		ldi r18,lo8(0)
+ 460 025a 0E94 0000 		call OSTaskCreate
+ 461 025e 80E0      		ldi r24,lo8(gs(CountingTask))
+ 462 0260 90E0      		ldi r25,hi8(gs(CountingTask))
+ 463 0262 60E0      		ldi r22,lo8(0)
+ 464 0264 70E0      		ldi r23,hi8(0)
+ 465 0266 40E0      		ldi r20,lo8(TaskStk+255)
+ 466 0268 50E0      		ldi r21,hi8(TaskStk+255)
+ 467 026a 21E0      		ldi r18,lo8(1)
+ 468 026c 0E94 0000 		call OSTaskCreate
+ 469 0270 80E0      		ldi r24,lo8(gs(CountingEndTask))
+ 470 0272 90E0      		ldi r25,hi8(gs(CountingEndTask))
+ 471 0274 60E0      		ldi r22,lo8(0)
+ 472 0276 70E0      		ldi r23,hi8(0)
+ 473 0278 40E0      		ldi r20,lo8(TaskStk+383)
+ 474 027a 50E0      		ldi r21,hi8(TaskStk+383)
+ 475 027c 22E0      		ldi r18,lo8(2)
+ 476 027e 0E94 0000 		call OSTaskCreate
+ 477 0282 0E94 0000 		call OSStart
+ 478 0286 80E0      		ldi r24,lo8(0)
+ 479 0288 90E0      		ldi r25,hi8(0)
+ 480               	/* epilogue start */
+ 481 028a 0895      		ret
+ 482               		.size	main, .-main
+ 483               	.global	CountingEndTask
+ 484               		.type	CountingEndTask, @function
+ 485               	CountingEndTask:
+ 486 028c 9F92      		push r9
+ 487 028e AF92      		push r10
+ 488 0290 BF92      		push r11
+ 489 0292 CF92      		push r12
+ 490 0294 DF92      		push r13
+ 491 0296 EF92      		push r14
+ 492 0298 FF92      		push r15
+ 493 029a 0F93      		push r16
+ 494 029c 1F93      		push r17
+ 495               	/* prologue: function */
+ 496               	/* frame size = 0 */
+ 497 029e 8091 0000 		lds r24,F_grp
+ 498 02a2 9091 0000 		lds r25,(F_grp)+1
+ 499 02a6 64E0      		ldi r22,lo8(4)
+ 500 02a8 42E0      		ldi r20,lo8(2)
+ 501 02aa 20E0      		ldi r18,lo8(0)
+ 502 02ac 30E0      		ldi r19,hi8(0)
+ 503 02ae 00E0      		ldi r16,lo8(err)
+ 504 02b0 10E0      		ldi r17,hi8(err)
+ 505 02b2 0E94 0000 		call OSFlagPend
+ 506 02b6 20E0      		ldi r18,lo8(0)
+ 507 02b8 30E0      		ldi r19,hi8(0)
+ 508 02ba E0E5      		ldi r30,lo8(80)
+ 509 02bc 9E2E      		mov r9,r30
+ 510 02be AA24      		clr r10
+ 511 02c0 A394      		inc r10
+ 512 02c2 00ED      		ldi r16,lo8(2000)
+ 513 02c4 17E0      		ldi r17,hi8(2000)
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s 			page 10
+
+
+ 514 02c6 79E7      		ldi r23,lo8(121)
+ 515 02c8 C72E      		mov r12,r23
+ 516 02ca 62E0      		ldi r22,lo8(2)
+ 517 02cc B62E      		mov r11,r22
+ 518 02ce 5EE3      		ldi r21,lo8(62)
+ 519 02d0 E52E      		mov r14,r21
+ 520 02d2 44E0      		ldi r20,lo8(4)
+ 521 02d4 D42E      		mov r13,r20
+ 522 02d6 4FE3      		ldi r20,lo8(63)
+ 523 02d8 98E0      		ldi r25,lo8(8)
+ 524 02da F92E      		mov r15,r25
+ 525               	.L38:
+ 526 02dc C901      		movw r24,r18
+ 527 02de 62E3      		ldi r22,lo8(50)
+ 528 02e0 70E0      		ldi r23,hi8(50)
+ 529 02e2 0E94 0000 		call __divmodhi4
+ 530 02e6 FB01      		movw r30,r22
+ 531 02e8 E050      		subi r30,lo8(-(alarm))
+ 532 02ea F040      		sbci r31,hi8(-(alarm))
+ 533 02ec 8081      		ld r24,Z
+ 534 02ee 90E0      		ldi r25,lo8(0)
+ 535 02f0 9093 0000 		sts (sound)+1,r25
+ 536 02f4 8093 0000 		sts sound,r24
+ 537 02f8 95BA      		out 53-32,r9
+ 538 02fa A092 6500 		sts 101,r10
+ 539 02fe C801      		movw r24,r16
+ 540               	/* #APP */
+ 541               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 542 0300 0197      		1: sbiw r24,1
+ 543 0302 01F4      		brne 1b
+ 544               	 ;  0 "" 2
+ 545               	/* #NOAPP */
+ 546 0304 C5BA      		out 53-32,r12
+ 547 0306 B092 6500 		sts 101,r11
+ 548 030a C801      		movw r24,r16
+ 549               	/* #APP */
+ 550               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 551 030c 0197      		1: sbiw r24,1
+ 552 030e 01F4      		brne 1b
+ 553               	 ;  0 "" 2
+ 554               	/* #NOAPP */
+ 555 0310 E5BA      		out 53-32,r14
+ 556 0312 D092 6500 		sts 101,r13
+ 557 0316 C801      		movw r24,r16
+ 558               	/* #APP */
+ 559               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 560 0318 0197      		1: sbiw r24,1
+ 561 031a 01F4      		brne 1b
+ 562               	 ;  0 "" 2
+ 563               	/* #NOAPP */
+ 564 031c 45BB      		out 53-32,r20
+ 565 031e F092 6500 		sts 101,r15
+ 566 0322 C801      		movw r24,r16
+ 567               	/* #APP */
+ 568               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 569 0324 0197      		1: sbiw r24,1
+ 570 0326 01F4      		brne 1b
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s 			page 11
+
+
+ 571               	 ;  0 "" 2
+ 572               	/* #NOAPP */
+ 573 0328 2F5F      		subi r18,lo8(-(1))
+ 574 032a 3F4F      		sbci r19,hi8(-(1))
+ 575 032c 283C      		cpi r18,200
+ 576 032e 3105      		cpc r19,__zero_reg__
+ 577 0330 04F0      		brlt .L38
+ 578 0332 20E0      		ldi r18,lo8(0)
+ 579 0334 30E0      		ldi r19,hi8(0)
+ 580 0336 00C0      		rjmp .L38
+ 581               		.size	CountingEndTask, .-CountingEndTask
+ 582               	.global	__vector_6
+ 583               		.type	__vector_6, @function
+ 584               	__vector_6:
+ 585 0338 1F92      		push __zero_reg__
+ 586 033a 0F92      		push r0
+ 587 033c 0FB6      		in r0,__SREG__
+ 588 033e 0F92      		push r0
+ 589 0340 0BB6      		in r0,91-32
+ 590 0342 0F92      		push r0
+ 591 0344 1124      		clr __zero_reg__
+ 592 0346 2F93      		push r18
+ 593 0348 3F93      		push r19
+ 594 034a 4F93      		push r20
+ 595 034c 5F93      		push r21
+ 596 034e 6F93      		push r22
+ 597 0350 7F93      		push r23
+ 598 0352 8F93      		push r24
+ 599 0354 9F93      		push r25
+ 600 0356 AF93      		push r26
+ 601 0358 BF93      		push r27
+ 602 035a EF93      		push r30
+ 603 035c FF93      		push r31
+ 604               	/* prologue: Signal */
+ 605               	/* frame size = 0 */
+ 606 035e 8091 0000 		lds r24,start
+ 607 0362 9091 0000 		lds r25,(start)+1
+ 608 0366 892B      		or r24,r25
+ 609 0368 01F0      		breq .L40
+ 610 036a 8091 0000 		lds r24,Sem
+ 611 036e 9091 0000 		lds r25,(Sem)+1
+ 612 0372 60E0      		ldi r22,lo8(0)
+ 613 0374 70E0      		ldi r23,hi8(0)
+ 614 0376 40E0      		ldi r20,lo8(err)
+ 615 0378 50E0      		ldi r21,hi8(err)
+ 616 037a 0E94 0000 		call OSSemPend
+ 617 037e 81E0      		ldi r24,lo8(1)
+ 618 0380 90E0      		ldi r25,hi8(1)
+ 619 0382 9093 0000 		sts (flag)+1,r25
+ 620 0386 8093 0000 		sts flag,r24
+ 621 038a 1092 0000 		sts (start)+1,__zero_reg__
+ 622 038e 1092 0000 		sts start,__zero_reg__
+ 623 0392 8091 0000 		lds r24,Sem
+ 624 0396 9091 0000 		lds r25,(Sem)+1
+ 625 039a 0E94 0000 		call OSSemPost
+ 626               	.L40:
+ 627 039e 80E4      		ldi r24,lo8(8000)
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s 			page 12
+
+
+ 628 03a0 9FE1      		ldi r25,hi8(8000)
+ 629               	/* #APP */
+ 630               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 631 03a2 0197      		1: sbiw r24,1
+ 632 03a4 01F4      		brne 1b
+ 633               	 ;  0 "" 2
+ 634               	/* epilogue start */
+ 635               	/* #NOAPP */
+ 636 03a6 FF91      		pop r31
+ 637 03a8 EF91      		pop r30
+ 638 03aa BF91      		pop r27
+ 639 03ac AF91      		pop r26
+ 640 03ae 9F91      		pop r25
+ 641 03b0 8F91      		pop r24
+ 642 03b2 7F91      		pop r23
+ 643 03b4 6F91      		pop r22
+ 644 03b6 5F91      		pop r21
+ 645 03b8 4F91      		pop r20
+ 646 03ba 3F91      		pop r19
+ 647 03bc 2F91      		pop r18
+ 648 03be 0F90      		pop r0
+ 649 03c0 0BBE      		out 91-32,r0
+ 650 03c2 0F90      		pop r0
+ 651 03c4 0FBE      		out __SREG__,r0
+ 652 03c6 0F90      		pop r0
+ 653 03c8 1F90      		pop __zero_reg__
+ 654 03ca 1895      		reti
+ 655               		.size	__vector_6, .-__vector_6
+ 656               	.global	__vector_5
+ 657               		.type	__vector_5, @function
+ 658               	__vector_5:
+ 659 03cc 1F92      		push __zero_reg__
+ 660 03ce 0F92      		push r0
+ 661 03d0 0FB6      		in r0,__SREG__
+ 662 03d2 0F92      		push r0
+ 663 03d4 0BB6      		in r0,91-32
+ 664 03d6 0F92      		push r0
+ 665 03d8 1124      		clr __zero_reg__
+ 666 03da 2F93      		push r18
+ 667 03dc 3F93      		push r19
+ 668 03de 4F93      		push r20
+ 669 03e0 5F93      		push r21
+ 670 03e2 6F93      		push r22
+ 671 03e4 7F93      		push r23
+ 672 03e6 8F93      		push r24
+ 673 03e8 9F93      		push r25
+ 674 03ea AF93      		push r26
+ 675 03ec BF93      		push r27
+ 676 03ee EF93      		push r30
+ 677 03f0 FF93      		push r31
+ 678               	/* prologue: Signal */
+ 679               	/* frame size = 0 */
+ 680 03f2 8091 0000 		lds r24,start
+ 681 03f6 9091 0000 		lds r25,(start)+1
+ 682 03fa 892B      		or r24,r25
+ 683 03fc 01F0      		breq .L43
+ 684 03fe 8091 0000 		lds r24,Sem
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s 			page 13
+
+
+ 685 0402 9091 0000 		lds r25,(Sem)+1
+ 686 0406 60E0      		ldi r22,lo8(0)
+ 687 0408 70E0      		ldi r23,hi8(0)
+ 688 040a 40E0      		ldi r20,lo8(err)
+ 689 040c 50E0      		ldi r21,hi8(err)
+ 690 040e 0E94 0000 		call OSSemPend
+ 691 0412 8091 0000 		lds r24,maxCnt
+ 692 0416 9091 0000 		lds r25,(maxCnt)+1
+ 693 041a 0196      		adiw r24,1
+ 694 041c 69E2      		ldi r22,lo8(41)
+ 695 041e 70E0      		ldi r23,hi8(41)
+ 696 0420 0E94 0000 		call __divmodhi4
+ 697 0424 9093 0000 		sts (maxCnt)+1,r25
+ 698 0428 8093 0000 		sts maxCnt,r24
+ 699 042c 8091 0000 		lds r24,Sem
+ 700 0430 9091 0000 		lds r25,(Sem)+1
+ 701 0434 0E94 0000 		call OSSemPost
+ 702               	.L43:
+ 703 0438 80E4      		ldi r24,lo8(8000)
+ 704 043a 9FE1      		ldi r25,hi8(8000)
+ 705               	/* #APP */
+ 706               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 707 043c 0197      		1: sbiw r24,1
+ 708 043e 01F4      		brne 1b
+ 709               	 ;  0 "" 2
+ 710               	/* epilogue start */
+ 711               	/* #NOAPP */
+ 712 0440 FF91      		pop r31
+ 713 0442 EF91      		pop r30
+ 714 0444 BF91      		pop r27
+ 715 0446 AF91      		pop r26
+ 716 0448 9F91      		pop r25
+ 717 044a 8F91      		pop r24
+ 718 044c 7F91      		pop r23
+ 719 044e 6F91      		pop r22
+ 720 0450 5F91      		pop r21
+ 721 0452 4F91      		pop r20
+ 722 0454 3F91      		pop r19
+ 723 0456 2F91      		pop r18
+ 724 0458 0F90      		pop r0
+ 725 045a 0BBE      		out 91-32,r0
+ 726 045c 0F90      		pop r0
+ 727 045e 0FBE      		out __SREG__,r0
+ 728 0460 0F90      		pop r0
+ 729 0462 1F90      		pop __zero_reg__
+ 730 0464 1895      		reti
+ 731               		.size	__vector_5, .-__vector_5
+ 732               	.global	CountingTask
+ 733               		.type	CountingTask, @function
+ 734               	CountingTask:
+ 735 0466 AF92      		push r10
+ 736 0468 BF92      		push r11
+ 737 046a CF92      		push r12
+ 738 046c DF92      		push r13
+ 739 046e EF92      		push r14
+ 740 0470 FF92      		push r15
+ 741 0472 0F93      		push r16
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s 			page 14
+
+
+ 742 0474 1F93      		push r17
+ 743 0476 DF93      		push r29
+ 744 0478 CF93      		push r28
+ 745 047a 00D0      		rcall .
+ 746 047c CDB7      		in r28,__SP_L__
+ 747 047e DEB7      		in r29,__SP_H__
+ 748               	/* prologue: function */
+ 749               	/* frame size = 2 */
+ 750 0480 A0E9      		ldi r26,lo8(400)
+ 751 0482 CA2E      		mov r12,r26
+ 752 0484 A1E0      		ldi r26,hi8(400)
+ 753 0486 DA2E      		mov r13,r26
+ 754 0488 F1E0      		ldi r31,lo8(1)
+ 755 048a AF2E      		mov r10,r31
+ 756 048c B12C      		mov r11,__zero_reg__
+ 757               	.L50:
+ 758 048e 8091 0000 		lds r24,Mbox
+ 759 0492 9091 0000 		lds r25,(Mbox)+1
+ 760 0496 60E0      		ldi r22,lo8(0)
+ 761 0498 70E0      		ldi r23,hi8(0)
+ 762 049a 40E0      		ldi r20,lo8(err)
+ 763 049c 50E0      		ldi r21,hi8(err)
+ 764 049e 0E94 0000 		call OSMboxPend
+ 765 04a2 FC01      		movw r30,r24
+ 766 04a4 E080      		ld r14,Z
+ 767 04a6 F180      		ldd r15,Z+1
+ 768 04a8 8091 0000 		lds r24,F_grp
+ 769 04ac 9091 0000 		lds r25,(F_grp)+1
+ 770 04b0 62E0      		ldi r22,lo8(2)
+ 771 04b2 42E8      		ldi r20,lo8(-126)
+ 772 04b4 20E0      		ldi r18,lo8(0)
+ 773 04b6 30E0      		ldi r19,hi8(0)
+ 774 04b8 00E0      		ldi r16,lo8(err)
+ 775 04ba 10E0      		ldi r17,hi8(err)
+ 776 04bc 0E94 0000 		call OSFlagPend
+ 777 04c0 1A82      		std Y+2,__zero_reg__
+ 778 04c2 1982      		std Y+1,__zero_reg__
+ 779 04c4 8981      		ldd r24,Y+1
+ 780 04c6 9A81      		ldd r25,Y+2
+ 781 04c8 E816      		cp r14,r24
+ 782 04ca F906      		cpc r15,r25
+ 783 04cc 04F0      		brlt .L46
+ 784               	.L54:
+ 785 04ce 8981      		ldd r24,Y+1
+ 786 04d0 9A81      		ldd r25,Y+2
+ 787 04d2 0E94 0000 		call Display_FND
+ 788 04d6 8981      		ldd r24,Y+1
+ 789 04d8 9A81      		ldd r25,Y+2
+ 790 04da 0E94 0000 		call Display_LED
+ 791 04de 0E94 0000 		call read_adc
+ 792 04e2 8B5C      		subi r24,lo8(971)
+ 793 04e4 9340      		sbci r25,hi8(971)
+ 794 04e6 00F4      		brsh .L47
+ 795 04e8 8981      		ldd r24,Y+1
+ 796 04ea 9A81      		ldd r25,Y+2
+ 797 04ec 0196      		adiw r24,1
+ 798 04ee 9A83      		std Y+2,r25
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s 			page 15
+
+
+ 799 04f0 8983      		std Y+1,r24
+ 800               	.L47:
+ 801 04f2 80ED      		ldi r24,lo8(2000)
+ 802 04f4 97E0      		ldi r25,hi8(2000)
+ 803               	.L48:
+ 804 04f6 F601      		movw r30,r12
+ 805               	/* #APP */
+ 806               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 807 04f8 3197      		1: sbiw r30,1
+ 808 04fa 01F4      		brne 1b
+ 809               	 ;  0 "" 2
+ 810               	/* #NOAPP */
+ 811 04fc 0197      		sbiw r24,1
+ 812 04fe 01F4      		brne .L48
+ 813 0500 8981      		ldd r24,Y+1
+ 814 0502 9A81      		ldd r25,Y+2
+ 815 0504 E816      		cp r14,r24
+ 816 0506 F906      		cpc r15,r25
+ 817 0508 04F4      		brge .L54
+ 818               	.L46:
+ 819 050a 8091 0000 		lds r24,Sem
+ 820 050e 9091 0000 		lds r25,(Sem)+1
+ 821 0512 60E0      		ldi r22,lo8(0)
+ 822 0514 70E0      		ldi r23,hi8(0)
+ 823 0516 40E0      		ldi r20,lo8(err)
+ 824 0518 50E0      		ldi r21,hi8(err)
+ 825 051a 0E94 0000 		call OSSemPend
+ 826 051e B092 0000 		sts (OVER)+1,r11
+ 827 0522 A092 0000 		sts OVER,r10
+ 828 0526 8091 0000 		lds r24,Sem
+ 829 052a 9091 0000 		lds r25,(Sem)+1
+ 830 052e 0E94 0000 		call OSSemPost
+ 831 0532 8091 0000 		lds r24,F_grp
+ 832 0536 9091 0000 		lds r25,(F_grp)+1
+ 833 053a 64E0      		ldi r22,lo8(4)
+ 834 053c 41E0      		ldi r20,lo8(1)
+ 835 053e 20E0      		ldi r18,lo8(err)
+ 836 0540 30E0      		ldi r19,hi8(err)
+ 837 0542 0E94 0000 		call OSFlagPost
+ 838 0546 00C0      		rjmp .L50
+ 839               		.size	CountingTask, .-CountingTask
+ 840               	.global	BeginTask
+ 841               		.type	BeginTask, @function
+ 842               	BeginTask:
+ 843 0548 EF92      		push r14
+ 844 054a FF92      		push r15
+ 845 054c 0F93      		push r16
+ 846 054e 1F93      		push r17
+ 847 0550 DF93      		push r29
+ 848 0552 CF93      		push r28
+ 849 0554 00D0      		rcall .
+ 850 0556 CDB7      		in r28,__SP_L__
+ 851 0558 DEB7      		in r29,__SP_H__
+ 852               	/* prologue: function */
+ 853               	/* frame size = 2 */
+ 854 055a 7E01      		movw r14,r28
+ 855 055c 0894      		sec
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s 			page 16
+
+
+ 856 055e E11C      		adc r14,__zero_reg__
+ 857 0560 F11C      		adc r15,__zero_reg__
+ 858               	.L58:
+ 859 0562 8091 0000 		lds r24,F_grp
+ 860 0566 9091 0000 		lds r25,(F_grp)+1
+ 861 056a 61E0      		ldi r22,lo8(1)
+ 862 056c 42E8      		ldi r20,lo8(-126)
+ 863 056e 20E0      		ldi r18,lo8(0)
+ 864 0570 30E0      		ldi r19,hi8(0)
+ 865 0572 00E0      		ldi r16,lo8(err)
+ 866 0574 10E0      		ldi r17,hi8(err)
+ 867 0576 0E94 0000 		call OSFlagPend
+ 868               	/* #APP */
+ 869               	 ;  193 "lab2.c" 1
+ 870 057a F894      		cli
+ 871               	 ;  0 "" 2
+ 872               	/* #NOAPP */
+ 873 057c 1092 0000 		sts (maxCnt)+1,__zero_reg__
+ 874 0580 1092 0000 		sts maxCnt,__zero_reg__
+ 875               	/* #APP */
+ 876               	 ;  195 "lab2.c" 1
+ 877 0584 7894      		sei
+ 878               	 ;  0 "" 2
+ 879               	/* #NOAPP */
+ 880 0586 1A82      		std Y+2,__zero_reg__
+ 881 0588 1982      		std Y+1,__zero_reg__
+ 882 058a 8091 0000 		lds r24,flag
+ 883 058e 9091 0000 		lds r25,(flag)+1
+ 884 0592 892B      		or r24,r25
+ 885 0594 01F4      		brne .L56
+ 886               	.L60:
+ 887 0596 8981      		ldd r24,Y+1
+ 888 0598 9A81      		ldd r25,Y+2
+ 889 059a 0E94 0000 		call Display_FND
+ 890 059e 8091 0000 		lds r24,maxCnt
+ 891 05a2 9091 0000 		lds r25,(maxCnt)+1
+ 892 05a6 9A83      		std Y+2,r25
+ 893 05a8 8983      		std Y+1,r24
+ 894 05aa 8091 0000 		lds r24,flag
+ 895 05ae 9091 0000 		lds r25,(flag)+1
+ 896 05b2 892B      		or r24,r25
+ 897 05b4 01F0      		breq .L60
+ 898               	.L56:
+ 899 05b6 8091 0000 		lds r24,Mbox
+ 900 05ba 9091 0000 		lds r25,(Mbox)+1
+ 901 05be B701      		movw r22,r14
+ 902 05c0 0E94 0000 		call OSMboxPost
+ 903 05c4 8091 0000 		lds r24,F_grp
+ 904 05c8 9091 0000 		lds r25,(F_grp)+1
+ 905 05cc 62E0      		ldi r22,lo8(2)
+ 906 05ce 41E0      		ldi r20,lo8(1)
+ 907 05d0 20E0      		ldi r18,lo8(err)
+ 908 05d2 30E0      		ldi r19,hi8(err)
+ 909 05d4 0E94 0000 		call OSFlagPost
+ 910 05d8 00C0      		rjmp .L58
+ 911               		.size	BeginTask, .-BeginTask
+ 912               	.global	FND_DATA
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s 			page 17
+
+
+ 913               		.data
+ 914               		.type	FND_DATA, @object
+ 915               		.size	FND_DATA, 16
+ 916               	FND_DATA:
+ 917 0000 3F        		.byte	63
+ 918 0001 06        		.byte	6
+ 919 0002 5B        		.byte	91
+ 920 0003 4F        		.byte	79
+ 921 0004 66        		.byte	102
+ 922 0005 6D        		.byte	109
+ 923 0006 7D        		.byte	125
+ 924 0007 27        		.byte	39
+ 925 0008 7F        		.byte	127
+ 926 0009 6F        		.byte	111
+ 927 000a 77        		.byte	119
+ 928 000b 7C        		.byte	124
+ 929 000c 39        		.byte	57
+ 930 000d 5E        		.byte	94
+ 931 000e 79        		.byte	121
+ 932 000f 71        		.byte	113
+ 933               	.global	LED_DATA
+ 934               		.type	LED_DATA, @object
+ 935               		.size	LED_DATA, 18
+ 936               	LED_DATA:
+ 937 0010 0000      		.word	0
+ 938 0012 8000      		.word	128
+ 939 0014 C000      		.word	192
+ 940 0016 E000      		.word	224
+ 941 0018 F000      		.word	240
+ 942 001a F800      		.word	248
+ 943 001c FC00      		.word	252
+ 944 001e FE00      		.word	254
+ 945 0020 FF00      		.word	255
+ 946               	.global	FND_sel
+ 947               		.type	FND_sel, @object
+ 948               		.size	FND_sel, 4
+ 949               	FND_sel:
+ 950 0022 01        		.byte	1
+ 951 0023 02        		.byte	2
+ 952 0024 04        		.byte	4
+ 953 0025 08        		.byte	8
+ 954               	.global	LED_sel
+ 955               		.type	LED_sel, @object
+ 956               		.size	LED_sel, 9
+ 957               	LED_sel:
+ 958 0026 01        		.byte	1
+ 959 0027 02        		.byte	2
+ 960 0028 04        		.byte	4
+ 961 0029 08        		.byte	8
+ 962 002a 10        		.byte	16
+ 963 002b 20        		.byte	32
+ 964 002c 40        		.byte	64
+ 965 002d 80        		.byte	-128
+ 966 002e 00        		.byte	0
+ 967               	.global	FND_OVER
+ 968               		.type	FND_OVER, @object
+ 969               		.size	FND_OVER, 4
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s 			page 18
+
+
+ 970               	FND_OVER:
+ 971 002f 50        		.byte	80
+ 972 0030 79        		.byte	121
+ 973 0031 3E        		.byte	62
+ 974 0032 3F        		.byte	63
+ 975               	.global	alarm
+ 976               		.type	alarm, @object
+ 977               		.size	alarm, 4
+ 978               	alarm:
+ 979 0033 89        		.byte	-119
+ 980 0034 89        		.byte	-119
+ 981 0035 89        		.byte	-119
+ 982 0036 FF        		.byte	-1
+ 983               	.global	OVER
+ 984               	.global	OVER
+ 985               		.section .bss
+ 986               		.type	OVER, @object
+ 987               		.size	OVER, 2
+ 988               	OVER:
+ 989 0000 0000      		.skip 2,0
+ 990               	.global	sound
+ 991               		.data
+ 992               		.type	sound, @object
+ 993               		.size	sound, 2
+ 994               	sound:
+ 995 0037 FFFF      		.word	-1
+ 996               	.global	state
+ 997               	.global	state
+ 998               		.section .bss
+ 999               		.type	state, @object
+ 1000               		.size	state, 2
+ 1001               	state:
+ 1002 0002 0000      		.skip 2,0
+ 1003               	.global	index
+ 1004               	.global	index
+ 1005               		.type	index, @object
+ 1006               		.size	index, 2
+ 1007               	index:
+ 1008 0004 0000      		.skip 2,0
+ 1009               	.global	start
+ 1010               		.data
+ 1011               		.type	start, @object
+ 1012               		.size	start, 2
+ 1013               	start:
+ 1014 0039 0100      		.word	1
+ 1015               	.global	flag
+ 1016               	.global	flag
+ 1017               		.section .bss
+ 1018               		.type	flag, @object
+ 1019               		.size	flag, 2
+ 1020               	flag:
+ 1021 0006 0000      		.skip 2,0
+ 1022               	.global	maxCnt
+ 1023               	.global	maxCnt
+ 1024               		.type	maxCnt, @object
+ 1025               		.size	maxCnt, 2
+ 1026               	maxCnt:
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s 			page 19
+
+
+ 1027 0008 0000      		.skip 2,0
+ 1028               		.comm TaskStk,384,1
+ 1029               		.comm Mbox,2,1
+ 1030               		.comm Sem,2,1
+ 1031               		.comm F_grp,2,1
+ 1032               		.comm FndNum,1,1
+ 1033               		.comm err,1,1
+ 1034               	.global __do_copy_data
+ 1035               	.global __do_clear_bss
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s 			page 20
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lab2.c
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:2      *ABS*:0000003f __SREG__
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:3      *ABS*:0000003e __SP_H__
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:4      *ABS*:0000003d __SP_L__
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:5      *ABS*:00000034 __CCP__
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:11     .text:00000000 FND_SET
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:33     .text:00000010 LED_SET
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:54     .text:0000001c BUZZER_SET
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:82     .text:00000036 CDS_SET
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:103    .text:00000042 FND_RESET
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:124    .text:00000050 LED_RESET
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:144    .text:0000005a read_adc
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:164    .text:00000072 Display_FND
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:916    .data:00000000 FND_DATA
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:218    .text:000000c4 Display_LED
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:1026   .bss:00000008 maxCnt
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:936    .data:00000010 LED_DATA
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:277    .text:00000138 Display_OVER
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:333    .text:0000017a __vector_10
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:988    .bss:00000000 OVER
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:994    .data:00000037 sound
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:1001   .bss:00000002 state
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:384    .text:000001e4 main
+                            *COM*:00000002 Mbox
+                            *COM*:00000002 Sem
+                            *COM*:00000001 err
+                            *COM*:00000002 F_grp
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:842    .text:00000548 BeginTask
+                            *COM*:00000180 TaskStk
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:734    .text:00000466 CountingTask
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:485    .text:0000028c CountingEndTask
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:978    .data:00000033 alarm
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:584    .text:00000338 __vector_6
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:1013   .data:00000039 start
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:1020   .bss:00000006 flag
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:658    .text:000003cc __vector_5
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:949    .data:00000022 FND_sel
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:957    .data:00000026 LED_sel
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:970    .data:0000002f FND_OVER
+C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s:1007   .bss:00000004 index
+                            *COM*:00000001 FndNum
+
+UNDEFINED SYMBOLS
+__divmodhi4
+__floatsisf
+__mulsf3
+__fixsfsi
+OSInit
+OSMboxCreate
+OSSemCreate
+OSFlagCreate
+OSTaskCreate
+OSStart
+OSFlagPend
+GAS LISTING C:\Users\JAEMIN~1\AppData\Local\Temp/ccnUaDpH.s 			page 21
+
+
+OSSemPend
+OSSemPost
+OSMboxPend
+OSFlagPost
+OSMboxPost
+__do_copy_data
+__do_clear_bss
